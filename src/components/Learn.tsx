@@ -10,6 +10,9 @@ import {
   TURNOVER_NOTE,
   type Depth,
 } from '../lib/science';
+import type { SkinType } from '../lib/advice';
+import type { Phase } from '../lib/cycle';
+import { CheckIt } from './CheckIt';
 import { SkinCrossSection } from './SkinCrossSection';
 
 const DEPTH_STYLE: Record<Depth, { label: string; cls: string }> = {
@@ -22,12 +25,14 @@ function Card({ children }: { children: React.ReactNode }) {
   return <section className="bg-surface border border-line rounded-3xl p-6">{children}</section>;
 }
 
-export function Learn() {
+export function Learn({ skinType, phase }: { skinType: SkinType; phase: Phase }) {
   const [layer, setLayer] = useState('corneum');
   const active = SKIN_LAYERS.find((l) => l.id === layer)!;
 
   return (
     <div className="space-y-4">
+      <CheckIt skinType={skinType} phase={phase} />
+
       <Card>
         <h2 className="font-display text-2xl mb-1">What you're putting it on</h2>
         <p className="text-sm text-muted mb-5">

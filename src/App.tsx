@@ -177,7 +177,7 @@ export default function App() {
           </div>
         )}
 
-        {tab === 'learn' && <Learn />}
+        {tab === 'learn' && <Learn skinType={profile.skinType} phase={phase} />}
 
         <footer className="text-xs text-muted text-center mt-8 leading-relaxed">
           Everything stays in this browser. Nothing is sent anywhere.

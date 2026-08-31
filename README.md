@@ -37,6 +37,9 @@ It runs the moment you type `npm run dev`.
 - **Daily check-in** — morning/evening routine, how your skin feels (1–5), optional tags
 - **Pattern view** — your logged days grouped by cycle phase, so you can finally see whether your
   skin really is worse before your period. This is the point of the tracking.
+- **"Seen something everywhere?"** — type a viral ingredient (azelaic acid, snail mucin, collagen)
+  and get what it actually does, what it won't do, and whether it suits your skin *this week*.
+  16 actives, offline, no reviews.
 - **Learn tab** — the teaching layer. An interactive skin cross-section, the 500-dalton rule and
   where seven common ingredients actually reach, four myths taken apart, and a four-step beginner
   routine. Sourced, with the medical-advice line drawn clearly.
@@ -51,11 +54,12 @@ src/
     products.ts   depletion maths
     log.ts        daily check-in + grouping history by cycle phase
     science.ts    the teaching content — layers, penetration, myths, sources
+    actives.ts    16 viral ingredients + the verdict logic (size, evidence, skin, phase)
     storage.ts    localStorage
   components/
     Setup.tsx  PhaseStrip.tsx  ClimatePicker.tsx  AdviceCard.tsx
     ProductShelf.tsx  DailyCheckIn.tsx  LookBack.tsx
-    Learn.tsx  SkinCrossSection.tsx
+    Learn.tsx  SkinCrossSection.tsx  CheckIt.tsx
   App.tsx       wiring only
 ```
 
@@ -77,7 +81,9 @@ Setup → main screen ✅ · Day 25 / Luteal correct ✅ · switching climate sw
 reload keeps everything ✅ · shelf shows in-stock, running-low and empty at once ✅ · mobile
 layout ✅ · check-in saves and persists ✅ · pattern view groups history by phase ✅ ·
 clearing sample history keeps only real entries ✅ · Learn tab renders, cross-section is
-clickable and swaps the explanation ✅ · `tsc --noEmit` clean ✅
+clickable and swaps the explanation ✅ · ingredient search returns correct verdicts — azelaic
+"sensible match", retinol "not this week" in luteal, collagen "not for what it claims" ✅ ·
+`tsc --noEmit` clean ✅
 
 ## Honest limits
 
@@ -88,6 +94,16 @@ clickable and swaps the explanation ✅ · `tsc --noEmit` clean ✅
 - New installs get **six weeks of sample history** so the pattern view isn't empty. It is
   labelled as sample on screen, with a one-tap button to clear it.
 - Everything lives in one browser. Clear your site data and it's gone.
+
+## Why there are no product reviews
+
+It was considered and rejected. Amazon hardened review access in May 2026 (public review URLs
+404 to logged-out clients, review text stripped from the HTML), no retailer offers a public
+review API, and scraping breaches their terms as a contract matter regardless of the hiQ ruling.
+
+The deeper reason: retail reviews are the same incentivised noise this app is meant to be an
+alternative to. Molecular size, evidence strength and your own cycle are checkable. Star ratings
+aren't.
 
 ## Next
 
