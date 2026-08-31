@@ -1,7 +1,7 @@
 # Skincare — a small, honest prototype
 
 Daily skincare guidance that adapts to **where you are in your cycle**, **what your skin is
-normally like**, and **the air around you**. Built 22 Aug 2026.
+normally like**, and **the air around you**. Built 31 Aug 2026.
 
 ```bash
 cd ~/Projects/skincare-app
@@ -34,6 +34,9 @@ It runs the moment you type `npm run dev`.
   or the weather. No black box.
 - **Product shelf** — a bar per product running green → amber → red, so you reorder before you
   run out rather than after
+- **Daily check-in** — morning/evening routine, how your skin feels (1–5), optional tags
+- **Pattern view** — your logged days grouped by cycle phase, so you can finally see whether your
+  skin really is worse before your period. This is the point of the tracking.
 
 ## How it's built
 
@@ -43,9 +46,11 @@ src/
     cycle.ts      cycle day + phase — ONE function, used everywhere
     advice.ts     the rules engine: phase × skin type × climate → advice
     products.ts   depletion maths
+    log.ts        daily check-in + grouping history by cycle phase
     storage.ts    localStorage
   components/
-    Setup.tsx  PhaseStrip.tsx  ClimatePicker.tsx  AdviceCard.tsx  ProductShelf.tsx
+    Setup.tsx  PhaseStrip.tsx  ClimatePicker.tsx  AdviceCard.tsx
+    ProductShelf.tsx  DailyCheckIn.tsx  LookBack.tsx
   App.tsx       wiring only
 ```
 
@@ -61,21 +66,24 @@ Four deliberate differences from the Gemini version:
 4. **Form fields have real labels** and buttons carry `aria-pressed`, so it's usable with a
    screen reader.
 
-## Verified working 22 Aug 2026
+## Verified working 31 Aug 2026
 
 Setup → main screen ✅ · Day 25 / Luteal correct ✅ · switching climate swaps the weather tips ✅ ·
 reload keeps everything ✅ · shelf shows in-stock, running-low and empty at once ✅ · mobile
-layout ✅ · `tsc --noEmit` clean ✅
+layout ✅ · check-in saves and persists ✅ · pattern view groups history by phase ✅ ·
+clearing sample history keeps only real entries ✅ · `tsc --noEmit` clean ✅
 
 ## Honest limits
 
 - The advice is **general skincare principles, not medical advice**, and says so on screen.
 - Climate is still chosen by hand. Real weather from your location is the obvious next step.
-- Nothing is logged over time yet — no history, no streaks.
+- New installs get **six weeks of sample history** so the pattern view isn't empty. It is
+  labelled as sample on screen, with a one-tap button to clear it.
 - Everything lives in one browser. Clear your site data and it's gone.
 
 ## Next
 
 1. Real weather by location, so the app stops asking what it could know
-2. A daily log, then a look-back view — the thing the original collected and never showed
+2. Let the pattern view compare *your own* products against phases — "which serum was I using
+   in my best month?"
 3. A written one-page product concept to sit alongside it (Project 5 asks for both)
