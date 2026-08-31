@@ -37,6 +37,9 @@ It runs the moment you type `npm run dev`.
 - **Daily check-in** — morning/evening routine, how your skin feels (1–5), optional tags
 - **Pattern view** — your logged days grouped by cycle phase, so you can finally see whether your
   skin really is worse before your period. This is the point of the tracking.
+- **Learn tab** — the teaching layer. An interactive skin cross-section, the 500-dalton rule and
+  where seven common ingredients actually reach, four myths taken apart, and a four-step beginner
+  routine. Sourced, with the medical-advice line drawn clearly.
 
 ## How it's built
 
@@ -47,10 +50,12 @@ src/
     advice.ts     the rules engine: phase × skin type × climate → advice
     products.ts   depletion maths
     log.ts        daily check-in + grouping history by cycle phase
+    science.ts    the teaching content — layers, penetration, myths, sources
     storage.ts    localStorage
   components/
     Setup.tsx  PhaseStrip.tsx  ClimatePicker.tsx  AdviceCard.tsx
     ProductShelf.tsx  DailyCheckIn.tsx  LookBack.tsx
+    Learn.tsx  SkinCrossSection.tsx
   App.tsx       wiring only
 ```
 
@@ -71,11 +76,14 @@ Four deliberate differences from the Gemini version:
 Setup → main screen ✅ · Day 25 / Luteal correct ✅ · switching climate swaps the weather tips ✅ ·
 reload keeps everything ✅ · shelf shows in-stock, running-low and empty at once ✅ · mobile
 layout ✅ · check-in saves and persists ✅ · pattern view groups history by phase ✅ ·
-clearing sample history keeps only real entries ✅ · `tsc --noEmit` clean ✅
+clearing sample history keeps only real entries ✅ · Learn tab renders, cross-section is
+clickable and swaps the explanation ✅ · `tsc --noEmit` clean ✅
 
 ## Honest limits
 
 - The advice is **general skincare principles, not medical advice**, and says so on screen.
+- The Learn content is deliberately small and sourced. Every number that varies is written as a
+  range, because single numbers in skincare are usually someone's marketing.
 - Climate is still chosen by hand. Real weather from your location is the obvious next step.
 - New installs get **six weeks of sample history** so the pattern view isn't empty. It is
   labelled as sample on screen, with a one-tap button to clear it.

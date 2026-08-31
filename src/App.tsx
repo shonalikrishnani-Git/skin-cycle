@@ -25,12 +25,13 @@ import {
 import { AdviceCard } from './components/AdviceCard';
 import { ClimatePicker } from './components/ClimatePicker';
 import { DailyCheckIn } from './components/DailyCheckIn';
+import { Learn } from './components/Learn';
 import { LookBack } from './components/LookBack';
 import { PhaseStrip } from './components/PhaseStrip';
 import { ProductShelf } from './components/ProductShelf';
 import { Setup } from './components/Setup';
 
-type Tab = 'today' | 'pattern';
+type Tab = 'today' | 'pattern' | 'learn';
 
 export default function App() {
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -122,6 +123,7 @@ export default function App() {
   const tabs: { id: Tab; label: string }[] = [
     { id: 'today', label: 'Today' },
     { id: 'pattern', label: 'Pattern' },
+    { id: 'learn', label: 'Learn' },
   ];
 
   return (
@@ -159,7 +161,7 @@ export default function App() {
           ))}
         </nav>
 
-        {tab === 'today' ? (
+        {tab === 'today' && (
           <div className="space-y-4">
             {profile.cycleStartDate && <PhaseStrip day={cycleDay} phase={phase} />}
             <ClimatePicker value={profile.climate} onChange={setClimate} />
@@ -167,11 +169,15 @@ export default function App() {
             <DailyCheckIn log={todayLog} onChange={updateLog} />
             <ProductShelf products={products} onChange={updateProducts} />
           </div>
-        ) : (
+        )}
+
+        {tab === 'pattern' && (
           <div className="space-y-4">
             <LookBack summaries={summaries} isSample={isSample} onClearSample={clearSample} />
           </div>
         )}
+
+        {tab === 'learn' && <Learn />}
 
         <footer className="text-xs text-muted text-center mt-8 leading-relaxed">
           Everything stays in this browser. Nothing is sent anywhere.
