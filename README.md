@@ -40,6 +40,9 @@ It runs the moment you type `npm run dev`.
 - **"Seen something everywhere?"** — type a viral ingredient (azelaic acid, snail mucin, collagen)
   and get what it actually does, what it won't do, and whether it suits your skin *this week*.
   16 actives, offline, no reviews.
+- **"Read the back of the bottle"** — paste an ingredients list and see what's actually doing the
+  work, where it sits in the concentration order, known allergens flagged *for your skin type*,
+  and genuine EU regulatory limits. **No safety score, on purpose.**
 - **Learn tab** — the teaching layer. An interactive skin cross-section, the 500-dalton rule and
   where seven common ingredients actually reach, four myths taken apart, and a four-step beginner
   routine. Sourced, with the medical-advice line drawn clearly.
@@ -55,11 +58,12 @@ src/
     log.ts        daily check-in + grouping history by cycle phase
     science.ts    the teaching content — layers, penetration, myths, sources
     actives.ts    16 viral ingredients + the verdict logic (size, evidence, skin, phase)
+    label.ts      INCI list parsing, allergen and regulatory flags — deliberately not a score
     storage.ts    localStorage
   components/
     Setup.tsx  PhaseStrip.tsx  ClimatePicker.tsx  AdviceCard.tsx
     ProductShelf.tsx  DailyCheckIn.tsx  LookBack.tsx
-    Learn.tsx  SkinCrossSection.tsx  CheckIt.tsx
+    Learn.tsx  SkinCrossSection.tsx  CheckIt.tsx  CheckLabel.tsx
   App.tsx       wiring only
 ```
 
@@ -83,7 +87,9 @@ layout ✅ · check-in saves and persists ✅ · pattern view groups history by 
 clearing sample history keeps only real entries ✅ · Learn tab renders, cross-section is
 clickable and swaps the explanation ✅ · ingredient search returns correct verdicts — azelaic
 "sensible match", retinol "not this week" in luteal, collagen "not for what it claims" ✅ ·
-`tsc --noEmit` clean ✅
+label reader finds the right actives with the right positions ✅ · short aliases no longer
+match substrings — "phenoxyethanol" stopped matching hyaluronic acid ✅ · searches for
+"ha", "vit c", "bha", "spf" all still resolve ✅ · `tsc --noEmit` clean ✅
 
 ## Honest limits
 
@@ -94,6 +100,20 @@ clickable and swaps the explanation ✅ · ingredient search returns correct ver
 - New installs get **six weeks of sample history** so the pattern view isn't empty. It is
   labelled as sample on screen, with a one-tap button to clear it.
 - Everything lives in one browser. Clear your site data and it's gone.
+
+## Why there is no "toxic ingredient" score
+
+The most requested feature, and deliberately not built. Apps that grade products clean/toxic from
+an ingredient list — Yuka, Think Dirty, EWG Skin Deep — are rejected by dermatologists and
+cosmetic chemists, because toxicity is dose- and route-dependent and a list of names carries
+neither. As one cosmetic chemist put it, it's like rating a meal's taste from its recipe.
+
+Building it would also contradict this app's own Learn tab, which teaches that "natural" says
+nothing about how skin will react.
+
+What the label reader does instead: names the actives and where they sit in the concentration
+order, flags established contact allergens *as relevant to your skin type rather than as poison*,
+and reports real regulatory limits — which genuinely do differ by country.
 
 ## Why there are no product reviews
 

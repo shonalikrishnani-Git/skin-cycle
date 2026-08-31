@@ -239,6 +239,16 @@ export const ACTIVES: Active[] = [
 
 // --- Matching a search to an active --------------------------------------------------
 
+/**
+ * Short aliases like "ha", "bp" and "txa" must match a whole word, never a substring.
+ * Without this, "p-h-e-n-o-x-y-e-t-HA-n-o-l" matches hyaluronic acid — which it did, until a
+ * test caught it.
+ */
+export function matchesAlias(text: string, alias: string): boolean {
+  if (alias.length > 4) return text.includes(alias);
+  return text.split(/[^a-z0-9]+/).includes(alias);
+}
+
 export function findActives(queryText: string): Active[] {
   const q = queryText.trim().toLowerCase();
   if (q.length < 2) return [];
@@ -246,7 +256,7 @@ export function findActives(queryText: string): Active[] {
   return ACTIVES.filter(
     (a) =>
       a.name.toLowerCase().includes(q) ||
-      a.aliases.some((alias) => alias.includes(q) || q.includes(alias)) ||
+      a.aliases.some((alias) => matchesAlias(alias, q) || matchesAlias(q, alias)) ||
       a.goodFor.some((g) => g.toLowerCase().includes(q)),
   );
 }

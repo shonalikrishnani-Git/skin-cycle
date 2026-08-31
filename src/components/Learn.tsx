@@ -13,6 +13,7 @@ import {
 import type { SkinType } from '../lib/advice';
 import type { Phase } from '../lib/cycle';
 import { CheckIt } from './CheckIt';
+import { CheckLabel } from './CheckLabel';
 import { SkinCrossSection } from './SkinCrossSection';
 
 const DEPTH_STYLE: Record<Depth, { label: string; cls: string }> = {
@@ -32,6 +33,7 @@ export function Learn({ skinType, phase }: { skinType: SkinType; phase: Phase })
   return (
     <div className="space-y-4">
       <CheckIt skinType={skinType} phase={phase} />
+      <CheckLabel skinType={skinType} phase={phase} />
 
       <Card>
         <h2 className="font-display text-2xl mb-1">What you're putting it on</h2>
