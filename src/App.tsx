@@ -9,20 +9,33 @@ import {
   withoutSample,
   type DayLog,
 } from './lib/log';
-import { clearAllData, loadLogs, loadProfile, saveLogs, saveProfile, type Profile } from './lib/storage';
+import { addProduct, removeProduct, type ShelfProduct } from './lib/shelf';
+import {
+  clearAllData,
+  loadLogs,
+  loadProfile,
+  loadShelf,
+  saveLogs,
+  saveProfile,
+  saveShelf,
+  type Profile,
+} from './lib/storage';
 import { Calendar } from './components/Calendar';
 import { CheckIn } from './components/CheckIn';
 import { CycleCard } from './components/CycleCard';
+import { FromYourShelf } from './components/FromYourShelf';
 import { Guide } from './components/Guide';
 import { Pattern } from './components/Pattern';
 import { Setup } from './components/Setup';
+import { Shelf } from './components/Shelf';
 import { SkinToday } from './components/SkinToday';
 
-type Tab = 'today' | 'guide' | 'diary';
+type Tab = 'today' | 'guide' | 'shelf' | 'diary';
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'today', label: 'Today' },
   { id: 'guide', label: 'Guide' },
+  { id: 'shelf', label: 'Shelf' },
   { id: 'diary', label: 'Diary' },
 ];
 
@@ -36,6 +49,7 @@ const longDate = new Intl.DateTimeFormat('en-IE', {
 export default function App() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [logs, setLogs] = useState<DayLog[]>([]);
+  const [shelf, setShelf] = useState<ShelfProduct[]>([]);
   const [tab, setTab] = useState<Tab>('today');
   const [selected, setSelected] = useState(todayISO);
   /** null = follow the current phase; set when she browses another phase in the guide. */
@@ -46,6 +60,7 @@ export default function App() {
   useEffect(() => {
     setProfile(loadProfile());
     setLogs(loadLogs());
+    setShelf(loadShelf());
     setReady(true);
   }, []);
 
@@ -86,6 +101,7 @@ export default function App() {
           clearAllData();
           setProfile(null);
           setLogs([]);
+          setShelf([]);
           setSettingsOpen(false);
         }}
       />
@@ -129,6 +145,18 @@ export default function App() {
     setLogs(mine);
   };
 
+  const addShelfProduct = (product: ShelfProduct) => {
+    const next = addProduct(shelf, product);
+    saveShelf(next);
+    setShelf(next);
+  };
+
+  const removeShelfProduct = (id: string) => {
+    const next = removeProduct(shelf, id);
+    saveShelf(next);
+    setShelf(next);
+  };
+
   const logFor = (iso: string) => logs.find((l) => l.date === iso) ?? emptyLog(iso);
   const selectedInfo = cycleInfoFor(selected, profile.periodStarts, profile.cycleLength, profile.periodLength, today);
 
@@ -149,7 +177,7 @@ export default function App() {
           </button>
         </header>
 
-        <nav aria-label="Sections" className="grid grid-cols-3 gap-1 mb-4 p-1 bg-surface border border-line rounded-2xl">
+        <nav aria-label="Sections" className="grid grid-cols-4 gap-1 mb-4 p-1 bg-surface border border-line rounded-2xl">
           {TABS.map((t) => (
             <button
               key={t.id}
@@ -168,6 +196,7 @@ export default function App() {
         {tab === 'today' && (
           <div className="space-y-4">
             <SkinToday info={info} skinType={profile.skinType} onOpenGuide={() => go('guide')} />
+            <FromYourShelf products={shelf} phase={info.phase} today={today} onOpenShelf={() => go('shelf')} />
             <CheckIn
               log={logFor(today)}
               heading="Today’s routine"
@@ -194,6 +223,8 @@ export default function App() {
             onSelect={setGuidePhase}
           />
         )}
+
+        {tab === 'shelf' && <Shelf products={shelf} onAdd={addShelfProduct} onRemove={removeShelfProduct} />}
 
         {tab === 'diary' && (
           <div className="space-y-4">

@@ -6,6 +6,7 @@
  */
 import { parseISO } from './cycle';
 import { AM_STEPS, PM_STEPS, SKIN_TAGS, type DayLog, type SkinTag } from './log';
+import { ACTIVES, PRODUCT_STEPS, type ActiveId, type ShelfProduct } from './shelf';
 import { SKIN_TYPES, type SkinType } from './skin';
 
 export interface Profile {
@@ -21,6 +22,7 @@ const PROFILE_KEY = 'skincycle:v1:profile';
 // from prototype testing, so they aren't migrated — but "delete all" still removes them.
 const LOGS_KEY = 'skincycle:v2:logs';
 const OLD_LOGS_KEY = 'skincycle:v1:logs';
+const SHELF_KEY = 'skincycle:v1:shelf';
 
 function read(key: string): unknown {
   try {
@@ -85,9 +87,25 @@ export function loadLogs(): DayLog[] {
 
 export const saveLogs = (logs: DayLog[]) => write(LOGS_KEY, logs);
 
+export function loadShelf(): ShelfProduct[] {
+  const raw = read(SHELF_KEY);
+  if (!Array.isArray(raw)) return [];
+
+  return raw.flatMap((p): ShelfProduct[] => {
+    if (!p || typeof p.id !== 'string' || !isISO(p.addedOn)) return [];
+    const name = typeof p.name === 'string' ? p.name.trim().slice(0, 60) : '';
+    if (!name) return [];
+    const step = PRODUCT_STEPS.includes(p.step) ? p.step : 'Other';
+    const active: ActiveId = ACTIVES.some((a) => a.id === p.active) ? p.active : 'none';
+    return [{ id: p.id, name, step, active, addedOn: p.addedOn }];
+  });
+}
+
+export const saveShelf = (products: ShelfProduct[]) => write(SHELF_KEY, products);
+
 export function clearAllData() {
   try {
-    [PROFILE_KEY, LOGS_KEY, OLD_LOGS_KEY].forEach((k) => localStorage.removeItem(k));
+    [PROFILE_KEY, LOGS_KEY, OLD_LOGS_KEY, SHELF_KEY].forEach((k) => localStorage.removeItem(k));
   } catch {
     /* nothing to clear */
   }

@@ -1,3 +1,15 @@
+## Idea branch: Shelf Sync
+
+Adds a **Shelf** tab for the products you actually own — name, step and main active — and a
+**From your shelf** card on Today that sorts them into *lean into* / *keep steady* / *ease off
+this week*, plus a patch-test caution on anything added in the last 14 days during your
+Menstrual or Luteal phase.
+
+Limits: every rule is a timing tip lifted from the guide that already exists in `src/lib/skin.ts`
+— nothing new is claimed. Each product is scored on its ONE main active, not a full ingredient
+list. There's no brands database — you type the product name yourself, and only the active you
+picked drives the guidance.
+
 # Skin Cycle
 
 Skincare that follows your cycle.
