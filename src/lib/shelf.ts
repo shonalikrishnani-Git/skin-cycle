@@ -83,12 +83,16 @@ export interface TimingRule {
 }
 
 const STING_MENSTRUAL = 'Can sting more while skin’s more reactive this week — use it less often and build back up.';
-const TOLERATED_OVULATORY = 'Skin’s tolerating well this week — actives you already use can carry on as usual.';
+const TOLERATED_OVULATORY = 'Actives you already tolerate can carry on as usual this week.';
 const STEADY_LUTEAL = 'Keep it steady rather than changing things up — harder to tell a reaction from a pre-period breakout.';
 
 /**
  * active × phase → a timing nudge, each traceable to a line in PHASE_GUIDE. Where skin.ts says
  * nothing for a phase, the rule is "steady" with a neutral why, rather than inventing a reason.
+ *
+ * "Lean" means the guide recommends that ingredient for the phase — never "use more of an active".
+ * Where the guide's advice depends on something the app can't see (a new product, a strong
+ * vitamin C, whether it stings), the rule stays "steady" and the condition goes in the why.
  */
 const RULES: Record<ActiveId, Record<Phase, TimingRule>> = {
   'hyaluronic-acid': {
@@ -129,32 +133,32 @@ const RULES: Record<ActiveId, Record<Phase, TimingRule>> = {
   },
   retinoid: {
     Menstrual: { timing: 'ease', why: STING_MENSTRUAL },
-    Follicular: { timing: 'lean', why: 'Barrier’s strongest and least reactive now — a good week to keep building up frequency.' },
+    Follicular: { timing: 'steady', why: 'If it’s new, this is the sensible week to start it — every other night, one new active at a time. Already using it? Keep it steady.' },
     Ovulatory: { timing: 'steady', why: TOLERATED_OVULATORY },
     Luteal: { timing: 'steady', why: STEADY_LUTEAL },
   },
   aha: {
     Menstrual: { timing: 'ease', why: STING_MENSTRUAL },
-    Follicular: { timing: 'lean', why: 'A good week to keep building up an AHA — just be strict with sunscreen, since AHAs raise sun sensitivity.' },
+    Follicular: { timing: 'steady', why: 'If it’s new, this is the sensible week to start it, one at a time — and be strict with sunscreen, since AHAs raise sun sensitivity. Already using it? Keep it steady.' },
     Ovulatory: { timing: 'steady', why: TOLERATED_OVULATORY },
     Luteal: { timing: 'steady', why: STEADY_LUTEAL },
   },
   bha: {
     Menstrual: { timing: 'ease', why: STING_MENSTRUAL },
-    Follicular: { timing: 'lean', why: 'A good week to keep building up a salicylic acid routine, since skin reacts less now.' },
+    Follicular: { timing: 'steady', why: 'If it’s new, this is the sensible week to start it — one new active at a time. Already using it? Keep it steady.' },
     Ovulatory: { timing: 'steady', why: TOLERATED_OVULATORY },
-    Luteal: { timing: 'ease', why: 'Piling it on dries skin further, which can trigger more oil and breakouts — keep to your usual amount.' },
+    Luteal: { timing: 'steady', why: 'Keep to your usual amount — piling on more dries skin, and dry skin can lead to more oil and breakouts.' },
   },
   'benzoyl-peroxide': {
     Menstrual: { timing: 'steady', why: 'Not singled out as a stinging active this week — keep it steady.' },
     Follicular: { timing: 'steady', why: 'Not specifically called out this week — keep it steady.' },
     Ovulatory: { timing: 'steady', why: TOLERATED_OVULATORY },
-    Luteal: { timing: 'ease', why: 'Piling it on dries skin further, which can trigger more oil and breakouts — keep to your usual amount.' },
+    Luteal: { timing: 'steady', why: 'Keep to your usual amount — piling on more dries skin, and dry skin can lead to more oil and breakouts.' },
   },
   'vitamin-c': {
-    Menstrual: { timing: 'ease', why: 'A strong one can sting more while skin’s more reactive — use it less often this week and build back up.' },
-    Follicular: { timing: 'lean', why: 'A good week to start or keep building up vitamin C, since skin reacts less now.' },
-    Ovulatory: { timing: 'ease', why: 'Above 20% adds no extra benefit and may irritate — a tolerated lower strength can carry on.' },
+    Menstrual: { timing: 'steady', why: 'Keep it steady — but if a strong one stings this week, use it less often and build back up.' },
+    Follicular: { timing: 'steady', why: 'If it’s new, this is the sensible week to start it — one new active at a time. Already using it? Keep it steady.' },
+    Ovulatory: { timing: 'steady', why: 'Keep it steady — unless it’s stronger than 20%, which adds no extra benefit and may irritate.' },
     Luteal: { timing: 'steady', why: 'Not specifically called out this week — keep your usual vitamin C steady.' },
   },
   'azelaic-acid': {
@@ -171,7 +175,7 @@ const RULES: Record<ActiveId, Record<Phase, TimingRule>> = {
   },
   sunscreen: {
     Menstrual: { timing: 'lean', why: 'Every day, in every phase.' },
-    Follicular: { timing: 'lean', why: 'Every day, in every phase — especially strict if you’re building up an AHA, which raises sun sensitivity.' },
+    Follicular: { timing: 'lean', why: 'Every day, in every phase — especially strict if you’ve started an AHA, which raises sun sensitivity.' },
     Ovulatory: { timing: 'lean', why: 'Every day, in every phase.' },
     Luteal: { timing: 'lean', why: 'Every day, in every phase.' },
   },
@@ -195,5 +199,5 @@ export function newProductCaution(product: ShelfProduct, phase: Phase, today: st
   if (phase !== 'Menstrual' && phase !== 'Luteal') return null;
   const age = daysBetween(product.addedOn, today);
   if (age < 0 || age > 14) return null;
-  return 'New this week — patch test first, and give it until your follicular phase to judge.';
+  return 'Added recently — patch test first, and give it until your follicular phase to judge.';
 }
