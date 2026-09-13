@@ -1,20 +1,31 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-canvas: #faf8f5;
+  --color-canvas: #fcf7f5;
   --color-surface: #ffffff;
-  --color-ink: #1f2421;
-  --color-muted: #6f756c;
-  --color-line: #e7e3db;
+  --color-ink: #2d2331;
+  --color-muted: #7b6f7e;
+  --color-line: #f0e5e5;
 
-  --color-accent: #3f6b52;
-  --color-accent-soft: #ebf2ee;
+  --color-accent: #b4506b;
+  --color-accent-soft: #f9e6ec;
 
-  --color-warn: #a2701c;
-  --color-warn-soft: #fbf2e1;
+  /* One colour family per phase — the whole visual language of the app. */
+  --color-menstrual: #d7607a;
+  --color-menstrual-soft: #fbe4e9;
+  --color-menstrual-ink: #a13a54;
 
-  --color-alert: #a2422f;
-  --color-alert-soft: #faece9;
+  --color-follicular: #62a584;
+  --color-follicular-soft: #e2f1e9;
+  --color-follicular-ink: #3a7458;
+
+  --color-ovulatory: #e2a04f;
+  --color-ovulatory-soft: #fcefdc;
+  --color-ovulatory-ink: #93601c;
+
+  --color-luteal: #8b76c2;
+  --color-luteal-soft: #ece7f7;
+  --color-luteal-ink: #5b4893;
 
   --font-display: Georgia, 'Times New Roman', serif;
   --font-sans:
@@ -30,17 +41,4 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-}
-
-/* Visually hidden, still read by screen readers. */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
 }

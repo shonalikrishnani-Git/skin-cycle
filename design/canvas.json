@@ -1,0 +1,39 @@
+{
+  "artboards": [
+    {
+      "file": "Onboarding.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Onboarding"
+    },
+    {
+      "file": "Main.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 1500,
+      "title": "Today"
+    },
+    {
+      "file": "Calendar.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 1360,
+      "title": "Calendar"
+    },
+    {
+      "file": "Pattern.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 900,
+      "title": "Pattern"
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}

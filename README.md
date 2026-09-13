@@ -1,133 +1,101 @@
-# Skincare — a small, honest prototype
+# Skin Cycle
 
-Daily skincare guidance that adapts to **where you are in your cycle**, **what your skin is
-normally like**, and **the air around you**. Built 31 Aug 2026.
+Skincare tracking and your menstrual cycle, hand in hand.
+
+Most skincare apps ask what your skin is like. This one asks *when* — because skin changes
+through the month, and once you've logged a few weeks you can see exactly how yours does.
 
 ```bash
 cd ~/Projects/skincare-app
 npm install     # first time only
-npm run dev
+npm run dev     # then open http://localhost:5180
+npm test        # the cycle maths (Node 23.6+)
 ```
 
-Then open http://localhost:5180
-
-## Why this exists separately
-
-The Google AI Studio app (`~/Projects/grooming-buddy`) has ~20 features in a single 1,470-line
-file, needs a Google sign-in that isn't switched on, a Firebase project, and a Gemini API key.
-It's a good source of ideas and a bad place to build.
-
-This is the same core idea, rebuilt small: **no accounts, no server, no database, no API key.**
-It runs the moment you type `npm run dev`.
-
-## The idea in one line
-
-> Most skincare apps ask what your skin is like. None of them ask what the weather is doing,
-> or where you are in your cycle. Both change what your skin needs today.
+No account, no server, no API key. Everything stays on the device.
 
 ## What it does
 
-- **Cycle phase** — day counter and phase, with the hormone shift behind it
-- **Climate selector** — four conditions, and the advice genuinely changes when you switch
-- **Composed advice** — focus / skip / hair, drawn from all three inputs at once
-- **Every tip shows its reason**, and a tag saying whether it came from your cycle, your skin,
-  or the weather. No black box.
-- **Product shelf** — a bar per product running green → amber → red, so you reorder before you
-  run out rather than after
-- **Daily check-in** — morning/evening routine, how your skin feels (1–5), optional tags
-- **Pattern view** — your logged days grouped by cycle phase, so you can finally see whether your
-  skin really is worse before your period. This is the point of the tracking.
-- **"Seen something everywhere?"** — type a viral ingredient (azelaic acid, snail mucin, collagen)
-  and get what it actually does, what it won't do, and whether it suits your skin *this week*.
-  16 actives, offline, no reviews.
-- **"Read the back of the bottle"** — paste an ingredients list and see what's actually doing the
-  work, where it sits in the concentration order, known allergens flagged *for your skin type*,
-  and genuine EU regulatory limits. **No safety score, on purpose.**
-- **Learn tab** — the teaching layer. An interactive skin cross-section, the 500-dalton rule and
-  where seven common ingredients actually reach, four myths taken apart, and a four-step beginner
-  routine. Sourced, with the medical-advice line drawn clearly.
+- **Today** — a ring showing your whole cycle and where you are in it, what your skin tends to do
+  this week, and one tap for *my period started today*.
+- **Check-in** — how your skin feels (five faces), morning and evening routine, a few tags, a
+  note. Ten seconds.
+- **Calendar** — every day tinted by its phase, a face on each day you rated. Tap any past day to
+  fill it in or fix it; future days are faded because they're predictions.
+- **Your skin pattern** — your average skin rating in each phase, and one plain sentence about it,
+  such as *"Your skin feels best in your ovulatory phase and hardest in your luteal phase —
+  usually logged as oily."*
 
 ## How it's built
 
 ```
 src/
   lib/
-    cycle.ts      cycle day + phase — ONE function, used everywhere
-    advice.ts     the rules engine: phase × skin type × climate → advice
-    products.ts   depletion maths
-    log.ts        daily check-in + grouping history by cycle phase
-    science.ts    the teaching content — layers, penetration, myths, sources
-    actives.ts    16 viral ingredients + the verdict logic (size, evidence, skin, phase)
-    label.ts      INCI list parsing, allergen and regulatory flags — deliberately not a score
-    storage.ts    localStorage
+    cycle.ts      phases, dates, where any day sits in the cycle — the heart of it
+    log.ts        daily entries, the per-phase pattern, sample history
+    storage.ts    localStorage, with shape validation on load
   components/
-    Setup.tsx  PhaseStrip.tsx  ClimatePicker.tsx  AdviceCard.tsx
-    ProductShelf.tsx  DailyCheckIn.tsx  LookBack.tsx
-    Learn.tsx  SkinCrossSection.tsx  CheckIt.tsx  CheckLabel.tsx
-  App.tsx       wiring only
+    Setup.tsx      first run + settings
+    TodayCard.tsx  CycleRing.tsx
+    CheckIn.tsx    Calendar.tsx   Pattern.tsx
+    Icons.tsx      drawn faces, sun, moon, check, chevrons
+  App.tsx        wiring only
+tests/
+  cycle.test.mjs 12 edge cases for the cycle maths
+design/          the design canvas's source screens
 ```
 
-React 19 + TypeScript (strict) + Vite + Tailwind 4. Nothing else.
+React 19, strict TypeScript, Vite, Tailwind 4. Nothing else.
 
-Four deliberate differences from the Gemini version:
+## Decisions worth knowing
 
-1. **The cycle day is calculated once.** In the original it was worked out in two places with
-   different rounding, so the dashboard and the advice disagreed by a day — and on a phase
-   boundary that meant advice for the wrong week.
-2. **Nothing pretends to work.** No buttons that claim to place orders or contact pharmacies.
-3. **Deleting asks first.**
-4. **Form fields have real labels** and buttons carry `aria-pressed`, so it's usable with a
-   screen reader.
+1. **Phases scale with your cycle.** Ovulation is counted back ~14 days from the *end*, because the
+   luteal phase is the steadiest part of a cycle. An earlier prototype hard-coded 28-day
+   boundaries and put the luteal phase a week early on a 35-day cycle.
+2. **Finished cycles use their real length.** Once your next period is logged, the days before it
+   are re-placed using how long that cycle actually was.
+3. **A late period doesn't wrap around.** Day 32 of a 28-day cycle says day 32, three days late —
+   not "day 4, menstrual". Day 29 counts as *due*, not late.
+4. **An untouched day never counts as "okay".** Unrated days are left out of the pattern instead of
+   quietly scoring 3/5.
+5. **The pattern stays quiet until it has something true to say** — at least 3 rated days in at
+   least 2 phases, and a gap of half a point or more.
+6. **Today is your local date.** `toISOString()` is UTC, which in Irish summer time reports
+   yesterday's date for the first hour after midnight.
+7. **Drawn icons, not emoji**, and every tap target is at least 44px.
+8. **Not contraception, not medical advice** — said on screen, not just here.
 
-## Verified working 31 Aug 2026
+## Deliberately left out
 
-Setup → main screen ✅ · Day 25 / Luteal correct ✅ · switching climate swaps the weather tips ✅ ·
-reload keeps everything ✅ · shelf shows in-stock, running-low and empty at once ✅ · mobile
-layout ✅ · check-in saves and persists ✅ · pattern view groups history by phase ✅ ·
-clearing sample history keeps only real entries ✅ · Learn tab renders, cross-section is
-clickable and swaps the explanation ✅ · ingredient search returns correct verdicts — azelaic
-"sensible match", retinol "not this week" in luteal, collagen "not for what it claims" ✅ ·
-label reader finds the right actives with the right positions ✅ · short aliases no longer
-match substrings — "phenoxyethanol" stopped matching hyaluronic acid ✅ · searches for
-"ha", "vit c", "bha", "spf" all still resolve ✅ · `tsc --noEmit` clean ✅
+The larger version — advice engine, weather, product shelf, the Learn tab with skin science, an
+ingredient checker and a label reader — is kept on the `full-version` branch (tag `v1-full`). It
+was set aside to keep this app simple, not thrown away.
+
+Two things were rejected outright, and shouldn't come back:
+
+- **"Toxic ingredient" scores.** Toxicity depends on dose and route; an ingredient list has neither,
+  which is why dermatologists and cosmetic chemists reject Yuka / Think Dirty style ratings.
+- **Scraped retail reviews.** Retailers' terms forbid it, and star ratings are the same noise this
+  app is meant to be an alternative to.
+
+## Design
+
+The screens are on a Claude Design canvas:
+https://claude.ai/code/artifact/97a50273-043c-46af-a344-2f9b4fb67870 — source in `design/`.
+
+## Verified 13 Sep 2026
+
+In the running app, not assumed: empty and future dates rejected at setup · day 14 of 28 shows
+ovulatory with "next period in about 15 days" · check-in saves face, routine, tag and note ·
+logging a period moves the ring to day 1, and undo moves it back · calendar tints, today ring,
+faded predictions and the dashed expected period all correct · editing a sample day makes it
+yours · removing sample entries keeps only real ones · a 35-day cycle moves day 14 to follicular ·
+delete-all empties storage · 44px cells and chips on a 375px phone with no sideways scroll ·
+no console errors · `tsc --noEmit` clean · 12/12 cycle tests pass.
 
 ## Honest limits
 
-- The advice is **general skincare principles, not medical advice**, and says so on screen.
-- The Learn content is deliberately small and sourced. Every number that varies is written as a
-  range, because single numbers in skincare are usually someone's marketing.
-- Climate is still chosen by hand. Real weather from your location is the obvious next step.
-- New installs get **six weeks of sample history** so the pattern view isn't empty. It is
-  labelled as sample on screen, with a one-tap button to clear it.
-- Everything lives in one browser. Clear your site data and it's gone.
-
-## Why there is no "toxic ingredient" score
-
-The most requested feature, and deliberately not built. Apps that grade products clean/toxic from
-an ingredient list — Yuka, Think Dirty, EWG Skin Deep — are rejected by dermatologists and
-cosmetic chemists, because toxicity is dose- and route-dependent and a list of names carries
-neither. As one cosmetic chemist put it, it's like rating a meal's taste from its recipe.
-
-Building it would also contradict this app's own Learn tab, which teaches that "natural" says
-nothing about how skin will react.
-
-What the label reader does instead: names the actives and where they sit in the concentration
-order, flags established contact allergens *as relevant to your skin type rather than as poison*,
-and reports real regulatory limits — which genuinely do differ by country.
-
-## Why there are no product reviews
-
-It was considered and rejected. Amazon hardened review access in May 2026 (public review URLs
-404 to logged-out clients, review text stripped from the HTML), no retailer offers a public
-review API, and scraping breaches their terms as a contract matter regardless of the hiQ ruling.
-
-The deeper reason: retail reviews are the same incentivised noise this app is meant to be an
-alternative to. Molecular size, evidence strength and your own cycle are checkable. Star ratings
-aren't.
-
-## Next
-
-1. Real weather by location, so the app stops asking what it could know
-2. Let the pattern view compare *your own* products against phases — "which serum was I using
-   in my best month?"
-3. A written one-page product concept to sit alongside it (Project 5 asks for both)
+- One device, one browser. Clearing site data erases everything.
+- Phases are estimates from the dates you enter.
+- New installs get eight weeks of sample entries so the calendar isn't empty — labelled as sample,
+  removable in one tap.
