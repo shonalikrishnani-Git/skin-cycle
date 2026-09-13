@@ -57,6 +57,8 @@ export function SkinToday({
         </div>
         <p className="text-sm font-semibold">{remedy.name}</p>
         <p className="text-sm text-ink/75 leading-relaxed mt-1">{remedy.how}</p>
+        {/* Every remedy shows its caution wherever it appears — not only in the full guide. */}
+        <p className="text-xs text-menstrual-ink leading-relaxed mt-2">{remedy.caution}</p>
       </div>
 
       <button
