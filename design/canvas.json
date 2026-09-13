@@ -89,7 +89,7 @@
       "y": 1200,
       "w": 390,
       "page": "page-ideas",
-      "text": "Idea A — Shelf Sync\nYour own products, used at the right time in your cycle.\n\nFor: anyone with a few products, deciding what to reach for tonight.\nFirst version: add a product (name + its main active from a short list). Today says lean into / ease off, with a one-line why.\nLeft out: barcode scans, a brands database, reorder reminders.\nKeep it honest: effects are modest and individual — always 'ease off', never 'stop'.\n\nWhy it matters: it turns tonight's guide into advice about HER bottles. Nothing on the market crosses the products you own with your cycle phase."
+      "text": "Idea A — Shelf Sync\nYour own products, used at the right time in your cycle.\n\nFor: anyone with a few products, deciding what to reach for tonight.\nFirst version: add a product (name + its main active from a short list). Today says lean into / ease off, with a one-line why.\nLeft out: barcode scans, a brands database, reorder reminders.\nKeep it honest: effects are modest and individual — always 'ease off', never 'stop'.\n\nWhy it matters: it turns tonight's guide into advice about HER bottles. Nothing on the market crosses the products you own with your cycle phase.\n\nBUILT OVERNIGHT: a working prototype on branch idea/shelf-sync (folder ~/Projects/skincare-app-shelf-sync). Its rules were checked line by line against the guide and five were corrected. Tested in the ovulatory, luteal and menstrual phases."
     },
     {
       "id": "idea-b",
@@ -97,7 +97,7 @@
       "y": 1200,
       "w": 390,
       "page": "page-ideas",
-      "text": "Idea B — Skin Report\nSix weeks of your own logs on one honest page.\n\nFor: the night before a pharmacist or GP visit, or a monthly check-in.\nFirst version: phase averages, routine vs skin, top tags — saved as a PDF. Notes left out unless ticked.\nLeft out: photos, predictions, share links.\nKeep it honest: small samples — the same 'quiet until true' rules as the pattern, and 'linked', never 'causes'.\n\nWhy it matters: it gives the tracking a real payoff, and shows your data-analysis skill (Project 1)."
+      "text": "Idea B — Skin Report\nSix weeks of your own logs on one honest page.\n\nFor: the night before a pharmacist or GP visit, or a monthly check-in.\nFirst version: phase averages, routine vs skin, top tags — saved as a PDF. Notes left out unless ticked.\nLeft out: photos, predictions, share links.\nKeep it honest: small samples — the same 'quiet until true' rules as the pattern, and 'linked', never 'causes'.\n\nWhy it matters: it gives the tracking a real payoff, and shows your data-analysis skill (Project 1).\n\nBUILT OVERNIGHT: a working prototype on branch idea/skin-report (folder ~/Projects/skincare-app-skin-report). With only sample data it refuses to report; with real entries its numbers matched an independent calculation."
     },
     {
       "id": "idea-c",
@@ -113,7 +113,7 @@
       "y": 0,
       "w": 360,
       "page": "page-ideas",
-      "text": "My suggestion: build A next.\n\nIt makes tonight's product guidance personal, and it's the most different from what's already out there. B needs a few weeks of real logs before it's worth anything, so it comes after. C is mostly done tonight — finish its routine builder when you polish setup.\n\nWhere these came from: three agents each looked at the app through one lens — the complete beginner, the products she owns, and insight over time."
+      "text": "A and B now exist as working prototypes, each on its own branch — the main app is untouched.\n\nMy suggestion: try Shelf Sync first, and merge it if it feels right.\n\nIt makes tonight's product guidance personal, and it's the most different from what's already out there. B needs a few weeks of real logs before it's worth anything, so it comes after. C is mostly done tonight — finish its routine builder when you polish setup.\n\nWhere these came from: three agents each looked at the app through one lens — the complete beginner, the products she owns, and insight over time."
     }
   ],
   "launch": {
