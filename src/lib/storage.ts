@@ -1,24 +1,26 @@
 /**
  * Everything lives on this device. No account, no server, no database.
  *
- * For an app holding cycle data that's the honest default, not a shortcut: the most private
- * place for this information is nowhere but the phone it was typed into.
- *
- * Keys are versioned (`v1`). Older prototypes stored a different shape under different keys, and
- * reading them as this shape would crash — so they're simply ignored.
+ * For an app holding skin and cycle data that's the honest default, not a shortcut: the most
+ * private place for this information is nowhere but the phone it was typed into.
  */
 import { parseISO } from './cycle';
-import { SKIN_TAGS, type DayLog, type SkinTag } from './log';
+import { AM_STEPS, PM_STEPS, SKIN_TAGS, type DayLog, type SkinTag } from './log';
+import { SKIN_TYPES, type SkinType } from './skin';
 
 export interface Profile {
   /** Every period start you've logged, YYYY-MM-DD, ascending. Always at least one. */
   periodStarts: string[];
   cycleLength: number;
   periodLength: number;
+  skinType: SkinType;
 }
 
 const PROFILE_KEY = 'skincycle:v1:profile';
-const LOGS_KEY = 'skincycle:v1:logs';
+// v2 replaced v1's morning/evening yes-or-no with individual routine steps. v1 logs only ever came
+// from prototype testing, so they aren't migrated — but "delete all" still removes them.
+const LOGS_KEY = 'skincycle:v2:logs';
+const OLD_LOGS_KEY = 'skincycle:v1:logs';
 
 function read(key: string): unknown {
   try {
@@ -40,12 +42,16 @@ function write(key: string, value: unknown) {
 const isISO = (v: unknown): v is string => typeof v === 'string' && parseISO(v) !== null;
 
 export function loadProfile(): Profile | null {
-  const p = read(PROFILE_KEY) as { periodStarts?: unknown; cycleLength?: unknown; periodLength?: unknown } | null;
+  const p = read(PROFILE_KEY) as
+    | { periodStarts?: unknown; cycleLength?: unknown; periodLength?: unknown; skinType?: unknown }
+    | null;
   if (!p || !Array.isArray(p.periodStarts)) return null;
   const periodStarts = [...new Set(p.periodStarts.filter(isISO))].sort();
   if (periodStarts.length === 0) return null;
   if (typeof p.cycleLength !== 'number' || typeof p.periodLength !== 'number') return null;
-  return { periodStarts, cycleLength: p.cycleLength, periodLength: p.periodLength };
+  // Profiles saved before skin type was asked get a neutral default rather than being thrown away.
+  const skinType = SKIN_TYPES.find((t) => t.id === p.skinType)?.id ?? 'Normal';
+  return { periodStarts, cycleLength: p.cycleLength, periodLength: p.periodLength, skinType };
 }
 
 export const saveProfile = (p: Profile) => write(PROFILE_KEY, p);
@@ -64,8 +70,9 @@ export function loadLogs(): DayLog[] {
       return [
         {
           date: l.date,
-          amDone: l.amDone === true,
-          pmDone: l.pmDone === true,
+          am: Array.isArray(l.am) ? AM_STEPS.filter((s) => l.am.includes(s)) : [],
+          pm: Array.isArray(l.pm) ? PM_STEPS.filter((s) => l.pm.includes(s)) : [],
+          homeCare: l.homeCare === true,
           skin,
           tags,
           note: typeof l.note === 'string' ? l.note.slice(0, 200) : '',
@@ -80,8 +87,7 @@ export const saveLogs = (logs: DayLog[]) => write(LOGS_KEY, logs);
 
 export function clearAllData() {
   try {
-    localStorage.removeItem(PROFILE_KEY);
-    localStorage.removeItem(LOGS_KEY);
+    [PROFILE_KEY, LOGS_KEY, OLD_LOGS_KEY].forEach((k) => localStorage.removeItem(k));
   } catch {
     /* nothing to clear */
   }

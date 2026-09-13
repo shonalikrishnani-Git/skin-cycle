@@ -3,15 +3,14 @@ import { CycleRing } from './CycleRing';
 
 function nextText(next: NextPeriod | null): string {
   if (!next) return '';
-  if (next.late > 0) {
-    return `Your period is ${next.late} day${next.late === 1 ? '' : 's'} later than usual. Cycles vary — tap below when it starts.`;
-  }
-  if (next.inDays === 0) return 'Your period is expected today.';
-  if (next.inDays === 1) return 'Next period expected tomorrow.';
+  if (next.late > 0) return `${next.late} day${next.late === 1 ? '' : 's'} later than usual — cycles vary.`;
+  if (next.inDays === 0) return 'Period expected today.';
+  if (next.inDays === 1) return 'Period expected tomorrow.';
   return `Next period in about ${next.inDays} days.`;
 }
 
-export function TodayCard({
+/** The cycle, deliberately second: it's the context for the skin guidance, not the headline. */
+export function CycleCard({
   info,
   next,
   cycleLength,
@@ -31,16 +30,17 @@ export function TodayCard({
   const meta = PHASE_META[info.phase];
 
   return (
-    <section aria-label="Your cycle today" className="bg-surface border border-line rounded-3xl p-6">
-      <CycleRing day={info.day} phase={info.phase} cycleLength={cycleLength} periodLength={periodLength} />
-
-      <p className="text-center text-sm text-muted mt-3 leading-relaxed">{nextText(next)}</p>
-
-      <div className={`mt-5 rounded-2xl p-4 ${meta.soft}`}>
-        <p className={`text-xs uppercase tracking-widest mb-1.5 ${meta.ink}`}>Your skin this week</p>
-        <p className="text-sm font-medium leading-relaxed">{meta.skin}</p>
-        <p className="text-sm text-ink/75 leading-relaxed mt-1">{meta.tip}</p>
-        <p className="text-xs text-ink/55 mt-2">{meta.hormone}</p>
+    <section aria-label="Your cycle" className="bg-surface border border-line rounded-3xl p-6">
+      <div className="flex items-center gap-4">
+        <div className="w-[124px] shrink-0">
+          <CycleRing day={info.day} phase={info.phase} cycleLength={cycleLength} periodLength={periodLength} size={124} />
+        </div>
+        <div className="min-w-0">
+          <p className="text-xs uppercase tracking-widest text-muted mb-1">Your cycle</p>
+          <p className={`font-display text-xl leading-tight ${meta.ink}`}>{info.phase} phase</p>
+          <p className="text-sm text-muted leading-relaxed mt-1">{nextText(next)}</p>
+          <p className="text-xs text-ink/55 mt-1.5">{meta.hormone}</p>
+        </div>
       </div>
 
       <button
@@ -48,7 +48,7 @@ export function TodayCard({
         onClick={onTogglePeriod}
         disabled={periodStartedToday && !canUndoPeriod}
         aria-pressed={periodStartedToday}
-        className={`w-full mt-4 min-h-12 rounded-2xl border text-sm font-semibold transition disabled:opacity-60 ${
+        className={`w-full mt-5 min-h-12 rounded-2xl border text-sm font-semibold transition disabled:opacity-60 ${
           periodStartedToday
             ? 'border-menstrual bg-menstrual-soft text-menstrual-ink'
             : 'border-menstrual text-menstrual-ink hover:bg-menstrual-soft'

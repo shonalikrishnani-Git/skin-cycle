@@ -24,8 +24,6 @@ export interface PhaseMeta {
   ink: string;
   border: string;
   hormone: string;
-  skin: string;
-  tip: string;
 }
 
 export const PHASE_META: Record<Phase, PhaseMeta> = {
@@ -36,8 +34,6 @@ export const PHASE_META: Record<Phase, PhaseMeta> = {
     ink: 'text-menstrual-ink',
     border: 'border-menstrual',
     hormone: 'Oestrogen and progesterone are at their lowest.',
-    skin: 'Skin can feel drier, duller and more sensitive than usual.',
-    tip: 'Go gentle — a mild cleanser and a richer moisturiser.',
   },
   Follicular: {
     stroke: 'var(--color-follicular)',
@@ -46,8 +42,6 @@ export const PHASE_META: Record<Phase, PhaseMeta> = {
     ink: 'text-follicular-ink',
     border: 'border-follicular',
     hormone: 'Oestrogen is rising.',
-    skin: 'Skin is usually at its calmest and most resilient.',
-    tip: 'The best week of the month to try a new product.',
   },
   Ovulatory: {
     stroke: 'var(--color-ovulatory)',
@@ -56,8 +50,6 @@ export const PHASE_META: Record<Phase, PhaseMeta> = {
     ink: 'text-ovulatory-ink',
     border: 'border-ovulatory',
     hormone: 'Oestrogen peaks.',
-    skin: 'Often your best skin of the month — but oil starts to rise.',
-    tip: 'Keep layers light, and don’t skip sunscreen.',
   },
   Luteal: {
     stroke: 'var(--color-luteal)',
@@ -66,8 +58,6 @@ export const PHASE_META: Record<Phase, PhaseMeta> = {
     ink: 'text-luteal-ink',
     border: 'border-luteal',
     hormone: 'Progesterone rises.',
-    skin: 'Oil increases, and breakouts become more likely.',
-    tip: 'Keep your routine steady — not the week to start something new.',
   },
 };
 

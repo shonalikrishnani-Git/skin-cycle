@@ -1,39 +1,123 @@
 {
+  "pages": [
+    {
+      "id": "page-app",
+      "name": "App"
+    },
+    {
+      "id": "page-ideas",
+      "name": "Ideas"
+    }
+  ],
   "artboards": [
     {
       "file": "Onboarding.dc.html",
       "x": 0,
       "y": 0,
       "w": 390,
-      "h": 844,
-      "title": "Onboarding"
+      "h": 960,
+      "page": "page-app",
+      "title": "Setup"
     },
     {
       "file": "Main.dc.html",
       "x": 470,
       "y": 0,
       "w": 390,
-      "h": 1500,
+      "h": 2060,
+      "page": "page-app",
       "title": "Today"
     },
     {
-      "file": "Calendar.dc.html",
+      "file": "Guide.dc.html",
       "x": 940,
       "y": 0,
       "w": 390,
-      "h": 1360,
-      "title": "Calendar"
+      "h": 3900,
+      "page": "page-app",
+      "title": "Guide"
     },
     {
-      "file": "Pattern.dc.html",
+      "file": "Diary.dc.html",
       "x": 1410,
       "y": 0,
       "w": 390,
-      "h": 900,
-      "title": "Pattern"
+      "h": 1420,
+      "page": "page-app",
+      "title": "Diary"
+    },
+    {
+      "file": "IdeaShelfSync.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1040,
+      "page": "page-ideas",
+      "title": "Idea A · Shelf Sync"
+    },
+    {
+      "file": "IdeaSkinReport.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 1080,
+      "page": "page-ideas",
+      "title": "Idea B · Skin Report"
+    },
+    {
+      "file": "IdeaSteadyStart.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 1060,
+      "page": "page-ideas",
+      "title": "Idea C · Steady Start"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "app-rebuild",
+      "x": 1880,
+      "y": 0,
+      "w": 320,
+      "page": "page-app",
+      "text": "Rebuilt tonight: skin first.\n\nToday opens on 'Your skin today' — what to hydrate and moisturise with, what to go easy on, and a home-care idea. The cycle is now a small card underneath.\n\nNew: a Guide tab for every phase, routine steps instead of yes/no, a skin-type question at setup, and a 'Don't try this at home' list.\n\nEvery remedy and product tip was checked against the AAD, NHS, DermNet and published studies. Honey and aloe vera were dropped because the evidence didn't hold up."
+    },
+    {
+      "id": "idea-a",
+      "x": 0,
+      "y": 1200,
+      "w": 390,
+      "page": "page-ideas",
+      "text": "Idea A — Shelf Sync\nYour own products, used at the right time in your cycle.\n\nFor: anyone with a few products, deciding what to reach for tonight.\nFirst version: add a product (name + its main active from a short list). Today says lean into / ease off, with a one-line why.\nLeft out: barcode scans, a brands database, reorder reminders.\nKeep it honest: effects are modest and individual — always 'ease off', never 'stop'.\n\nWhy it matters: it turns tonight's guide into advice about HER bottles. Nothing on the market crosses the products you own with your cycle phase."
+    },
+    {
+      "id": "idea-b",
+      "x": 470,
+      "y": 1200,
+      "w": 390,
+      "page": "page-ideas",
+      "text": "Idea B — Skin Report\nSix weeks of your own logs on one honest page.\n\nFor: the night before a pharmacist or GP visit, or a monthly check-in.\nFirst version: phase averages, routine vs skin, top tags — saved as a PDF. Notes left out unless ticked.\nLeft out: photos, predictions, share links.\nKeep it honest: small samples — the same 'quiet until true' rules as the pattern, and 'linked', never 'causes'.\n\nWhy it matters: it gives the tracking a real payoff, and shows your data-analysis skill (Project 1)."
+    },
+    {
+      "id": "idea-c",
+      "x": 940,
+      "y": 1200,
+      "w": 390,
+      "page": "page-ideas",
+      "text": "Idea C — Steady Start\nFrom no routine to one you keep.\n\nFor: the complete beginner overwhelmed by reels.\nAlready built tonight: step-by-step routine ticks and the phase guide.\nStill to build: pick your own steps at setup (three-step default, with 'why this order'), and consistency shown next to the skin pattern.\nLeft out: reminders, streak badges, product lists.\nKeep it honest: test every addition against 'does this make starting easier?'"
+    },
+    {
+      "id": "ideas-summary",
+      "x": 1410,
+      "y": 0,
+      "w": 360,
+      "page": "page-ideas",
+      "text": "My suggestion: build A next.\n\nIt makes tonight's product guidance personal, and it's the most different from what's already out there. B needs a few weeks of real logs before it's worth anything, so it comes after. C is mostly done tonight — finish its routine builder when you polish setup.\n\nWhere these came from: three agents each looked at the app through one lens — the complete beginner, the products she owns, and insight over time."
     }
   ],
   "launch": {
-    "view": "canvas"
+    "view": "canvas",
+    "page": "page-ideas"
   }
 }

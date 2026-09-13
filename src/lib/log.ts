@@ -1,14 +1,18 @@
 /**
- * The daily log, and what it adds up to.
+ * The skin diary: what you did for your skin each day, how it felt, and what that adds up to.
  *
- * Tracking only earns its ten seconds if it eventually tells you something — so every entry is
- * placed in the cycle phase it happened in, and the pattern view answers the one question this
- * app exists for: does my skin change with my cycle?
+ * Every entry is placed in the cycle phase it happened in, so the pattern view can answer the
+ * question this app exists for: how does my skin change through my month?
  */
 import { PHASES, addDays, cycleInfoFor, type Phase } from './cycle';
 import type { Profile } from './storage';
 
-export const SKIN_TAGS = ['Breakout', 'Oily', 'Dry', 'Sensitive', 'Redness'] as const;
+export const AM_STEPS = ['Cleanse', 'Serum', 'Moisturise', 'SPF'] as const;
+export const PM_STEPS = ['Cleanse', 'Treatment', 'Moisturise'] as const;
+export type AmStep = (typeof AM_STEPS)[number];
+export type PmStep = (typeof PM_STEPS)[number];
+
+export const SKIN_TAGS = ['Breakout', 'Oily', 'Dry', 'Dull', 'Sensitive', 'Redness'] as const;
 export type SkinTag = (typeof SKIN_TAGS)[number];
 
 /** Faces are drawn icons (components/Icons.tsx), so they look identical on every phone. */
@@ -22,8 +26,9 @@ export const SKIN_SCORES: { value: number; label: string }[] = [
 
 export interface DayLog {
   date: string;
-  amDone: boolean;
-  pmDone: boolean;
+  am: AmStep[];
+  pm: PmStep[];
+  homeCare: boolean;
   /** 1–5, or null when not rated. Never defaulted — an untouched day must not count as "okay". */
   skin: number | null;
   tags: SkinTag[];
@@ -32,11 +37,18 @@ export interface DayLog {
 }
 
 export function emptyLog(date: string): DayLog {
-  return { date, amDone: false, pmDone: false, skin: null, tags: [], note: '' };
+  return { date, am: [], pm: [], homeCare: false, skin: null, tags: [], note: '' };
 }
 
 function isBlank(log: DayLog): boolean {
-  return !log.amDone && !log.pmDone && log.skin === null && log.tags.length === 0 && log.note.trim() === '';
+  return (
+    log.am.length === 0 &&
+    log.pm.length === 0 &&
+    !log.homeCare &&
+    log.skin === null &&
+    log.tags.length === 0 &&
+    log.note.trim() === ''
+  );
 }
 
 /** Insert or replace one day. Clearing everything on a day removes it, rather than storing an empty entry. */
@@ -44,6 +56,14 @@ export function upsertLog(logs: DayLog[], entry: DayLog): DayLog[] {
   const rest = logs.filter((l) => l.date !== entry.date);
   const next = isBlank(entry) ? rest : [...rest, entry];
   return next.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** Toggle one routine step while keeping steps in routine order (cleanse before moisturise). */
+export function toggleStep<T extends string>(order: readonly T[], current: T[], step: T): T[] {
+  const chosen = new Set(current);
+  if (chosen.has(step)) chosen.delete(step);
+  else chosen.add(step);
+  return order.filter((s) => chosen.has(s));
 }
 
 export const hasSample = (logs: DayLog[]) => logs.some((l) => l.sample);
@@ -85,8 +105,8 @@ export type Insight =
   | { kind: 'steady' }
   | { kind: 'pattern'; best: Phase; worst: Phase; worstTag: SkinTag | null };
 
-// Small samples produce confident-sounding nonsense. These thresholds keep the app quiet
-// until there's actually something to say.
+// Small samples produce confident-sounding nonsense. These keep the app quiet until there's
+// actually something to say.
 const MIN_RATED_DAYS = 3;
 const MIN_DIFFERENCE = 0.5;
 
@@ -108,7 +128,7 @@ export function patternInsight(summaries: PhaseSummary[]): Insight {
 const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));
 
 /**
- * Eight weeks of plausible sample entries, so the calendar and pattern aren't empty on day one.
+ * Eight weeks of plausible sample entries, so the diary and pattern aren't empty on day one.
  * Every entry is marked `sample`, labelled on screen, and removable in one tap. Editing a sample
  * day turns it into a real one.
  */
@@ -127,7 +147,7 @@ export function sampleHistory(profile: Profile, today: string, days = 56): DayLo
     switch (info.phase) {
       case 'Menstrual':
         skin = 2.6 + wobble;
-        tags = back % 2 ? ['Dry'] : ['Dry', 'Sensitive'];
+        tags = back % 2 ? ['Dry'] : ['Dry', 'Dull'];
         break;
       case 'Follicular':
         skin = 4.1 + wobble;
@@ -144,8 +164,9 @@ export function sampleHistory(profile: Profile, today: string, days = 56): DayLo
 
     logs.push({
       date,
-      amDone: (back * 7) % 10 !== 0,
-      pmDone: (back * 3) % 4 !== 0,
+      am: back % 7 === 0 ? [] : back % 3 === 0 ? ['Cleanse', 'Serum', 'Moisturise', 'SPF'] : ['Cleanse', 'Moisturise', 'SPF'],
+      pm: back % 4 === 0 ? [] : back % 5 === 0 ? ['Cleanse', 'Treatment', 'Moisturise'] : ['Cleanse', 'Moisturise'],
+      homeCare: back % 6 === 1,
       skin: clamp(Math.round(skin), 1, 5),
       tags,
       note: '',

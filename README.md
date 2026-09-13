@@ -1,9 +1,10 @@
 # Skin Cycle
 
-Skincare tracking and your menstrual cycle, hand in hand.
+Skincare that follows your cycle.
 
-Most skincare apps ask what your skin is like. This one asks *when* — because skin changes
-through the month, and once you've logged a few weeks you can see exactly how yours does.
+Track your routine and how your skin feels, and get simple, safe guidance for each week of your
+month — what to hydrate and moisturise with, what to go easy on, and home care that has actually
+been checked.
 
 ```bash
 cd ~/Projects/skincare-app
@@ -16,86 +17,114 @@ No account, no server, no API key. Everything stays on the device.
 
 ## What it does
 
-- **Today** — a ring showing your whole cycle and where you are in it, what your skin tends to do
-  this week, and one tap for *my period started today*.
-- **Check-in** — how your skin feels (five faces), morning and evening routine, a few tags, a
-  note. Ten seconds.
-- **Calendar** — every day tinted by its phase, a face on each day you rated. Tap any past day to
-  fill it in or fix it; future days are faded because they're predictions.
-- **Your skin pattern** — your average skin rating in each phase, and one plain sentence about it,
-  such as *"Your skin feels best in your ovulatory phase and hardest in your luteal phase —
-  usually logged as oily."*
+**Today** opens on *your skin today*: what skin tends to do this week and why, three tiles
+(hydrate · moisturise · go easy on), a tip for your skin type, and one home-care idea. Below it is
+today's routine — morning and evening steps, home care, how your skin feels, tags, a note — and
+then a small card for your cycle with *my period started today*.
+
+**Guide** is the full guide for any phase: your routine with the reason for each item, safe home
+care with an honest evidence level and a caution on every remedy, *don't try this at home*,
+*heard online — not quite true*, notes on pregnancy and the pill, when to see a pharmacist or GP,
+and 22 sources.
+
+**Diary** is a calendar tinted by phase, with a face on each day you rated your skin — tap any past
+day to fill it in — and *your skin pattern*: how your skin has felt in each phase, with one plain
+sentence once there's enough data to say something true.
+
+## How the guidance was written
+
+Two research agents checked every remedy and product tip against the AAD, NHS, DermNet, the FDA
+and published studies, and the three most surprising claims were then opened and checked by hand.
+That changed a lot:
+
+- **Honey — cut.** A randomised trial found it no better than soap for acne.
+- **Aloe vera — cut.** Only two small studies, used alongside other treatments, and it can cause rashes.
+- **Ice on a deep spot — replaced** by the AAD's current advice: a warm compress, 10–15 minutes,
+  three times a day.
+- **Oatmeal** is "some evidence", not "good" — the studies were in eczema.
+- **Green tea** is "little evidence" — lotions were tested; brewed tea wasn't.
+- **"Drier and duller during your period"** was removed. What *is* supported is that skin reacts
+  more easily around day 1.
+- **"Ovulation glow"** is a myth, and now sits in the myths list.
+- **The combined pill** stops ovulation, so the phases may not apply — the app says so.
+
+The line the app shows: *your cycle can nudge your skin, but no study yet shows that switching
+products by phase beats a steady, gentle routine — treat these as timing tips, not rules.*
+
+The rules for adding anything to the guidance are at the top of `src/lib/skin.ts`.
 
 ## How it's built
 
 ```
 src/
   lib/
-    cycle.ts      phases, dates, where any day sits in the cycle — the heart of it
-    log.ts        daily entries, the per-phase pattern, sample history
-    storage.ts    localStorage, with shape validation on load
+    skin.ts       the guidance: phases, remedies, don't-try, myths, sources
+    cycle.ts      phases and dates — where any day sits in the cycle
+    log.ts        the skin diary: routine steps, ratings, the per-phase pattern
+    storage.ts    localStorage, validated on load
   components/
-    Setup.tsx      first run + settings
-    TodayCard.tsx  CycleRing.tsx
-    CheckIn.tsx    Calendar.tsx   Pattern.tsx
-    Icons.tsx      drawn faces, sun, moon, check, chevrons
-  App.tsx        wiring only
+    SkinToday.tsx  Guide.tsx      CheckIn.tsx
+    CycleCard.tsx  CycleRing.tsx  Calendar.tsx
+    Pattern.tsx    Setup.tsx      Icons.tsx
+  App.tsx        tabs and wiring only
 tests/
   cycle.test.mjs 12 edge cases for the cycle maths
-design/          the design canvas's source screens
+design/          source for the design canvas — app screens and ideas
 ```
 
 React 19, strict TypeScript, Vite, Tailwind 4. Nothing else.
 
 ## Decisions worth knowing
 
-1. **Phases scale with your cycle.** Ovulation is counted back ~14 days from the *end*, because the
-   luteal phase is the steadiest part of a cycle. An earlier prototype hard-coded 28-day
-   boundaries and put the luteal phase a week early on a 35-day cycle.
-2. **Finished cycles use their real length.** Once your next period is logged, the days before it
-   are re-placed using how long that cycle actually was.
-3. **A late period doesn't wrap around.** Day 32 of a 28-day cycle says day 32, three days late —
-   not "day 4, menstrual". Day 29 counts as *due*, not late.
-4. **An untouched day never counts as "okay".** Unrated days are left out of the pattern instead of
-   quietly scoring 3/5.
-5. **The pattern stays quiet until it has something true to say** — at least 3 rated days in at
-   least 2 phases, and a gap of half a point or more.
-6. **Today is your local date.** `toISOString()` is UTC, which in Irish summer time reports
-   yesterday's date for the first hour after midnight.
-7. **Drawn icons, not emoji**, and every tap target is at least 44px.
-8. **Not contraception, not medical advice** — said on screen, not just here.
+1. **Skin first, cycle second.** The cycle is the context for the guidance, not the headline — an
+   earlier version read like a period tracker.
+2. **Phases scale with your cycle.** Ovulation is counted back ~14 days from the end, so a 35-day
+   cycle isn't treated like a 28-day one.
+3. **Finished cycles use their real length**, and a late period doesn't wrap round to "day 4".
+4. **Routine steps, not yes/no.** Morning: cleanse, serum, moisturise, SPF. Evening: cleanse,
+   treatment, moisturise. Steps always stay in routine order.
+5. **Untouched days never count as "okay"**, and the pattern stays quiet until it has at least 3
+   rated days in 2 phases with a half-point gap.
+6. **Skin type shapes the advice.** Profiles saved before skin type was asked get "Normal" rather
+   than being thrown away.
+7. **Storage v2.** Diary entries moved to `skincycle:v2:logs` when routine steps replaced yes/no.
+   v1 entries came only from prototype testing and aren't migrated; *delete all* removes both.
+8. **Drawn icons, 44px tap targets, local date.** Emoji differ on every phone; `toISOString()` is
+   UTC and reports yesterday for the first hour after midnight in Irish summer time.
+9. **Not medical advice, not contraception** — said on screen, not just here.
 
 ## Deliberately left out
 
-The larger version — advice engine, weather, product shelf, the Learn tab with skin science, an
-ingredient checker and a label reader — is kept on the `full-version` branch (tag `v1-full`). It
-was set aside to keep this app simple, not thrown away.
+The larger prototype (advice by weather, product shelf, ingredient checker, label reader) is kept on
+the `full-version` branch, tag `v1-full`. Two things were rejected outright:
 
-Two things were rejected outright, and shouldn't come back:
+- **"Toxic ingredient" scores** — toxicity depends on dose and route, which an ingredient list
+  doesn't have.
+- **Scraped retail reviews** — retailers' terms forbid it, and star ratings are the noise this app
+  is an alternative to.
 
-- **"Toxic ingredient" scores.** Toxicity depends on dose and route; an ingredient list has neither,
-  which is why dermatologists and cosmetic chemists reject Yuka / Think Dirty style ratings.
-- **Scraped retail reviews.** Retailers' terms forbid it, and star ratings are the same noise this
-  app is meant to be an alternative to.
+## Design and next ideas
 
-## Design
+https://claude.ai/code/artifact/97a50273-043c-46af-a344-2f9b4fb67870
 
-The screens are on a Claude Design canvas:
-https://claude.ai/code/artifact/97a50273-043c-46af-a344-2f9b4fb67870 — source in `design/`.
+- **App page** — Setup, Today, Guide, Diary.
+- **Ideas page** — three directions from agents that each looked at the app through one lens:
+  *Shelf Sync* (your own products, at the right time), *Skin Report* (six weeks of logs on one
+  honest page), and *Steady Start* (from no routine to one you keep). Suggested order: Shelf Sync
+  first.
 
-## Verified 13 Sep 2026
+## Verified 14 Sep 2026
 
-In the running app, not assumed: empty and future dates rejected at setup · day 14 of 28 shows
-ovulatory with "next period in about 15 days" · check-in saves face, routine, tag and note ·
-logging a period moves the ring to day 1, and undo moves it back · calendar tints, today ring,
-faded predictions and the dashed expected period all correct · editing a sample day makes it
-yours · removing sample entries keeps only real ones · a 35-day cycle moves day 14 to follicular ·
-delete-all empties storage · 44px cells and chips on a 375px phone with no sideways scroll ·
-no console errors · `tsc --noEmit` clean · 12/12 cycle tests pass.
+In the running app: a profile saved before skin type existed loads as "Normal" · setup requires a
+skin type · Today opens on "Your skin today" with the right phase, tiles, skin-type tip and a
+home-care idea that rotates by day · routine steps save in order with "3 of 4" counters · home
+care, faces, tags and notes save · the Guide switches between all four phases · the Diary shows
+sample days, backfills and the pattern · changing skin type in Settings updates Today ·
+all four Guide phases show the sourced wording, and every remedy carries an evidence level and a caution · 6 myths, 8 don't-try items, the pill note and 22 sources render, and source links open safely in a new tab · honey, aloe and ice appear nowhere · no console errors · `tsc --noEmit` clean · `npm run build` succeeds · 12/12 cycle tests pass.
 
 ## Honest limits
 
 - One device, one browser. Clearing site data erases everything.
-- Phases are estimates from the dates you enter.
-- New installs get eight weeks of sample entries so the calendar isn't empty — labelled as sample,
-  removable in one tap.
+- Phases are estimates from the dates you log.
+- The research on skin across the cycle is thin; the app says so rather than pretending otherwise.
+- New installs get eight weeks of sample entries — labelled as sample, removable in one tap.
