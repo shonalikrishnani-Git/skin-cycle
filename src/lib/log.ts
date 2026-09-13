@@ -106,9 +106,10 @@ export type Insight =
   | { kind: 'pattern'; best: Phase; worst: Phase; worstTag: SkinTag | null };
 
 // Small samples produce confident-sounding nonsense. These keep the app quiet until there's
-// actually something to say.
-const MIN_RATED_DAYS = 3;
-const MIN_DIFFERENCE = 0.5;
+// actually something to say. Exported so report.ts can hold the routine/skin comparison to the
+// same bar rather than drifting to its own, looser thresholds.
+export const MIN_RATED_DAYS = 3;
+export const MIN_DIFFERENCE = 0.5;
 
 export function patternInsight(summaries: PhaseSummary[]): Insight {
   const usable = summaries.flatMap((s) =>

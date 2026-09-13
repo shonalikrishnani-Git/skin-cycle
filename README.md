@@ -1,3 +1,15 @@
+## Idea branch: Skin Report
+
+Adds a "See my skin report" button at the end of the Diary tab: her own logs — by-phase averages,
+a routine/skin comparison, top tags, home care days and her notes — laid out on one page she can
+read herself, or hand to a pharmacist or GP by printing it (browser print dialog → Save as PDF).
+
+Limits, honestly: it's still self-tracked, not a diagnosis. Small samples stay quiet — the
+routine/skin comparison only shows once both groups clear 3 rated days and the gap clears 0.5,
+the same bar the diary's own pattern view uses — and it's phrased as linked, not proof. Notes are
+opt-in per note and off by default, so nothing private prints by accident. No new dependencies, no
+network calls, no photos.
+
 # Skin Cycle
 
 Skincare that follows your cycle.

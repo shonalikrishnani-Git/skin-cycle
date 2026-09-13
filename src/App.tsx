@@ -16,6 +16,7 @@ import { CycleCard } from './components/CycleCard';
 import { Guide } from './components/Guide';
 import { Pattern } from './components/Pattern';
 import { Setup } from './components/Setup';
+import { SkinReport } from './components/SkinReport';
 import { SkinToday } from './components/SkinToday';
 
 type Tab = 'today' | 'guide' | 'diary';
@@ -41,6 +42,9 @@ export default function App() {
   /** null = follow the current phase; set when she browses another phase in the guide. */
   const [guidePhase, setGuidePhase] = useState<Phase | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  /** The Skin Report replaces the rest of the Diary tab rather than opening a new tab, so Back
+   * just closes it — the calendar and today's entry are exactly where she left them. */
+  const [reportOpen, setReportOpen] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -98,7 +102,10 @@ export default function App() {
 
   const go = (t: Tab) => {
     setTab(t);
-    if (t === 'diary') setSelected(today);
+    if (t === 'diary') {
+      setSelected(today);
+      setReportOpen(false);
+    }
     if (t === 'guide') setGuidePhase(null);
     window.scrollTo(0, 0);
   };
@@ -135,7 +142,7 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <div className="max-w-xl mx-auto p-5 sm:p-8">
-        <header className="flex items-center justify-between mb-4">
+        <header className="no-print flex items-center justify-between mb-4">
           <div>
             <p className="font-display text-2xl leading-tight">Skin Cycle</p>
             <p className="text-xs text-muted">{longDate.format(parseISO(today)!)}</p>
@@ -149,7 +156,10 @@ export default function App() {
           </button>
         </header>
 
-        <nav aria-label="Sections" className="grid grid-cols-3 gap-1 mb-4 p-1 bg-surface border border-line rounded-2xl">
+        <nav
+          aria-label="Sections"
+          className="no-print grid grid-cols-3 gap-1 mb-4 p-1 bg-surface border border-line rounded-2xl"
+        >
           {TABS.map((t) => (
             <button
               key={t.id}
@@ -195,7 +205,17 @@ export default function App() {
           />
         )}
 
-        {tab === 'diary' && (
+        {tab === 'diary' && reportOpen && (
+          <SkinReport
+            logs={logs}
+            profile={profile}
+            today={today}
+            onBack={() => setReportOpen(false)}
+            onClearSample={clearSample}
+          />
+        )}
+
+        {tab === 'diary' && !reportOpen && (
           <div className="space-y-4">
             <Calendar profile={profile} logs={logs} today={today} selected={selected} onSelect={setSelected} />
             <CheckIn
@@ -210,6 +230,13 @@ export default function App() {
               }}
             />
             <Pattern summaries={summaries} hasSample={hasSample(logs)} onClearSample={clearSample} />
+            <button
+              type="button"
+              onClick={() => setReportOpen(true)}
+              className="w-full min-h-12 rounded-2xl border border-line bg-surface text-sm font-semibold hover:border-muted transition"
+            >
+              See my skin report
+            </button>
           </div>
         )}
 

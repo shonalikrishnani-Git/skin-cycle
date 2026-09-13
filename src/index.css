@@ -42,3 +42,29 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+/*
+ * Skin Report, printed. `.no-print` marks controls that only make sense on screen (the app
+ * header and tab nav, and the report's own Back / Save as PDF / range buttons); `.note-off`
+ * marks a note she hasn't switched on for this printout. Everything else — the report cards
+ * themselves — prints exactly as it looks on screen, just on white with a plainer type size.
+ */
+@media print {
+  .no-print,
+  .note-off {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff;
+  }
+
+  body {
+    font-size: 12pt;
+  }
+
+  .report-card {
+    break-inside: avoid;
+  }
+}
