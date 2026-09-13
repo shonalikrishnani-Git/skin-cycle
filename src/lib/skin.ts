@@ -328,7 +328,7 @@ export const MYTHS: Myth[] = [
 ];
 
 export const SEE_SOMEONE: string[] = [
-  'Acne with irregular or missing periods, extra facial or body hair, thinning scalp hair, weight gain, or dark, thick patches on the neck or armpits — these can point to PMOS (previously called PCOS). See a GP.',
+  'Acne with irregular or missing periods, extra facial or body hair, thinning scalp hair, weight gain, or dark, thick patches on the neck or armpits — these can point to PCOS (now called PMOS by the NHS). See a GP.',
   'Extra hair appearing within a few months, especially with a deeper voice — see a GP promptly.',
   'Deep, painful lumps under the skin, or early scarring — see a GP.',
   'Pharmacy treatment not helping after 6–8 weeks, or acne making you very unhappy — try a pharmacist, then a GP.',
@@ -367,6 +367,6 @@ export const SOURCES: { label: string; url: string }[] = [
   { label: 'DermNet — Lemon and sunlight burns', url: 'https://dermnetnz.org/topics/lemon' },
   { label: 'DermNet — Allergy to essential oils', url: 'https://dermnetnz.org/topics/allergic-contact-dermatitis-to-essential-oils' },
   { label: 'NHS — Acne', url: 'https://www.nhs.uk/conditions/acne/' },
-  { label: 'NHS — PMOS (previously PCOS)', url: 'https://www.nhs.uk/conditions/polyendocrine-metabolic-ovarian-syndrome-pmos/' },
+  { label: 'NHS — PCOS, now called PMOS', url: 'https://www.nhs.uk/conditions/polyendocrine-metabolic-ovarian-syndrome-pmos/' },
   { label: 'NHS — The combined pill', url: 'https://www.nhs.uk/contraception/methods-of-contraception/combined-pill/what-is-it/' },
 ];
