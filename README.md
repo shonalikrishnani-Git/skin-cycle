@@ -113,6 +113,28 @@ https://claude.ai/code/artifact/97a50273-043c-46af-a344-2f9b4fb67870
   honest page), and *Steady Start* (from no routine to one you keep). Suggested order: Shelf Sync
   first.
 
+## Idea branches — working prototypes, not merged
+
+Two of the ideas were built on their own branches overnight, so `main` stays exactly as described
+above.
+
+| Branch | Folder | What it adds |
+|---|---|---|
+| `idea/shelf-sync` | `~/Projects/skincare-app-shelf-sync` | A Shelf tab for the products you own, and a Today card saying *lean into / keep steady / ease off* for each one this phase |
+| `idea/skin-report` | `~/Projects/skincare-app-skin-report` | A one-page report from your own entries — by phase, routine vs skin, top tags — saved as a PDF, with notes left out unless you switch them on |
+
+To try one:
+
+```bash
+cd ~/Projects/skincare-app-shelf-sync && npx vite --port 5181
+```
+
+(`skincare-app-skin-report` on port 5182.) Each branch's README explains what it adds and its
+limits. Both typecheck, build, pass the tests, and were used end to end in the browser on
+14 Sep 2026. Shelf Sync's rules were checked line by line against `src/lib/skin.ts` and five were
+corrected; Skin Report's routine comparison matched an independent calculation. To adopt one
+later: `git merge idea/shelf-sync`.
+
 ## Verified 14 Sep 2026
 
 In the running app: a profile saved before skin type existed loads as "Normal" · setup requires a
