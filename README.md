@@ -37,7 +37,7 @@ then a small card for your cycle with *my period started today*.
 **Guide** is the full guide for any phase: your routine with the reason for each item, safe home
 care with an honest evidence level and a caution on every remedy, *don't try this at home*,
 *heard online — not quite true*, notes on pregnancy and the pill, when to see a pharmacist or GP,
-and 22 sources.
+and 64 sources.
 
 **Diary** is a calendar tinted by phase, with a face on each day you rated your skin — tap any past
 day to fill it in — and *your skin pattern*: how your skin has felt in each phase, with one plain
@@ -125,18 +125,50 @@ https://claude.ai/code/artifact/97a50273-043c-46af-a344-2f9b4fb67870
   honest page), and *Steady Start* (from no routine to one you keep). Suggested order: Shelf Sync
   first.
 
+## Validation — how precise the guidance is
+
+Every sentence of health guidance in `src/lib/skin.ts` was checked on 14 Sep 2026 by four
+independent validation agents, split by section. Each treated a claim as wrong until a source it
+actually opened (AAD, NHS, HSE, DermNet, FDA, PubMed/PMC) supported it, checking numbers, hedging,
+evidence labels, cautions, pregnancy and breastfeeding, and any suggestion that a phase *causes*
+an effect. The most surprising figures were then opened again by hand.
+
+That pass found real problems, all fixed: an incomplete pregnancy note, a retinoid suggestion with
+no pregnancy warning, under-urgent GP warning signs, an unsourced compress time, a mixed-up
+"44–65%" statistic, and "Good evidence" labels on advice that had no trials (now
+"Dermatologist advice"). Sources went from 22 to 64.
+
+A later review found that the check had covered `skin.ts` only, so a wording error in `cycle.ts`,
+a "honey mask" example in the note field, and this README had slipped through. Those are fixed,
+and future checks cover all on-screen text.
+
+**Not yet done:** review by a pharmacist or dermatologist. The validation was performed by AI
+agents, not a qualified professional.
+
+## Who did what
+
+- **Sonali** — the idea and its direction: skin first, the cycle as context; the rules the
+  guidance follows (ingredient types not brands, no "toxic" scores, no scraped reviews, a caution on
+  every remedy); insisting every health claim be validated before release; and the calls on what
+  to cut and keep.
+- **Claude Code** (an AI coding assistant) — wrote the code, ran the research, validation and
+  review agents, and applied their findings.
+
 ## Verified 14 Sep 2026
 
-In the running app: a profile saved before skin type existed loads as "Normal" · setup requires a
-skin type · Today opens on "Your skin today" with the right phase, tiles, skin-type tip and a
-home-care idea that rotates by day · routine steps save in order with "3 of 4" counters · home
-care, faces, tags and notes save · the Guide switches between all four phases · the Diary shows
-sample days, backfills and the pattern · changing skin type in Settings updates Today ·
-all four Guide phases show the sourced wording, and every remedy carries an evidence level and a caution · 6 myths, 8 don't-try items, the pill note and 22 sources render, and source links open safely in a new tab · honey, aloe and ice appear nowhere · no console errors · `tsc --noEmit` clean · `npm run build` succeeds · 12/12 cycle tests pass.
+In the running app: setup requires a skin type · Today opens on "Your skin today" · routine steps
+save in order · editing a sample day keeps only what you changed · all four Guide phases show the
+validated wording, and every remedy carries an evidence level and a caution · 10 don't-try items,
+the pregnancy, breastfeeding and pill notes, and 64 sources render · honey and aloe appear nowhere
+on screen · sample data shows no cycle pattern · no console errors · `tsc --noEmit` clean ·
+`npm run build` succeeds · 12/12 cycle tests pass.
 
 ## Honest limits
 
 - One device, one browser. Clearing site data erases everything.
+- **"Skin Cycle" is a working title.** Other apps already use the name, and "skin cycling" is an
+  established skincare trend — it should be renamed before anything is shared publicly.
+- General skincare information only — not medical advice, not a medical device, not contraception.
 - Phases are estimates from the dates you log.
 - The research on skin across the cycle is thin; the app says so rather than pretending otherwise.
 - New installs get eight weeks of sample entries — labelled as sample, removable in one tap.

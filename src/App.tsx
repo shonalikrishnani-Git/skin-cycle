@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { cycleInfoFor, nextPeriod, parseISO, todayISO, type Phase } from './lib/cycle';
 import {
+  adoptSampleEdit,
   emptyLog,
   hasSample,
   sampleHistory,
@@ -120,8 +121,9 @@ export default function App() {
   };
 
   const updateLog = (entry: DayLog) => {
-    // Touching a sample entry makes it a real one.
-    const nextLogs = upsertLog(logs, { ...entry, sample: false });
+    const previous = logs.find((l) => l.date === entry.date);
+    const real = previous?.sample ? adoptSampleEdit(previous, entry) : { ...entry, sample: false };
+    const nextLogs = upsertLog(logs, real);
     saveLogs(nextLogs);
     setLogs(nextLogs);
   };

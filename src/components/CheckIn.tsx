@@ -45,7 +45,7 @@ export function CheckIn({
         <h2 className="font-display text-2xl">{heading}</h2>
         {subheading && <p className="text-sm text-muted">{subheading}</p>}
         {log.sample && (
-          <p className="text-xs text-ovulatory-ink mt-1">Sample entry — anything you change becomes yours.</p>
+          <p className="text-xs text-ovulatory-ink mt-1">Sample entry — tap anything to start your own entry for this day.</p>
         )}
       </div>
 
@@ -153,7 +153,7 @@ export function CheckIn({
           maxLength={120}
           value={log.note}
           onChange={(e) => onChange({ ...log, note: e.target.value })}
-          placeholder="New serum, honey mask, bad sleep…"
+          placeholder="New serum, oatmeal soak, bad sleep…"
           className="w-full min-h-12 px-3.5 rounded-2xl border border-line bg-canvas text-sm focus:outline-2 focus:outline-accent"
         />
       </div>

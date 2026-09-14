@@ -69,7 +69,7 @@ export function Pattern({
                 — usually logged as <strong>{insight.worstTag.toLowerCase()}</strong>
               </>
             )}
-            . Worth planning around.
+            . Worth keeping an eye on.
           </p>
         )}
       </div>
