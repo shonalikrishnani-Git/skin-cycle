@@ -196,7 +196,7 @@ export default function App() {
         {tab === 'today' && (
           <div className="space-y-4">
             <SkinToday info={info} skinType={profile.skinType} onOpenGuide={() => go('guide')} />
-            <FromYourShelf products={shelf} phase={info.phase} today={today} onOpenShelf={() => go('shelf')} />
+            <FromYourShelf products={shelf} phase={info.phase} skinType={profile.skinType} today={today} onOpenShelf={() => go('shelf')} />
             <CheckIn
               log={logFor(today)}
               heading="Today’s routine"

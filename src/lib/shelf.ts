@@ -11,6 +11,7 @@
  * only holds the shelf's shape and the rule table.
  */
 import { daysBetween, type Phase } from './cycle';
+import type { SkinType } from './skin';
 
 export type ProductStep = 'Cleanser' | 'Serum' | 'Moisturiser' | 'Treatment' | 'Sunscreen' | 'Other';
 
@@ -74,6 +75,17 @@ export function removeProduct(products: ShelfProduct[], id: string): ShelfProduc
 }
 
 // --- The rule table ----------------------------------------------------------------------
+//
+// Validated 14 Sep 2026 by an independent agent against AAD, NHS, FDA and PubMed sources. What
+// came out of that review, and now governs this table:
+//   - Treatments (retinoids, acids, benzoyl peroxide, azelaic acid) are NEVER "ease off" because of
+//     a phase. People use them for acne, often on prescription, and skipping them makes acne
+//     worse. Where a phase might matter — more stinging around a period — the condition goes in
+//     the why, and prescribed use always defers to the prescriber.
+//   - "Ease off" survives only as texture advice that depends on the user's skin type.
+//   - Acne-prone warnings for oils, petroleum jelly and squalane apply all month, not one week.
+//   - Standing safety cautions (pregnancy, sun, bleaching, combining treatments) show in EVERY
+//     phase, via cautionsFor().
 
 export type Timing = 'lean' | 'steady' | 'ease';
 
@@ -82,122 +94,177 @@ export interface TimingRule {
   why: string;
 }
 
-const STING_MENSTRUAL = 'Can sting more while skin’s more reactive this week — use it less often and build back up.';
-const TOLERATED_OVULATORY = 'Actives you already tolerate can carry on as usual this week.';
-const STEADY_LUTEAL = 'Keep it steady rather than changing things up — harder to tell a reaction from a pre-period breakout.';
+const PRESCRIBED =
+  'Prescribed? Use it as prescribed, and ask your GP, dermatologist or pharmacist before changing how often you use it.';
+const STINGS_AROUND_PERIOD =
+  'If it stings more than usual around your period, use it less often for a few nights, then build back up.';
+const START_ONE = 'New to it? This can be a handy week to start one — just one new product at a time.';
+const TOLERATED = 'Actives you already tolerate can carry on as usual.';
+const STEADY_LUTEAL = 'Keep it steady — if you break out this week, a change makes it harder to tell what caused it.';
+const DONT_PILE_ON =
+  'Keep to your usual amount, even if spots appear — using more than directed dries and irritates skin, and irritation can bring more breakouts.';
+const ACNE_PRONE_TEXTURE =
+  'Acne-prone? Oils and heavy creams can clog pores in any week — choose an oil-free, non-comedogenic moisturiser instead.';
 
-/**
- * active × phase → a timing nudge, each traceable to a line in PHASE_GUIDE. Where skin.ts says
- * nothing for a phase, the rule is "steady" with a neutral why, rather than inventing a reason.
- *
- * "Lean" means the guide recommends that ingredient for the phase — never "use more of an active".
- * Where the guide's advice depends on something the app can't see (a new product, a strong
- * vitamin C, whether it stings), the rule stays "steady" and the condition goes in the why.
- */
+const all = (rule: TimingRule): Record<Phase, TimingRule> => ({
+  Menstrual: rule,
+  Follicular: rule,
+  Ovulatory: rule,
+  Luteal: rule,
+});
+
+const HYDRATOR: Record<Phase, TimingRule> = {
+  Menstrual: {
+    timing: 'lean',
+    why: 'Gentle while skin may react more easily. Apply to damp skin, then always follow with moisturiser.',
+  },
+  Follicular: { timing: 'lean', why: 'Simple hydration is usually enough — a serum under your moisturiser.' },
+  Ovulatory: { timing: 'lean', why: 'A light layer is usually enough. Apply to damp skin, then follow with moisturiser.' },
+  Luteal: { timing: 'lean', why: 'Keeps adding water. Acne-prone? Check it’s oil-free or labelled non-comedogenic.' },
+};
+
 const RULES: Record<ActiveId, Record<Phase, TimingRule>> = {
-  'hyaluronic-acid': {
-    Menstrual: { timing: 'lean', why: 'Draws water into skin while it’s more reactive — pat onto damp skin, then seal in with moisturiser.' },
-    Follicular: { timing: 'lean', why: 'Simple hydration is enough while your barrier is strong this week.' },
-    Ovulatory: { timing: 'lean', why: 'Skin’s already holding water well — a light gel keeps layers simple.' },
-    Luteal: { timing: 'lean', why: 'An oil-free gel adds water without clogging pores as breakouts get more likely.' },
-  },
-  glycerin: {
-    Menstrual: { timing: 'lean', why: 'Draws water into skin while it’s more reactive — pat onto damp skin, then seal in with moisturiser.' },
-    Follicular: { timing: 'lean', why: 'Simple hydration is enough while your barrier is strong this week.' },
-    Ovulatory: { timing: 'lean', why: 'Skin’s already holding water well — a light gel keeps layers simple.' },
-    Luteal: { timing: 'lean', why: 'An oil-free gel adds water without clogging pores as breakouts get more likely.' },
-  },
+  'hyaluronic-acid': HYDRATOR,
+  glycerin: HYDRATOR,
   panthenol: {
-    Menstrual: { timing: 'lean', why: 'Sped up barrier repair and reduced redness after irritation in a small controlled study.' },
-    Follicular: { timing: 'steady', why: 'Only specifically called for if a new active is drying you out — keep it steady otherwise.' },
-    Ovulatory: { timing: 'steady', why: 'Not singled out for this week — keep it steady if it’s already part of your routine.' },
-    Luteal: { timing: 'lean', why: 'Calms skin as the barrier weakens before your period.' },
+    Menstrual: {
+      timing: 'lean',
+      why: 'In a controlled study, a panthenol cream helped skin recover faster after irritation — a gentle one while skin may be more reactive.',
+    },
+    Follicular: { timing: 'steady', why: 'Useful if a new active is drying your skin — otherwise keep it as it is.' },
+    Ovulatory: { timing: 'steady', why: 'No specific timing tip this week — keep it as it is.' },
+    Luteal: { timing: 'lean', why: 'A gentle one to keep using. In a controlled study, panthenol helped irritated skin recover faster.' },
   },
   ceramides: {
-    Menstrual: { timing: 'lean', why: 'A ceramide cream now — richer if you’re dry, an oil-free lotion if you’re oily.' },
-    Follicular: { timing: 'steady', why: 'Barrier’s strong this week — keep your ceramide moisturiser going, especially if you start a new active.' },
-    Ovulatory: { timing: 'steady', why: 'Not this week’s focus, but fine to keep steady, especially on drier skin.' },
-    Luteal: { timing: 'lean', why: 'Water loss rises before your period — a ceramide cream helps as the barrier weakens.' },
+    Menstrual: {
+      timing: 'lean',
+      why: 'Ceramides are key fats in the skin barrier. Dry skin: a richer cream. Oily skin: a light, non-comedogenic gel.',
+    },
+    Follicular: { timing: 'steady', why: 'Keep your ceramide moisturiser going — it helps if a new active dries your skin.' },
+    Ovulatory: { timing: 'steady', why: 'Keep it going, especially on drier skin.' },
+    Luteal: {
+      timing: 'lean',
+      why: 'Dry skin: a ceramide cream. Oily or acne-prone: a light, non-comedogenic ceramide lotion or gel-cream.',
+    },
   },
-  squalane: {
-    Menstrual: { timing: 'steady', why: 'Not specifically called out this week — keep it steady.' },
-    Follicular: { timing: 'lean', why: 'Feels light and doesn’t clog pores — well suited to this steadier week.' },
-    Ovulatory: { timing: 'steady', why: 'Not specifically called out this week — keep it steady, especially on oilier skin.' },
-    Luteal: { timing: 'steady', why: 'Not specifically called out this week — keep it steady.' },
-  },
-  'petroleum-jelly': {
-    Menstrual: { timing: 'lean', why: 'Sealed in water and helped barrier repair in a volunteer study — good on dry patches, but keep it off an acne-prone face.' },
-    Follicular: { timing: 'steady', why: 'No specific timing tip for this week — keep it steady if it works for you.' },
-    Ovulatory: { timing: 'steady', why: 'No specific timing tip for this week — keep it steady if it works for you.' },
-    Luteal: { timing: 'steady', why: 'No specific timing tip for this week — keep it steady if it works for you.' },
-  },
+  squalane: all({
+    timing: 'steady',
+    why: 'No specific timing tip. It’s often called non-clogging, but that hasn’t been properly tested in people — if you’re acne-prone, watch how your skin responds.',
+  }),
+  'petroleum-jelly': all({
+    timing: 'steady',
+    why: 'Acne-prone? Keep it off your face — it may cause breakouts. On dry patches, lips or body, a thin layer over moisturiser on damp skin seals water in.',
+  }),
   retinoid: {
-    Menstrual: { timing: 'ease', why: STING_MENSTRUAL },
-    Follicular: { timing: 'steady', why: 'If it’s new, this is the sensible week to start it — every other night, one new active at a time. Already using it? Keep it steady.' },
-    Ovulatory: { timing: 'steady', why: TOLERATED_OVULATORY },
+    Menstrual: {
+      timing: 'steady',
+      why: `Keep to your usual routine. ${PRESCRIBED} Bought it yourself and it stings more this week? Use it less often for a few nights, then build back up.`,
+    },
+    Follicular: {
+      timing: 'steady',
+      why: 'Bought it yourself and new to it? This can be a handy week to start — at night, every other night, building up slowly, one new product at a time. Prescribed? Start when your prescriber says. Very dry skin? Wait until it settles.',
+    },
+    Ovulatory: { timing: 'steady', why: TOLERATED },
     Luteal: { timing: 'steady', why: STEADY_LUTEAL },
   },
   aha: {
-    Menstrual: { timing: 'ease', why: STING_MENSTRUAL },
-    Follicular: { timing: 'steady', why: 'If it’s new, this is the sensible week to start it, one at a time — and be strict with sunscreen, since AHAs raise sun sensitivity. Already using it? Keep it steady.' },
-    Ovulatory: { timing: 'steady', why: TOLERATED_OVULATORY },
+    Menstrual: { timing: 'steady', why: `Keep it steady. ${STINGS_AROUND_PERIOD}` },
+    Follicular: { timing: 'steady', why: START_ONE },
+    Ovulatory: { timing: 'steady', why: TOLERATED },
     Luteal: { timing: 'steady', why: STEADY_LUTEAL },
   },
   bha: {
-    Menstrual: { timing: 'ease', why: STING_MENSTRUAL },
-    Follicular: { timing: 'steady', why: 'If it’s new, this is the sensible week to start it — one new active at a time. Already using it? Keep it steady.' },
-    Ovulatory: { timing: 'steady', why: TOLERATED_OVULATORY },
-    Luteal: { timing: 'steady', why: 'Keep to your usual amount — piling on more dries skin, and dry skin can lead to more oil and breakouts.' },
+    Menstrual: { timing: 'steady', why: `Keep to your usual routine. ${STINGS_AROUND_PERIOD}` },
+    Follicular: { timing: 'steady', why: START_ONE },
+    Ovulatory: { timing: 'steady', why: TOLERATED },
+    Luteal: { timing: 'steady', why: DONT_PILE_ON },
   },
   'benzoyl-peroxide': {
-    Menstrual: { timing: 'steady', why: 'Not singled out as a stinging active this week — keep it steady.' },
-    Follicular: { timing: 'steady', why: 'Not specifically called out this week — keep it steady.' },
-    Ovulatory: { timing: 'steady', why: TOLERATED_OVULATORY },
-    Luteal: { timing: 'steady', why: 'Keep to your usual amount — piling on more dries skin, and dry skin can lead to more oil and breakouts.' },
+    Menstrual: {
+      timing: 'steady',
+      why: `Keep it steady. It can sting or dry skin in any week — if it does, use it less often until it settles. ${PRESCRIBED}`,
+    },
+    Follicular: { timing: 'steady', why: `Keep it steady. ${PRESCRIBED}` },
+    Ovulatory: { timing: 'steady', why: TOLERATED },
+    Luteal: { timing: 'steady', why: DONT_PILE_ON },
   },
   'vitamin-c': {
-    Menstrual: { timing: 'steady', why: 'Keep it steady — but if a strong one stings this week, use it less often and build back up.' },
-    Follicular: { timing: 'steady', why: 'If it’s new, this is the sensible week to start it — one new active at a time. Already using it? Keep it steady.' },
-    Ovulatory: { timing: 'steady', why: 'Keep it steady — unless it’s stronger than 20%, which adds no extra benefit and may irritate.' },
-    Luteal: { timing: 'steady', why: 'Not specifically called out this week — keep your usual vitamin C steady.' },
+    Menstrual: {
+      timing: 'steady',
+      why: 'Keep it steady. If a strong one stings more than usual around your period, use it less often for a few nights.',
+    },
+    Follicular: { timing: 'steady', why: START_ONE },
+    Ovulatory: { timing: 'steady', why: TOLERATED },
+    Luteal: { timing: 'steady', why: 'Keep your usual vitamin C steady.' },
   },
   'azelaic-acid': {
-    Menstrual: { timing: 'steady', why: 'No phase-specific caution for azelaic acid — keep it steady through your month.' },
-    Follicular: { timing: 'steady', why: 'No phase-specific caution for azelaic acid — keep it steady through your month.' },
-    Ovulatory: { timing: 'steady', why: 'No phase-specific caution for azelaic acid — keep it steady through your month.' },
-    Luteal: { timing: 'steady', why: 'No phase-specific caution for azelaic acid — keep it steady through your month.' },
+    Menstrual: {
+      timing: 'steady',
+      why: `Keep it steady. ${PRESCRIBED} Bought it yourself and it stings more this week? Use it less often for a few nights, then build back up.`,
+    },
+    Follicular: { timing: 'steady', why: 'Keep it steady — it usually takes about a month to help.' },
+    Ovulatory: { timing: 'steady', why: 'Keep it steady — it usually takes about a month to help.' },
+    Luteal: { timing: 'steady', why: 'Keep it steady — it usually takes about a month to help.' },
   },
-  'face-oil-or-rich-cream': {
-    Menstrual: { timing: 'steady', why: 'No specific caution this week — richer textures can suit dry patches now.' },
-    Follicular: { timing: 'steady', why: 'Barrier’s strong and steady this week — keep your usual texture going.' },
-    Ovulatory: { timing: 'steady', why: 'Skin’s holding water well — keep steady, though a lighter gel may suit an oily T-zone better.' },
-    Luteal: { timing: 'ease', why: 'Greasy products can worsen acne on acne-prone skin — ease off this week when breakouts are more likely.' },
-  },
-  sunscreen: {
-    Menstrual: { timing: 'lean', why: 'Every day, in every phase.' },
-    Follicular: { timing: 'lean', why: 'Every day, in every phase — especially strict if you’ve started an AHA, which raises sun sensitivity.' },
-    Ovulatory: { timing: 'lean', why: 'Every day, in every phase.' },
-    Luteal: { timing: 'lean', why: 'Every day, in every phase.' },
-  },
-  none: {
-    Menstrual: { timing: 'steady', why: 'No active picked — nothing here to lean into or ease off.' },
-    Follicular: { timing: 'steady', why: 'No active picked — nothing here to lean into or ease off.' },
-    Ovulatory: { timing: 'steady', why: 'No active picked — nothing here to lean into or ease off.' },
-    Luteal: { timing: 'steady', why: 'No active picked — nothing here to lean into or ease off.' },
-  },
+  'face-oil-or-rich-cream': all({
+    timing: 'steady',
+    why: `Dry skin: a richer texture suits you all month. ${ACNE_PRONE_TEXTURE}`,
+  }),
+  sunscreen: all({
+    timing: 'lean',
+    why: 'Every day, in every phase — especially if you use an AHA, retinoid or benzoyl peroxide, which can make skin burn more easily.',
+  }),
+  none: all({ timing: 'steady', why: 'No active picked — nothing here to lean into or ease off.' }),
 };
 
-export function timingFor(active: ActiveId, phase: Phase): TimingRule {
+/** Standing cautions that apply in every phase, whatever the week. */
+const CAUTIONS: Partial<Record<ActiveId, string[]>> = {
+  retinoid: [
+    'Pregnant or trying to be? Don’t use a retinoid. Breastfeeding? Ask a pharmacist first.',
+    'Use it at night, and wear sunscreen every day.',
+    'Don’t combine it with benzoyl peroxide unless a pharmacist or doctor says you can.',
+  ],
+  aha: ['Wear sunscreen every day while you use it, and for a week after you stop.'],
+  bha: ['Wear sunscreen every day while you use it.', 'Pregnant or breastfeeding? Check with a pharmacist first.'],
+  'benzoyl-peroxide': [
+    'Keep it off hair, towels, clothes and bedding — it can bleach them.',
+    'It can make skin more sensitive to the sun — wear sunscreen every day.',
+    'Pregnant? Check with a pharmacist first.',
+    'Don’t combine it with a retinoid unless a pharmacist or doctor says you can.',
+  ],
+  'vitamin-c': ['Stronger than 20%? In lab tests skin didn’t absorb more, and stronger products may irritate.'],
+};
+
+export function timingFor(active: ActiveId, phase: Phase, skinType: SkinType): TimingRule {
+  // The one skin-type-dependent "ease off": oils and heavy creams before a period, for skin that
+  // tends to break out. Dry skin keeps its richer texture — telling it to ease off would
+  // contradict the guide.
+  if (active === 'face-oil-or-rich-cream' && phase === 'Luteal' && (skinType === 'Oily' || skinType === 'Combination')) {
+    return {
+      timing: 'ease',
+      why: 'Many people with acne break out more before a period — a good week to swap oils and heavy creams for an oil-free, non-comedogenic moisturiser.',
+    };
+  }
   return RULES[active][phase];
 }
 
+export function cautionsFor(active: ActiveId): string[] {
+  return CAUTIONS[active] ?? [];
+}
+
 /**
- * A product added in the last 14 days lands in the app's two most reactive weeks (Menstrual,
- * Luteal) needing an extra nudge: a reaction is easier to read once skin has settled.
+ * Anything added in the last 14 days gets a proper patch-test instruction, in every phase. An
+ * earlier version said "give it until your follicular phase to judge", which confused a 7–10 day
+ * patch test with the 6–8 weeks a product takes to work, and could read as "keep going through a
+ * reaction".
  */
 export function newProductCaution(product: ShelfProduct, phase: Phase, today: string): string | null {
-  if (phase !== 'Menstrual' && phase !== 'Luteal') return null;
   const age = daysBetween(product.addedOn, today);
   if (age < 0 || age > 14) return null;
-  return 'Added recently — patch test first, and give it until your follicular phase to judge.';
+  const base =
+    'New to you? Patch test before it goes on your face — your normal amount on the inside of your elbow, twice a day for 7–10 days. Redness, itching or swelling? Wash it off and don’t use it again. Once you’re using it, give it 6–8 weeks before judging. Prescribed? Follow your prescriber’s instructions.';
+  if (phase === 'Menstrual' || phase === 'Luteal') {
+    return `${base} Not started yet? Starting after your period can make a reaction easier to spot — but don’t delay a prescribed treatment.`;
+  }
+  return base;
 }
