@@ -84,7 +84,6 @@ export function Guide({
         </p>
         <h2 className="font-display text-[26px] leading-tight text-balance">{guide.headline}</h2>
         <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency}</p>
-        <p className="text-xs text-ink/55 mt-2">{meta.hormone}</p>
         <p className="text-sm leading-relaxed mt-4 pt-4 border-t border-line">
           <span className="font-semibold">{skinType} skin:</span> <span className="text-muted">{SKIN_TYPE_TIP[skinType]}</span>
         </p>

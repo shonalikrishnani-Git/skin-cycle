@@ -126,54 +126,50 @@ export function patternInsight(summaries: PhaseSummary[]): Insight {
 
 // --- Sample history --------------------------------------------------------------------
 
-const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));
-
 /**
- * Eight weeks of plausible sample entries, so the diary and pattern aren't empty on day one.
- * Every entry is marked `sample`, labelled on screen, and removable in one tap. Editing a sample
- * day turns it into a real one.
+ * Eight weeks of sample entries, so the diary isn't empty on day one. Every entry is marked
+ * `sample`, labelled on screen, and removable in one tap.
+ *
+ * The ratings deliberately carry NO cycle effect. An earlier version made skin "best at ovulation,
+ * worst before a period" — a pattern the app's own Guide calls unproven — so the demo taught a myth.
+ * Now ratings and tags vary on a 3- and 5-day rhythm that spreads evenly across every phase.
  */
-export function sampleHistory(profile: Profile, today: string, days = 56): DayLog[] {
+export function sampleHistory(_profile: Profile, today: string, days = 56): DayLog[] {
   const logs: DayLog[] = [];
 
   for (let back = days; back >= 1; back--) {
     if (back % 6 === 0) continue; // a few skipped days, like a real person
-    const date = addDays(today, -back);
-    const info = cycleInfoFor(date, profile.periodStarts, profile.cycleLength, profile.periodLength, today);
-    if (!info) continue;
-
-    const wobble = ((back * 37) % 5) / 4 - 0.5;
-    let skin: number;
-    let tags: SkinTag[];
-    switch (info.phase) {
-      case 'Menstrual':
-        skin = 2.6 + wobble;
-        tags = back % 2 ? ['Dry'] : ['Dry', 'Dull'];
-        break;
-      case 'Follicular':
-        skin = 4.1 + wobble;
-        tags = [];
-        break;
-      case 'Ovulatory':
-        skin = 4.5 + wobble;
-        tags = back % 3 ? [] : ['Oily'];
-        break;
-      default:
-        skin = 2.3 + wobble;
-        tags = back % 3 ? ['Oily'] : ['Breakout', 'Oily'];
-    }
-
     logs.push({
-      date,
+      date: addDays(today, -back),
       am: back % 7 === 0 ? [] : back % 3 === 0 ? ['Cleanse', 'Serum', 'Moisturise', 'SPF'] : ['Cleanse', 'Moisturise', 'SPF'],
       pm: back % 4 === 0 ? [] : back % 5 === 0 ? ['Cleanse', 'Treatment', 'Moisturise'] : ['Cleanse', 'Moisturise'],
       homeCare: back % 6 === 1,
-      skin: clamp(Math.round(skin), 1, 5),
-      tags,
+      skin: 2 + ((back * 7) % 3), // 2, 3 or 4 — the same spread in every phase
+      tags: back % 5 === 0 ? ['Oily'] : back % 7 === 0 ? ['Dry'] : [],
       note: '',
       sample: true,
     });
   }
 
   return logs;
+}
+
+const added = <T>(before: readonly T[], after: readonly T[]): T[] => after.filter((x) => !before.includes(x));
+
+/**
+ * Editing a sample day starts a REAL entry containing only what the user actually changed.
+ * Previously the whole sample — made-up routine steps and tags included — became "hers", and
+ * "Remove the sample entries" could no longer find it.
+ */
+export function adoptSampleEdit(sample: DayLog, edited: DayLog): DayLog {
+  const fresh = emptyLog(sample.date);
+  return {
+    ...fresh,
+    am: added(sample.am, edited.am),
+    pm: added(sample.pm, edited.pm),
+    homeCare: edited.homeCare !== sample.homeCare ? edited.homeCare : fresh.homeCare,
+    skin: edited.skin !== sample.skin ? edited.skin : fresh.skin,
+    tags: added(sample.tags, edited.tags),
+    note: edited.note !== sample.note ? edited.note : fresh.note,
+  };
 }
