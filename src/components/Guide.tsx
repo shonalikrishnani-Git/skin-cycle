@@ -1,5 +1,6 @@
 import { PHASES, PHASE_META, type Phase } from '../lib/cycle';
 import {
+  BREASTFEEDING_NOTE,
   DONT_TRY,
   EVIDENCE_NOTE,
   MYTHS,
@@ -20,6 +21,7 @@ const EYEBROW = 'text-xs uppercase tracking-widest text-muted';
 const EVIDENCE_STYLE: Record<Evidence, string> = {
   'Good evidence': 'bg-follicular-soft text-follicular-ink',
   'Some evidence': 'bg-ovulatory-soft text-ovulatory-ink',
+  'Dermatologist advice': 'bg-luteal-soft text-luteal-ink',
   'Low risk, little evidence': 'bg-surface text-muted border border-line',
 };
 
@@ -146,6 +148,7 @@ export function Guide({
         <div>
           <h2 className="font-display text-2xl mb-2">Worth knowing</h2>
           <p className="text-sm leading-relaxed">{PREGNANCY_NOTE}</p>
+          <p className="text-sm leading-relaxed mt-3">{BREASTFEEDING_NOTE}</p>
           <p className="text-sm leading-relaxed mt-3">{PILL_NOTE}</p>
         </div>
         <div>
