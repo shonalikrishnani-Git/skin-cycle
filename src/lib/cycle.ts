@@ -33,7 +33,7 @@ export const PHASE_META: Record<Phase, PhaseMeta> = {
     soft: 'bg-menstrual-soft',
     ink: 'text-menstrual-ink',
     border: 'border-menstrual',
-    hormone: 'Oestrogen and progesterone are at their lowest.',
+    hormone: 'Oestrogen and progesterone are low.',
   },
   Follicular: {
     stroke: 'var(--color-follicular)',
@@ -49,7 +49,7 @@ export const PHASE_META: Record<Phase, PhaseMeta> = {
     soft: 'bg-ovulatory-soft',
     ink: 'text-ovulatory-ink',
     border: 'border-ovulatory',
-    hormone: 'Oestrogen peaks.',
+    hormone: 'Oestrogen peaks just before ovulation.',
   },
   Luteal: {
     stroke: 'var(--color-luteal)',
@@ -57,7 +57,7 @@ export const PHASE_META: Record<Phase, PhaseMeta> = {
     soft: 'bg-luteal-soft',
     ink: 'text-luteal-ink',
     border: 'border-luteal',
-    hormone: 'Progesterone rises.',
+    hormone: 'Progesterone is high, then both hormones fall before your period.',
   },
 };
 
