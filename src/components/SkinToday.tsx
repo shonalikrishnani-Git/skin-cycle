@@ -4,7 +4,7 @@ import { PHASE_GUIDE, SKIN_TYPE_TIP, type SkinType } from '../lib/skin';
 function Tile({ label, value, labelClass }: { label: string; value: string; labelClass: string }) {
   return (
     <div className="rounded-2xl bg-canvas border border-line p-3 flex flex-col gap-1 min-w-0">
-      <span className={`text-[10px] uppercase tracking-wider ${labelClass}`}>{label}</span>
+      <span className={`text-xs uppercase tracking-wider ${labelClass}`}>{label}</span>
       <span className="text-[13px] font-semibold leading-snug">{value}</span>
     </div>
   );
@@ -53,7 +53,7 @@ export function SkinToday({
       <div className={`mt-5 rounded-2xl p-4 ${meta.soft}`}>
         <div className="flex items-center justify-between gap-2 mb-1">
           <p className={`text-xs uppercase tracking-widest ${meta.ink}`}>Home care idea</p>
-          <span className="text-[10px] text-ink/60 text-right">{remedy.evidence}</span>
+          <span className={`text-xs text-right ${meta.ink}`}>{remedy.evidence}</span>
         </div>
         <p className="text-sm font-semibold">{remedy.name}</p>
         <p className="text-sm text-ink/75 leading-relaxed mt-1">{remedy.how}</p>

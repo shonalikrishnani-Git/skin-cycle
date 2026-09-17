@@ -68,7 +68,7 @@ export function Calendar({
 
       <div className="grid grid-cols-7 gap-0.5 mb-1.5" aria-hidden="true">
         {WEEKDAYS.map((d) => (
-          <span key={d} className="text-center text-[10px] uppercase tracking-wider text-muted">
+          <span key={d} className="text-center text-xs uppercase tracking-wider text-muted">
             {d}
           </span>
         ))}
@@ -140,7 +140,7 @@ export function Calendar({
           </li>
         ))}
       </ul>
-      <p className="text-[11px] text-muted mt-2 px-1 leading-relaxed">
+      <p className="text-xs text-muted mt-2 px-1 leading-relaxed">
         Faded days are predictions · dashed = expected period · dot = a period you logged · ring = today. Tap any past
         day to fill it in.
       </p>

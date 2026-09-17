@@ -72,7 +72,7 @@ export function Guide({
               }`}
             >
               {p}
-              {p === currentPhase && <span className="text-[10px] font-normal opacity-80">this week</span>}
+              {p === currentPhase && <span className="text-xs font-normal opacity-80">this week</span>}
             </button>
           );
         })}
@@ -105,7 +105,7 @@ export function Guide({
             <li key={r.name} className="rounded-2xl bg-canvas border border-line p-4">
               <div className="flex items-start justify-between gap-3 mb-1.5">
                 <p className="text-sm font-semibold leading-snug">{r.name}</p>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full shrink-0 ${EVIDENCE_STYLE[r.evidence]}`}>
+                <span className={`text-xs px-2 py-0.5 rounded-full shrink-0 ${EVIDENCE_STYLE[r.evidence]}`}>
                   {r.evidence}
                 </span>
               </div>

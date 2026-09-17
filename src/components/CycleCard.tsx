@@ -39,7 +39,7 @@ export function CycleCard({
           <p className="text-xs uppercase tracking-widest text-muted mb-1">Your cycle</p>
           <p className={`font-display text-xl leading-tight ${meta.ink}`}>{info.phase} phase</p>
           <p className="text-sm text-muted leading-relaxed mt-1">{nextText(next)}</p>
-          <p className="text-xs text-ink/55 mt-1.5">{meta.hormone}</p>
+          <p className="text-xs text-muted mt-1.5">{meta.hormone}</p>
         </div>
       </div>
 
@@ -57,7 +57,7 @@ export function CycleCard({
         {periodStartedToday ? (canUndoPeriod ? 'Period logged today · Undo' : 'Period logged today') : 'My period started today'}
       </button>
 
-      <p className="text-[11px] text-muted text-center mt-4 leading-relaxed">
+      <p className="text-xs text-muted text-center mt-4 leading-relaxed">
         Phases are estimates from the dates you log. Not for contraception or medical use.
       </p>
     </section>
