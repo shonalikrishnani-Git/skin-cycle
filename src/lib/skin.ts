@@ -16,6 +16,15 @@
  *   5. On 14 Sep 2026 four independent validation agents checked every sentence against sources
  *      they opened (AAD, NHS, HSE, DermNet, PubMed/PMC). Their corrections are applied here. Keep
  *      Irish users in mind: HSE advice and 112 / 999.
+ *   6. On 17 Sep 2026 a wider re-check (this file, cycle.ts, README, and a grep of the whole repo)
+ *      opened every one of the sources below again. Three real fixes came out of it: the "Squalane"
+ *      source actually covers squalene (the related, oxidation-prone sebum lipid), not a test of
+ *      squalane itself, so the wording and source label now say that; the cellulitis-type warning in
+ *      SEE_SOMEONE grouped "near your eye" with "with a fever" under one GP-urgent line, when HSE
+ *      treats a fever as a 112/999 sign, not a GP one; and the breastfeeding note didn't cover
+ *      benzoyl peroxide or salicylic acid, even though both are named in the Luteal guidance and
+ *      the pregnancy note already covers them (LactMed rates both low risk while breastfeeding).
+ *      Everything else checked out against the source actually opened.
  *
  * Evidence labels, as shown to users:
  *   Good evidence            — trials or systematic reviews in people using it for this purpose
@@ -169,7 +178,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
       {
         short: 'Squalane',
         name: 'Squalane',
-        why: 'A light oil that doesn’t go off easily. It’s often called non-clogging, but that hasn’t been properly tested in people. Oily or acne-prone skin: a gel moisturiser may suit you better.',
+        why: 'Squalane is the stable, hydrogenated form of squalene — the natural skin oil that oxidises and has been linked to acne-prone skin. It’s often called non-clogging, but that hasn’t been properly tested in people. Oily or acne-prone skin: a gel moisturiser may suit you better.',
       },
     ],
     goEasyOn: [
@@ -353,7 +362,7 @@ export const MYTHS: Myth[] = [
 ];
 
 export const SEE_SOMEONE: string[] = [
-  'Skin that’s red, swollen, hot, painful and spreading — especially on your face or near your eye, or with a fever — contact a GP urgently.',
+  'Skin that’s red, swollen, hot, painful and spreading, especially on your face or near your eye — ask for an urgent GP appointment. If you also have a high fever or feel hot and shivery, your heart is racing or you’re breathing fast, you feel dizzy or confused, or your skin turns pale, cold and clammy — call 112 or 999 or go to an emergency department.',
   'Thick, dark hair suddenly growing on your face or body, a deepening voice, or muscles getting bigger — ask your GP for an urgent appointment.',
   'Acne with irregular or missing periods, extra facial or body hair, thinning scalp hair, weight gain, or dark, thick patches on the neck or armpits — these can be signs of PCOS (polycystic ovary syndrome, now being renamed PMOS). See a GP.',
   'Deep, painful lumps under the skin, lots of spots, or spots leaving scars — see a GP. Treating these early helps prevent scarring.',
@@ -366,7 +375,7 @@ export const PREGNANCY_NOTE =
   'Pregnant or trying to be? Don’t use retinoids — retinol, retinal, adapalene, tretinoin, tazarotene or isotretinoin tablets — or hydroquinone. Spironolactone and antibiotics like doxycycline aren’t suitable in pregnancy either, so talk to your GP if you take them for acne. Azelaic acid is thought to be safe. Check with a pharmacist before using benzoyl peroxide or salicylic acid.';
 
 export const BREASTFEEDING_NOTE =
-  'Breastfeeding? Isotretinoin tablets and tetracycline antibiotics like doxycycline aren’t suitable. Ask a pharmacist before using a retinoid cream, and keep it off the nipple area.';
+  'Breastfeeding? Isotretinoin tablets and tetracycline antibiotics like doxycycline aren’t suitable. Ask a pharmacist before using a retinoid cream, and keep it off the nipple area. Benzoyl peroxide and salicylic acid are considered low risk — keep treated skin away from anywhere your baby’s skin or mouth might touch it.';
 
 export const PILL_NOTE =
   'On the combined pill? It stops ovulation, so these phases may not match your skin. In one survey of women with acne, those on the pill had pre-period flares about as often as those who weren’t. The pill can also help acne.';
@@ -374,7 +383,10 @@ export const PILL_NOTE =
 export const EVIDENCE_NOTE =
   'Your cycle can nudge your skin, but no study yet shows that switching products by phase beats a steady, gentle routine. Research on skin across the cycle is thin — mostly small studies that sometimes disagree. Treat these as timing tips, not rules.';
 
-/** Every source here was opened by a research or validation agent, or by hand, on 13–14 Sep 2026. */
+/**
+ * Every source here was opened by a research or validation agent, or by hand — most on 13–14 Sep
+ * 2026, and the two LactMed breastfeeding entries added on 17 Sep 2026.
+ */
 export const SOURCES: { label: string; url: string }[] = [
   { label: 'NHS — Fertility in the menstrual cycle', url: 'https://www.nhs.uk/conditions/periods/fertility-in-the-menstrual-cycle/' },
   { label: 'HSE — Periods', url: 'https://www2.hse.ie/conditions/periods-overview/' },
@@ -425,13 +437,15 @@ export const SOURCES: { label: string; url: string }[] = [
   { label: 'HSE — Cellulitis', url: 'https://www2.hse.ie/conditions/cellulitis/' },
   { label: 'HSE — Anaphylaxis', url: 'https://www2.hse.ie/conditions/anaphylaxis/' },
   { label: 'LactMed — Adapalene while breastfeeding', url: 'https://www.ncbi.nlm.nih.gov/books/NBK501423/' },
+  { label: 'LactMed — Benzoyl peroxide while breastfeeding', url: 'https://www.ncbi.nlm.nih.gov/books/NBK501421/' },
+  { label: 'LactMed — Salicylic acid while breastfeeding', url: 'https://www.ncbi.nlm.nih.gov/books/NBK500675/' },
   { label: 'NHS — The combined pill', url: 'https://www.nhs.uk/contraception/methods-of-contraception/combined-pill/what-is-it/' },
   { label: 'StatPearls — The menstrual cycle', url: 'https://www.ncbi.nlm.nih.gov/books/NBK500020/' },
   { label: 'Skin barrier across the cycle (Harvell et al., 1992)', url: 'https://pubmed.ncbi.nlm.nih.gov/1493683/' },
   { label: 'StatPearls — Moisturisers and humectants', url: 'https://www.ncbi.nlm.nih.gov/books/NBK545171/' },
   { label: 'Petrolatum and skin barrier repair (Ghadially et al., 1992)', url: 'https://pubmed.ncbi.nlm.nih.gov/1564142/' },
   { label: 'Colloidal oat lotion for dry, itchy skin', url: 'https://pubmed.ncbi.nlm.nih.gov/23204849/' },
-  { label: 'Squalane and oxidation', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10748031/' },
+  { label: 'Squalene oxidation in acne-prone skin (2023)', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10748031/' },
   { label: 'AAD — Sunscreen facts', url: 'https://www.aad.org/media/stats-sunscreen' },
   { label: 'NHS — Sunscreen and sun safety', url: 'https://www.nhs.uk/live-well/seasonal-health/sunscreen-and-sun-safety/' },
   { label: 'AAD — Retinoid or retinol?', url: 'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging/retinoid-retinol' },
