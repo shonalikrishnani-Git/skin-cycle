@@ -16,6 +16,13 @@
  *   5. On 14 Sep 2026 four independent validation agents checked every sentence against sources
  *      they opened (AAD, NHS, HSE, DermNet, PubMed/PMC). Their corrections are applied here. Keep
  *      Irish users in mind: HSE advice and 112 / 999.
+ *   6. On 17 Sep 2026 the Today tiles (Hydrate / Moisturise / Go easy on) were made to vary by skin
+ *      type — same ingredient, texture adjusted per AAD's own moisturiser-by-skin-type guidance
+ *      (aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer and .../dry/oily-skin):
+ *      oily and combination skin do best with gel, oil-free, noncomedogenic-labelled products; dry
+ *      skin needs a heavier cream, not a lotion; sensitive skin needs fragrance-free products,
+ *      ideally with ceramides and hyaluronic acid, and no alcohol. Normal skin keeps the phase's
+ *      original wording. See `shortBySkinType` on `Pick` and `tileShort`/`tileGoEasyOn` below.
  *
  * Evidence labels, as shown to users:
  *   Good evidence            — trials or systematic reviews in people using it for this purpose
@@ -48,6 +55,13 @@ export type Evidence = 'Good evidence' | 'Some evidence' | 'Dermatologist advice
 export interface Pick {
   /** Two or three words, for the Today tiles. */
   short: string;
+  /**
+   * Skin-type-specific wording for `short`, used only on the Today tile. Same ingredient advice as
+   * `name`/`why` — this just says which texture actually suits the skin type, so a Dry-skin user
+   * doesn't see "oil-free gel" advice meant for oily skin. Any type left out falls back to `short`
+   * (used for Normal, and for picks where texture doesn't meaningfully change by type).
+   */
+  shortBySkinType?: Partial<Record<SkinType, string>>;
   name: string;
   why: string;
 }
@@ -98,6 +112,11 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     hydrate: [
       {
         short: 'Glycerin serum',
+        shortBySkinType: {
+          Oily: 'Oil-free gel serum',
+          Combination: 'Oil-free gel serum',
+          Sensitive: 'Fragrance-free serum',
+        },
         name: 'A glycerin or hyaluronic acid serum',
         why: 'These hold water in the skin’s outer layer. Apply to damp skin, then always follow with moisturiser — on their own, in dry air, they can leave skin drier.',
       },
@@ -110,6 +129,11 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     moisturise: [
       {
         short: 'Ceramide cream',
+        shortBySkinType: {
+          Oily: 'Light, oil-free gel',
+          Combination: 'Light, oil-free gel',
+          Sensitive: 'Fragrance-free cream',
+        },
         name: 'A ceramide moisturiser',
         why: 'Ceramides are key fats in the skin barrier. Dry skin: a richer cream. Oily skin: a light gel labelled non-comedogenic.',
       },
@@ -157,7 +181,16 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     tendency:
       'Oestrogen is rising. In one study of 29 women, skin reacted less to an irritant on days 9–11 than on day 1. Another study found skin lost a little less water just before ovulation than just before a period.',
     hydrate: [
-      { short: 'Hyaluronic acid', name: 'A hyaluronic acid or glycerin serum', why: 'A simple serum under your moisturiser is enough for most skin.' },
+      {
+        short: 'Hyaluronic acid',
+        shortBySkinType: {
+          Oily: 'Oil-free HA gel',
+          Combination: 'Oil-free HA gel',
+          Sensitive: 'Fragrance-free serum',
+        },
+        name: 'A hyaluronic acid or glycerin serum',
+        why: 'A simple serum under your moisturiser is enough for most skin.',
+      },
       {
         short: 'Panthenol',
         name: 'Panthenol, if a new active dries you out',
@@ -165,7 +198,16 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
       },
     ],
     moisturise: [
-      { short: 'Your usual cream', name: 'Your usual ceramide moisturiser', why: 'It helps skin cope with drying actives if you start one.' },
+      {
+        short: 'Your usual cream',
+        shortBySkinType: {
+          Oily: 'Light gel moisturiser',
+          Combination: 'Light gel moisturiser',
+          Sensitive: 'Fragrance-free cream',
+        },
+        name: 'Your usual ceramide moisturiser',
+        why: 'It helps skin cope with drying actives if you start one.',
+      },
       {
         short: 'Squalane',
         name: 'Squalane',
@@ -216,6 +258,10 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     hydrate: [
       {
         short: 'Light gel',
+        shortBySkinType: {
+          Dry: 'Hydrating serum',
+          Sensitive: 'Fragrance-free gel',
+        },
         name: 'A light glycerin or hyaluronic acid gel',
         why: 'A light gel is enough for most skin. If you feel dry, add your usual moisturiser.',
       },
@@ -223,6 +269,10 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     moisturise: [
       {
         short: 'Gel texture',
+        shortBySkinType: {
+          Dry: 'Rich cream',
+          Sensitive: 'Fragrance-free cream',
+        },
         name: 'A light moisturiser',
         why: 'Oily skin: a light, oil-free gel — silicone (dimethicone) textures feel less greasy. Dry skin: your usual cream.',
       },
@@ -251,7 +301,16 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     tendency:
       'Progesterone is high after ovulation, then both hormones fall before your period. In one small study, skin lost a little more water a week after ovulation than at ovulation. Among women with acne, spots often get worse just before or during a period — 44% to 65% in three studies — so plenty don’t notice a change.',
     hydrate: [
-      { short: 'Oil-free gel', name: 'Glycerin or hyaluronic acid in an oil-free gel', why: 'Water without clogging pores.' },
+      {
+        short: 'Oil-free gel',
+        shortBySkinType: {
+          Dry: 'Hydrating serum',
+          Normal: 'Glycerin serum',
+          Sensitive: 'Fragrance-free serum',
+        },
+        name: 'Glycerin or hyaluronic acid in an oil-free gel',
+        why: 'Water without clogging pores.',
+      },
       {
         short: 'Panthenol',
         name: 'Panthenol',
@@ -261,6 +320,11 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     moisturise: [
       {
         short: 'Non-clogging gel',
+        shortBySkinType: {
+          Dry: 'Ceramide cream',
+          Normal: 'Light lotion',
+          Sensitive: 'Fragrance-free cream',
+        },
         name: 'An oil-free, non-comedogenic gel-cream',
         why: 'For oily or acne-prone skin. Dry skin: a ceramide cream.',
       },
@@ -301,6 +365,27 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     ],
   },
 };
+
+/** Today's tile text for a Hydrate/Moisturise/Go-easy-on pick, adjusted for skin type (see rule 6 above). */
+export function tileShort(pick: Pick, skinType: SkinType): string {
+  return pick.shortBySkinType?.[skinType] ?? pick.short;
+}
+
+/**
+ * Today's "go easy on" tile. Luteal is the one phase here with a caution written specifically for
+ * oily/acne-prone skin — heavy, oil-based products can trigger or worsen breakouts (AAD — Habits
+ * that make acne worse) — so oily and combination skin see that item instead of the phase's generic
+ * "starting something new" caution; it's the more useful warning for them. Every other skin type,
+ * and every other phase (none has a skin-type-specific caution to surface), keeps the first item.
+ */
+export function tileGoEasyOn(phase: Phase, skinType: SkinType): Pick {
+  const guide = PHASE_GUIDE[phase];
+  if (phase === 'Luteal' && (skinType === 'Oily' || skinType === 'Combination')) {
+    const oilCaution = guide.goEasyOn.find((p) => p.short === 'Face oils');
+    if (oilCaution) return oilCaution;
+  }
+  return guide.goEasyOn[0];
+}
 
 export interface Warning {
   name: string;
