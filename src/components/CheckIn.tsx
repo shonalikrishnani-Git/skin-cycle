@@ -26,12 +26,15 @@ export function CheckIn({
   subheading,
   onChange,
   periodToggle,
+  justStarted,
 }: {
   log: DayLog;
   heading: string;
   subheading?: string;
   onChange: (log: DayLog) => void;
   periodToggle?: { on: boolean; disabled: boolean; onToggle: () => void };
+  /** True right after this day's sample data was replaced by a real (still mostly empty) entry. */
+  justStarted?: boolean;
 }) {
   const toggleTag = (tag: SkinTag) =>
     onChange({
@@ -46,6 +49,12 @@ export function CheckIn({
         {subheading && <p className="text-sm text-muted">{subheading}</p>}
         {log.sample && (
           <p className="text-xs text-ovulatory-ink mt-1">Sample entry — tap anything to start your own entry for this day.</p>
+        )}
+        {justStarted && !log.sample && (
+          <p className="text-xs text-ovulatory-ink mt-1">
+            Started your own entry — the sample steps you didn’t tap were cleared. Tap them again if you did them
+            too.
+          </p>
         )}
       </div>
 
