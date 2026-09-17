@@ -1,5 +1,5 @@
 import { PHASE_META, type CycleInfo } from '../lib/cycle';
-import { PHASE_GUIDE, SKIN_TYPE_TIP, type SkinType } from '../lib/skin';
+import { PHASE_GUIDE, SKIN_TYPE_TIP, tileGoEasyOn, tileShort, type SkinType } from '../lib/skin';
 
 function Tile({ label, value, labelClass }: { label: string; value: string; labelClass: string }) {
   return (
@@ -41,9 +41,9 @@ export function SkinToday({
       <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency}</p>
 
       <div className="grid grid-cols-3 gap-2 mt-5">
-        <Tile label="Hydrate" value={guide.hydrate[0].short} labelClass="text-follicular-ink" />
-        <Tile label="Moisturise" value={guide.moisturise[0].short} labelClass="text-luteal-ink" />
-        <Tile label="Go easy on" value={guide.goEasyOn[0].short} labelClass="text-menstrual-ink" />
+        <Tile label="Hydrate" value={tileShort(guide.hydrate[0], skinType)} labelClass="text-follicular-ink" />
+        <Tile label="Moisturise" value={tileShort(guide.moisturise[0], skinType)} labelClass="text-luteal-ink" />
+        <Tile label="Go easy on" value={tileShort(tileGoEasyOn(info.phase, skinType), skinType)} labelClass="text-menstrual-ink" />
       </div>
 
       <p className="text-xs text-muted leading-relaxed mt-3">
