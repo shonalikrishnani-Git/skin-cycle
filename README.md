@@ -22,7 +22,7 @@ been checked.
 cd ~/Projects/skincare-app
 npm install     # first time only
 npm run dev     # then open http://localhost:5180
-npm test        # the cycle maths (Node 23.6+)
+npm test        # the cycle maths and the content checks (Node 23.6+)
 ```
 
 No account, no server, no API key. Everything stays on the device.
@@ -37,7 +37,9 @@ then a small card for your cycle with *my period started today*.
 **Guide** is the full guide for any phase: your routine with the reason for each item, safe home
 care with an honest evidence level and a caution on every remedy, *don't try this at home*,
 *heard online — not quite true*, notes on pregnancy and the pill, when to see a pharmacist or GP,
-and 64 sources.
+and 66 sources. A **Sources** view, reachable from the bottom of the Guide, lists every sourced
+claim with its phase, evidence label and backing source in one place — built straight from
+`skin.ts`'s own data, so it can't drift out of sync with the guidance it's describing.
 
 **Diary** is a calendar tinted by phase, with a face on each day you rated your skin — tap any past
 day to fill it in — and *your skin pattern*: how your skin has felt in each phase, with one plain
@@ -78,10 +80,12 @@ src/
     SkinToday.tsx  Guide.tsx      CheckIn.tsx
     CycleCard.tsx  CycleRing.tsx  Calendar.tsx
     Pattern.tsx    Setup.tsx      Icons.tsx
+    Sources.tsx    guideStyles.ts (claim -> source table, reachable from Guide)
   App.tsx        tabs and wiring only
 tests/
-  cycle.test.mjs 12 edge cases for the cycle maths
-design/          source for the design canvas — app screens and ideas
+  cycle.test.mjs   12 edge cases for the cycle maths
+  content.test.mjs every remedy has a caution, every source is used, counts match this README
+design/            source for the design canvas — app screens and ideas
 ```
 
 React 19, strict TypeScript, Vite, Tailwind 4. Nothing else.
@@ -97,13 +101,19 @@ React 19, strict TypeScript, Vite, Tailwind 4. Nothing else.
    treatment, moisturise. Steps always stay in routine order.
 5. **Untouched days never count as "okay"**, and the pattern stays quiet until it has at least 3
    rated days in 2 phases with a half-point gap.
-6. **Skin type shapes the advice.** Profiles saved before skin type was asked get "Normal" rather
-   than being thrown away.
+6. **Skin type shapes the advice**, not just a tip line. Today's hydrate/moisturise/go-easy-on
+   tiles now show different wording for oily, dry, combination and sensitive skin (texture only —
+   same ingredient, per AAD's own moisturiser-by-skin-type guidance), and Luteal's "go easy on"
+   tile swaps in the face-oil warning for oily/combination skin instead of the generic one.
+   Profiles saved before skin type was asked get "Normal" rather than being thrown away.
 7. **Storage v2.** Diary entries moved to `skincycle:v2:logs` when routine steps replaced yes/no.
    v1 entries came only from prototype testing and aren't migrated; *delete all* removes both.
 8. **Drawn icons, 44px tap targets, local date.** Emoji differ on every phone; `toISOString()` is
    UTC and reports yesterday for the first hour after midnight in Irish summer time.
 9. **Not medical advice, not contraception** — said on screen, not just here.
+10. **Accessible basics.** A real `<h1>` and `<main>` landmark, no text under 12px, and text that
+    was measurably low-contrast (a 3.55:1 hormone line, a 3.86:1 evidence badge) now passes WCAG
+    AA (4.5:1) against its actual background.
 
 ## Deliberately left out
 
@@ -125,6 +135,28 @@ https://claude.ai/code/artifact/97a50273-043c-46af-a344-2f9b4fb67870
   honest page), and *Steady Start* (from no routine to one you keep). Suggested order: Shelf Sync
   first.
 
+## Idea branches — working prototypes, not merged
+
+Two of the ideas were built on their own branches overnight, so `main` stays exactly as described
+above.
+
+| Branch | Folder | What it adds |
+|---|---|---|
+| `idea/shelf-sync` | `~/Projects/skincare-app-shelf-sync` | A Shelf tab for the products you own, and a Today card saying *lean into / keep steady / ease off* for each one this phase |
+| `idea/skin-report` | `~/Projects/skincare-app-skin-report` | A one-page report from your own entries — by phase, routine vs skin, top tags — saved as a PDF, with notes left out unless you switch them on |
+
+To try one:
+
+```bash
+cd ~/Projects/skincare-app-shelf-sync && npx vite --port 5181
+```
+
+(`skincare-app-skin-report` on port 5182.) Each branch's README explains what it adds and its
+limits. Both typecheck, build, pass the tests, and were used end to end in the browser on
+14 Sep 2026. Shelf Sync's rules were checked line by line against `src/lib/skin.ts` and five were
+corrected; Skin Report's routine comparison matched an independent calculation. To adopt one
+later: `git merge idea/shelf-sync`.
+
 ## Validation — how precise the guidance is
 
 Every sentence of health guidance in `src/lib/skin.ts` was checked on 14 Sep 2026 by four
@@ -142,6 +174,22 @@ A later review found that the check had covered `skin.ts` only, so a wording err
 a "honey mask" example in the note field, and this README had slipped through. Those are fixed,
 and future checks cover all on-screen text.
 
+**Re-checked 17 Sep 2026**, wider this time: every claim in `skin.ts` and the hormone lines in
+`cycle.ts` again, plus a grep of the whole repo (not just `src/`) for stray wording. That found the
+same "honey mask" placeholder still sitting in `design/Main.dc.html` — the earlier fix only reached
+the live component, not the design mockup that mirrors it — now fixed there too. Three real content
+problems, all corrected: the "Squalane" source actually covered squalene (the related, oxidation-
+prone lipid in sebum), not a test of squalane itself, so the source label and wording were
+corrected rather than left implying a citation it didn't support; the cellulitis-type warning in
+`SEE_SOMEONE` grouped a fever in with "GP urgently" when HSE treats a fever alongside those
+symptoms as a 112/999 sign; and the breastfeeding note didn't cover benzoyl peroxide or salicylic
+acid even though both are named in the Luteal guidance and the pregnancy note already covers them
+— LactMed rates both low risk while breastfeeding, so that note now says so. Two LactMed sources
+were added for that (64 → 66). Every number, evidence label, and source-to-claim match checked
+against a source actually opened — including every study behind a specific figure — held up.
+Content tests (`tests/content.test.mjs`) now catch a missing caution, an unused source, or a count
+drifting from this README automatically.
+
 **Not yet done:** review by a pharmacist or dermatologist. The validation was performed by AI
 agents, not a qualified professional.
 
@@ -154,14 +202,19 @@ agents, not a qualified professional.
 - **Claude Code** (an AI coding assistant) — wrote the code, ran the research, validation and
   review agents, and applied their findings.
 
-## Verified 14 Sep 2026
+## Verified 17 Sep 2026
 
 In the running app: setup requires a skin type · Today opens on "Your skin today" · routine steps
-save in order · editing a sample day keeps only what you changed · all four Guide phases show the
-validated wording, and every remedy carries an evidence level and a caution · 10 don't-try items,
-the pregnancy, breastfeeding and pill notes, and 64 sources render · honey and aloe appear nowhere
-on screen · sample data shows no cycle pattern · no console errors · `tsc --noEmit` clean ·
-`npm run build` succeeds · 12/12 cycle tests pass.
+save in order · editing a sample day keeps only what you changed, with an explanatory note the
+moment it happens · Today's hydrate/moisturise/go-easy-on tiles differ by skin type, checked for
+all five types · all four Guide phases show the validated wording, and every remedy carries an
+evidence level and a caution · the new Sources view lists every claim with a working source link,
+checked on desktop and at 375px · 10 don't-try items, the pregnancy, breastfeeding and pill notes,
+and 66 sources render · honey and aloe appear nowhere on screen, including the design mockups ·
+sample data shows no cycle pattern · a real `<h1>`/`<main>`, no text under 12px, and the two
+previously low-contrast elements pass WCAG AA · no console errors · `tsc --noEmit` clean ·
+`npm run build` succeeds · 12/12 cycle tests and 243/243 content tests pass (every remedy has a
+caution, every source is referenced, and the counts above match the code).
 
 ## Honest limits
 

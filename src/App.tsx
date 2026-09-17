@@ -150,7 +150,7 @@ export default function App() {
       <div className="max-w-xl mx-auto p-5 sm:p-8">
         <header className="no-print flex items-center justify-between mb-4">
           <div>
-            <p className="font-display text-2xl leading-tight">Skin Cycle</p>
+            <h1 className="font-display text-2xl leading-tight">Skin Cycle</h1>
             <p className="text-xs text-muted">{longDate.format(parseISO(today)!)}</p>
           </div>
           <button
@@ -181,81 +181,83 @@ export default function App() {
           ))}
         </nav>
 
-        {tab === 'today' && (
-          <div className="space-y-4">
-            <SkinToday info={info} skinType={profile.skinType} onOpenGuide={() => go('guide')} />
-            <CheckIn
-              log={logFor(today)}
-              heading="Today’s routine"
-              subheading="Tick what you did and how your skin feels."
-              onChange={updateLog}
-              justStarted={justStarted === today}
+        <main>
+          {tab === 'today' && (
+            <div className="space-y-4">
+              <SkinToday info={info} skinType={profile.skinType} onOpenGuide={() => go('guide')} />
+              <CheckIn
+                log={logFor(today)}
+                heading="Today’s routine"
+                subheading="Tick what you did and how your skin feels."
+                onChange={updateLog}
+                justStarted={justStarted === today}
+              />
+              <CycleCard
+                info={info}
+                next={next}
+                cycleLength={profile.cycleLength}
+                periodLength={profile.periodLength}
+                periodStartedToday={profile.periodStarts.includes(today)}
+                canUndoPeriod={!onlyOneStart}
+                onTogglePeriod={() => togglePeriodStart(today)}
+              />
+            </div>
+          )}
+
+          {tab === 'guide' && (
+            <Guide
+              currentPhase={info.phase}
+              skinType={profile.skinType}
+              selected={guidePhase ?? info.phase}
+              onSelect={setGuidePhase}
             />
-            <CycleCard
-              info={info}
-              next={next}
-              cycleLength={profile.cycleLength}
-              periodLength={profile.periodLength}
-              periodStartedToday={profile.periodStarts.includes(today)}
-              canUndoPeriod={!onlyOneStart}
-              onTogglePeriod={() => togglePeriodStart(today)}
-            />
-          </div>
-        )}
+          )}
 
-        {tab === 'guide' && (
-          <Guide
-            currentPhase={info.phase}
-            skinType={profile.skinType}
-            selected={guidePhase ?? info.phase}
-            onSelect={setGuidePhase}
-          />
-        )}
-
-        {tab === 'diary' && reportOpen && (
-          <SkinReport
-            logs={logs}
-            profile={profile}
-            today={today}
-            onBack={() => setReportOpen(false)}
-            onClearSample={clearSample}
-          />
-        )}
-
-        {tab === 'diary' && !reportOpen && (
-          <div className="space-y-4">
-            <Calendar
-              profile={profile}
+          {tab === 'diary' && reportOpen && (
+            <SkinReport
               logs={logs}
+              profile={profile}
               today={today}
-              selected={selected}
-              onSelect={(iso) => {
-                setSelected(iso);
-                setJustStarted(null);
-              }}
+              onBack={() => setReportOpen(false)}
+              onClearSample={clearSample}
             />
-            <CheckIn
-              log={logFor(selected)}
-              heading={selected === today ? 'Today' : longDate.format(parseISO(selected)!)}
-              subheading={selectedInfo ? `Day ${selectedInfo.day} · ${selectedInfo.phase} phase` : undefined}
-              onChange={updateLog}
-              justStarted={justStarted === selected}
-              periodToggle={{
-                on: profile.periodStarts.includes(selected),
-                disabled: profile.periodStarts.includes(selected) && onlyOneStart,
-                onToggle: () => togglePeriodStart(selected),
-              }}
-            />
-            <Pattern summaries={summaries} hasSample={hasSample(logs)} onClearSample={clearSample} />
-            <button
-              type="button"
-              onClick={() => setReportOpen(true)}
-              className="w-full min-h-12 rounded-2xl border border-line bg-surface text-sm font-semibold hover:border-muted transition"
-            >
-              See my skin report
-            </button>
-          </div>
-        )}
+          )}
+
+          {tab === 'diary' && !reportOpen && (
+            <div className="space-y-4">
+              <Calendar
+                profile={profile}
+                logs={logs}
+                today={today}
+                selected={selected}
+                onSelect={(iso) => {
+                  setSelected(iso);
+                  setJustStarted(null);
+                }}
+              />
+              <CheckIn
+                log={logFor(selected)}
+                heading={selected === today ? 'Today' : longDate.format(parseISO(selected)!)}
+                subheading={selectedInfo ? `Day ${selectedInfo.day} · ${selectedInfo.phase} phase` : undefined}
+                onChange={updateLog}
+                justStarted={justStarted === selected}
+                periodToggle={{
+                  on: profile.periodStarts.includes(selected),
+                  disabled: profile.periodStarts.includes(selected) && onlyOneStart,
+                  onToggle: () => togglePeriodStart(selected),
+                }}
+              />
+              <Pattern summaries={summaries} hasSample={hasSample(logs)} onClearSample={clearSample} />
+              <button
+                type="button"
+                onClick={() => setReportOpen(true)}
+                className="w-full min-h-12 rounded-2xl border border-line bg-surface text-sm font-semibold hover:border-muted transition"
+              >
+                See my skin report
+              </button>
+            </div>
+          )}
+        </main>
 
         <footer className="text-xs text-muted text-center mt-8 leading-relaxed">
           No account. Everything stays on this device.
