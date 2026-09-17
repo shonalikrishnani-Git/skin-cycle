@@ -1,10 +1,10 @@
 import { PHASE_META, type CycleInfo } from '../lib/cycle';
-import { PHASE_GUIDE, SKIN_TYPE_TIP, type SkinType } from '../lib/skin';
+import { PHASE_GUIDE, SKIN_TYPE_TIP, tileGoEasyOn, tileShort, type SkinType } from '../lib/skin';
 
 function Tile({ label, value, labelClass }: { label: string; value: string; labelClass: string }) {
   return (
     <div className="rounded-2xl bg-canvas border border-line p-3 flex flex-col gap-1 min-w-0">
-      <span className={`text-[10px] uppercase tracking-wider ${labelClass}`}>{label}</span>
+      <span className={`text-xs uppercase tracking-wider ${labelClass}`}>{label}</span>
       <span className="text-[13px] font-semibold leading-snug">{value}</span>
     </div>
   );
@@ -38,12 +38,12 @@ export function SkinToday({
       </div>
 
       <h2 className="font-display text-[26px] leading-tight text-balance">{guide.headline}</h2>
-      <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency}</p>
+      <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency.text}</p>
 
       <div className="grid grid-cols-3 gap-2 mt-5">
-        <Tile label="Hydrate" value={guide.hydrate[0].short} labelClass="text-follicular-ink" />
-        <Tile label="Moisturise" value={guide.moisturise[0].short} labelClass="text-luteal-ink" />
-        <Tile label="Go easy on" value={guide.goEasyOn[0].short} labelClass="text-menstrual-ink" />
+        <Tile label="Hydrate" value={tileShort(guide.hydrate[0], skinType)} labelClass="text-follicular-ink" />
+        <Tile label="Moisturise" value={tileShort(guide.moisturise[0], skinType)} labelClass="text-luteal-ink" />
+        <Tile label="Go easy on" value={tileShort(tileGoEasyOn(info.phase, skinType), skinType)} labelClass="text-menstrual-ink" />
       </div>
 
       <p className="text-xs text-muted leading-relaxed mt-3">
@@ -53,7 +53,7 @@ export function SkinToday({
       <div className={`mt-5 rounded-2xl p-4 ${meta.soft}`}>
         <div className="flex items-center justify-between gap-2 mb-1">
           <p className={`text-xs uppercase tracking-widest ${meta.ink}`}>Home care idea</p>
-          <span className="text-[10px] text-ink/60 text-right">{remedy.evidence}</span>
+          <span className={`text-xs text-right ${meta.ink}`}>{remedy.evidence}</span>
         </div>
         <p className="text-sm font-semibold">{remedy.name}</p>
         <p className="text-sm text-ink/75 leading-relaxed mt-1">{remedy.how}</p>

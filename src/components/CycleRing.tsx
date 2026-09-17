@@ -67,7 +67,7 @@ export function CycleRing({
       </svg>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <span className={`uppercase tracking-widest text-muted ${compact ? 'text-[9px]' : 'text-xs'}`}>Day</span>
+        <span className="uppercase tracking-widest text-muted text-xs">Day</span>
         <span className={`font-display leading-none ${compact ? 'text-4xl' : 'text-6xl my-1'}`}>{day}</span>
       </div>
     </div>

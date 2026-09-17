@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { PHASES, PHASE_META, type Phase } from '../lib/cycle';
 import {
   BREASTFEEDING_NOTE,
@@ -10,20 +11,13 @@ import {
   SEE_SOMEONE,
   SKIN_TYPE_TIP,
   SOURCES,
-  type Evidence,
   type Pick,
   type SkinType,
 } from '../lib/skin';
+import { CARD, EVIDENCE_STYLE } from './guideStyles';
+import { Sources } from './Sources';
 
-const CARD = 'bg-surface border border-line rounded-3xl p-6';
 const EYEBROW = 'text-xs uppercase tracking-widest text-muted';
-
-const EVIDENCE_STYLE: Record<Evidence, string> = {
-  'Good evidence': 'bg-follicular-soft text-follicular-ink',
-  'Some evidence': 'bg-ovulatory-soft text-ovulatory-ink',
-  'Dermatologist advice': 'bg-luteal-soft text-luteal-ink',
-  'Low risk, little evidence': 'bg-surface text-muted border border-line',
-};
 
 function PickList({ title, picks, titleClass }: { title: string; picks: Pick[]; titleClass: string }) {
   return (
@@ -55,6 +49,11 @@ export function Guide({
 }) {
   const guide = PHASE_GUIDE[selected];
   const meta = PHASE_META[selected];
+  const [showSources, setShowSources] = useState(false);
+
+  if (showSources) {
+    return <Sources onBack={() => setShowSources(false)} />;
+  }
 
   return (
     <div className="space-y-4">
@@ -72,7 +71,7 @@ export function Guide({
               }`}
             >
               {p}
-              {p === currentPhase && <span className="text-[10px] font-normal opacity-80">this week</span>}
+              {p === currentPhase && <span className="text-xs font-normal opacity-80">this week</span>}
             </button>
           );
         })}
@@ -83,7 +82,7 @@ export function Guide({
           {selected === currentPhase ? 'This week' : `${selected} phase`}
         </p>
         <h2 className="font-display text-[26px] leading-tight text-balance">{guide.headline}</h2>
-        <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency}</p>
+        <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency.text}</p>
         <p className="text-sm leading-relaxed mt-4 pt-4 border-t border-line">
           <span className="font-semibold">{skinType} skin:</span> <span className="text-muted">{SKIN_TYPE_TIP[skinType]}</span>
         </p>
@@ -105,7 +104,7 @@ export function Guide({
             <li key={r.name} className="rounded-2xl bg-canvas border border-line p-4">
               <div className="flex items-start justify-between gap-3 mb-1.5">
                 <p className="text-sm font-semibold leading-snug">{r.name}</p>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full shrink-0 ${EVIDENCE_STYLE[r.evidence]}`}>
+                <span className={`text-xs px-2 py-0.5 rounded-full shrink-0 ${EVIDENCE_STYLE[r.evidence]}`}>
                   {r.evidence}
                 </span>
               </div>
@@ -146,21 +145,21 @@ export function Guide({
       <section aria-label="Worth knowing" className={`${CARD} flex flex-col gap-5`}>
         <div>
           <h2 className="font-display text-2xl mb-2">Worth knowing</h2>
-          <p className="text-sm leading-relaxed">{PREGNANCY_NOTE}</p>
-          <p className="text-sm leading-relaxed mt-3">{BREASTFEEDING_NOTE}</p>
-          <p className="text-sm leading-relaxed mt-3">{PILL_NOTE}</p>
+          <p className="text-sm leading-relaxed">{PREGNANCY_NOTE.text}</p>
+          <p className="text-sm leading-relaxed mt-3">{BREASTFEEDING_NOTE.text}</p>
+          <p className="text-sm leading-relaxed mt-3">{PILL_NOTE.text}</p>
         </div>
         <div>
           <h3 className={`${EYEBROW} mb-2`}>See a pharmacist or GP if you notice</h3>
           <ul className="flex flex-col gap-1.5 list-disc pl-5 text-sm text-muted leading-relaxed">
             {SEE_SOMEONE.map((s) => (
-              <li key={s}>{s}</li>
+              <li key={s.text}>{s.text}</li>
             ))}
           </ul>
         </div>
         <div>
           <h3 className={`${EYEBROW} mb-2`}>How strong is the evidence?</h3>
-          <p className="text-sm text-muted leading-relaxed">{EVIDENCE_NOTE}</p>
+          <p className="text-sm text-muted leading-relaxed">{EVIDENCE_NOTE.text}</p>
         </div>
         {SOURCES.length > 0 && (
           <div>
@@ -185,6 +184,14 @@ export function Guide({
           General skincare information, not medical advice.
         </p>
       </section>
+
+      <button
+        type="button"
+        onClick={() => setShowSources(true)}
+        className="w-full min-h-11 text-sm text-accent underline underline-offset-2"
+      >
+        See every claim and its source →
+      </button>
     </div>
   );
 }

@@ -109,8 +109,8 @@ export function FromYourShelf({
       </div>
 
       <div className="mt-5 pt-4 border-t border-line flex flex-col gap-2">
-        <p className="text-xs text-muted leading-relaxed">{EVIDENCE_NOTE}</p>
-        <p className="text-xs text-muted leading-relaxed">{PILL_NOTE}</p>
+        <p className="text-xs text-muted leading-relaxed">{EVIDENCE_NOTE.text}</p>
+        <p className="text-xs text-muted leading-relaxed">{PILL_NOTE.text}</p>
       </div>
     </section>
   );

@@ -128,7 +128,7 @@ export function CheckIn({
                 }`}
               >
                 <FaceIcon level={s.value} className={on ? 'text-accent' : 'text-muted'} />
-                <span className={`text-[11px] ${on ? 'text-ink font-semibold' : 'text-muted'}`}>{s.label}</span>
+                <span className={`text-xs ${on ? 'text-ink font-semibold' : 'text-muted'}`}>{s.label}</span>
               </button>
             );
           })}

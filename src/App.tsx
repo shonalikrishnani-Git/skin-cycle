@@ -171,7 +171,7 @@ export default function App() {
       <div className="max-w-xl mx-auto p-5 sm:p-8">
         <header className="flex items-center justify-between mb-4">
           <div>
-            <p className="font-display text-2xl leading-tight">Skin Cycle</p>
+            <h1 className="font-display text-2xl leading-tight">Skin Cycle</h1>
             <p className="text-xs text-muted">{longDate.format(parseISO(today)!)}</p>
           </div>
           <button
@@ -199,67 +199,69 @@ export default function App() {
           ))}
         </nav>
 
-        {tab === 'today' && (
-          <div className="space-y-4">
-            <SkinToday info={info} skinType={profile.skinType} onOpenGuide={() => go('guide')} />
-            <FromYourShelf products={shelf} phase={info.phase} skinType={profile.skinType} today={today} onOpenShelf={() => go('shelf')} />
-            <CheckIn
-              log={logFor(today)}
-              heading="Today’s routine"
-              subheading="Tick what you did and how your skin feels."
-              onChange={updateLog}
-              justStarted={justStarted === today}
-            />
-            <CycleCard
-              info={info}
-              next={next}
-              cycleLength={profile.cycleLength}
-              periodLength={profile.periodLength}
-              periodStartedToday={profile.periodStarts.includes(today)}
-              canUndoPeriod={!onlyOneStart}
-              onTogglePeriod={() => togglePeriodStart(today)}
-            />
-          </div>
-        )}
+        <main>
+          {tab === 'today' && (
+            <div className="space-y-4">
+              <SkinToday info={info} skinType={profile.skinType} onOpenGuide={() => go('guide')} />
+              <FromYourShelf products={shelf} phase={info.phase} skinType={profile.skinType} today={today} onOpenShelf={() => go('shelf')} />
+              <CheckIn
+                log={logFor(today)}
+                heading="Today’s routine"
+                subheading="Tick what you did and how your skin feels."
+                onChange={updateLog}
+                justStarted={justStarted === today}
+              />
+              <CycleCard
+                info={info}
+                next={next}
+                cycleLength={profile.cycleLength}
+                periodLength={profile.periodLength}
+                periodStartedToday={profile.periodStarts.includes(today)}
+                canUndoPeriod={!onlyOneStart}
+                onTogglePeriod={() => togglePeriodStart(today)}
+              />
+            </div>
+          )}
 
-        {tab === 'guide' && (
-          <Guide
-            currentPhase={info.phase}
-            skinType={profile.skinType}
-            selected={guidePhase ?? info.phase}
-            onSelect={setGuidePhase}
-          />
-        )}
-
-        {tab === 'shelf' && <Shelf products={shelf} onAdd={addShelfProduct} onRemove={removeShelfProduct} />}
-
-        {tab === 'diary' && (
-          <div className="space-y-4">
-            <Calendar
-              profile={profile}
-              logs={logs}
-              today={today}
-              selected={selected}
-              onSelect={(iso) => {
-                setSelected(iso);
-                setJustStarted(null);
-              }}
+          {tab === 'guide' && (
+            <Guide
+              currentPhase={info.phase}
+              skinType={profile.skinType}
+              selected={guidePhase ?? info.phase}
+              onSelect={setGuidePhase}
             />
-            <CheckIn
-              log={logFor(selected)}
-              heading={selected === today ? 'Today' : longDate.format(parseISO(selected)!)}
-              subheading={selectedInfo ? `Day ${selectedInfo.day} · ${selectedInfo.phase} phase` : undefined}
-              onChange={updateLog}
-              justStarted={justStarted === selected}
-              periodToggle={{
-                on: profile.periodStarts.includes(selected),
-                disabled: profile.periodStarts.includes(selected) && onlyOneStart,
-                onToggle: () => togglePeriodStart(selected),
-              }}
-            />
-            <Pattern summaries={summaries} hasSample={hasSample(logs)} onClearSample={clearSample} />
-          </div>
-        )}
+          )}
+
+          {tab === 'shelf' && <Shelf products={shelf} onAdd={addShelfProduct} onRemove={removeShelfProduct} />}
+
+          {tab === 'diary' && (
+            <div className="space-y-4">
+              <Calendar
+                profile={profile}
+                logs={logs}
+                today={today}
+                selected={selected}
+                onSelect={(iso) => {
+                  setSelected(iso);
+                  setJustStarted(null);
+                }}
+              />
+              <CheckIn
+                log={logFor(selected)}
+                heading={selected === today ? 'Today' : longDate.format(parseISO(selected)!)}
+                subheading={selectedInfo ? `Day ${selectedInfo.day} · ${selectedInfo.phase} phase` : undefined}
+                onChange={updateLog}
+                justStarted={justStarted === selected}
+                periodToggle={{
+                  on: profile.periodStarts.includes(selected),
+                  disabled: profile.periodStarts.includes(selected) && onlyOneStart,
+                  onToggle: () => togglePeriodStart(selected),
+                }}
+              />
+              <Pattern summaries={summaries} hasSample={hasSample(logs)} onClearSample={clearSample} />
+            </div>
+          )}
+        </main>
 
         <footer className="text-xs text-muted text-center mt-8 leading-relaxed">
           No account. Everything stays on this device.
