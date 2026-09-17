@@ -25,7 +25,9 @@ then a small card for your cycle with *my period started today*.
 **Guide** is the full guide for any phase: your routine with the reason for each item, safe home
 care with an honest evidence level and a caution on every remedy, *don't try this at home*,
 *heard online — not quite true*, notes on pregnancy and the pill, when to see a pharmacist or GP,
-and 66 sources.
+and 66 sources. A **Sources** view, reachable from the bottom of the Guide, lists every sourced
+claim with its phase, evidence label and backing source in one place — built straight from
+`skin.ts`'s own data, so it can't drift out of sync with the guidance it's describing.
 
 **Diary** is a calendar tinted by phase, with a face on each day you rated your skin — tap any past
 day to fill it in — and *your skin pattern*: how your skin has felt in each phase, with one plain
@@ -66,6 +68,7 @@ src/
     SkinToday.tsx  Guide.tsx      CheckIn.tsx
     CycleCard.tsx  CycleRing.tsx  Calendar.tsx
     Pattern.tsx    Setup.tsx      Icons.tsx
+    Sources.tsx    guideStyles.ts (claim -> source table, reachable from Guide)
   App.tsx        tabs and wiring only
 tests/
   cycle.test.mjs   12 edge cases for the cycle maths
@@ -86,13 +89,19 @@ React 19, strict TypeScript, Vite, Tailwind 4. Nothing else.
    treatment, moisturise. Steps always stay in routine order.
 5. **Untouched days never count as "okay"**, and the pattern stays quiet until it has at least 3
    rated days in 2 phases with a half-point gap.
-6. **Skin type shapes the advice.** Profiles saved before skin type was asked get "Normal" rather
-   than being thrown away.
+6. **Skin type shapes the advice**, not just a tip line. Today's hydrate/moisturise/go-easy-on
+   tiles now show different wording for oily, dry, combination and sensitive skin (texture only —
+   same ingredient, per AAD's own moisturiser-by-skin-type guidance), and Luteal's "go easy on"
+   tile swaps in the face-oil warning for oily/combination skin instead of the generic one.
+   Profiles saved before skin type was asked get "Normal" rather than being thrown away.
 7. **Storage v2.** Diary entries moved to `skincycle:v2:logs` when routine steps replaced yes/no.
    v1 entries came only from prototype testing and aren't migrated; *delete all* removes both.
 8. **Drawn icons, 44px tap targets, local date.** Emoji differ on every phone; `toISOString()` is
    UTC and reports yesterday for the first hour after midnight in Irish summer time.
 9. **Not medical advice, not contraception** — said on screen, not just here.
+10. **Accessible basics.** A real `<h1>` and `<main>` landmark, no text under 12px, and text that
+    was measurably low-contrast (a 3.55:1 hormone line, a 3.86:1 evidence badge) now passes WCAG
+    AA (4.5:1) against its actual background.
 
 ## Deliberately left out
 
@@ -184,12 +193,16 @@ agents, not a qualified professional.
 ## Verified 17 Sep 2026
 
 In the running app: setup requires a skin type · Today opens on "Your skin today" · routine steps
-save in order · editing a sample day keeps only what you changed · all four Guide phases show the
-validated wording, and every remedy carries an evidence level and a caution · 10 don't-try items,
-the pregnancy, breastfeeding and pill notes, and 66 sources render · honey and aloe appear nowhere
-on screen, including the design mockups · sample data shows no cycle pattern · no console errors ·
-`tsc --noEmit` clean · `npm run build` succeeds · 12/12 cycle tests pass · content tests pass
-(every remedy has a caution, every source is referenced, and the counts above match the code).
+save in order · editing a sample day keeps only what you changed, with an explanatory note the
+moment it happens · Today's hydrate/moisturise/go-easy-on tiles differ by skin type, checked for
+all five types · all four Guide phases show the validated wording, and every remedy carries an
+evidence level and a caution · the new Sources view lists every claim with a working source link,
+checked on desktop and at 375px · 10 don't-try items, the pregnancy, breastfeeding and pill notes,
+and 66 sources render · honey and aloe appear nowhere on screen, including the design mockups ·
+sample data shows no cycle pattern · a real `<h1>`/`<main>`, no text under 12px, and the two
+previously low-contrast elements pass WCAG AA · no console errors · `tsc --noEmit` clean ·
+`npm run build` succeeds · 12/12 cycle tests and 243/243 content tests pass (every remedy has a
+caution, every source is referenced, and the counts above match the code).
 
 ## Honest limits
 
