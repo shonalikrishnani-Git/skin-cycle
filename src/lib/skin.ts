@@ -23,6 +23,15 @@
  *      skin needs a heavier cream, not a lotion; sensitive skin needs fragrance-free products,
  *      ideally with ceramides and hyaluronic acid, and no alcohol. Normal skin keeps the phase's
  *      original wording. See `shortBySkinType` on `Pick` and `tileShort`/`tileGoEasyOn` below.
+ *   7. Also on 17 Sep 2026, a wider re-check (this file, cycle.ts, README, and a grep of the whole
+ *      repo) opened every one of the sources below again. Three real fixes came out of it: the
+ *      "Squalane" source actually covers squalene (the related, oxidation-prone sebum lipid), not a
+ *      test of squalane itself, so the wording and source label now say that; the cellulitis-type
+ *      warning in SEE_SOMEONE grouped "near your eye" with "with a fever" under one GP-urgent line,
+ *      when HSE treats a fever as a 112/999 sign, not a GP one; and the breastfeeding note didn't
+ *      cover benzoyl peroxide or salicylic acid, even though both are named in the Luteal guidance
+ *      and the pregnancy note already covers them (LactMed rates both low risk while breastfeeding).
+ *      Everything else checked out against the source actually opened.
  *
  * Evidence labels, as shown to users:
  *   Good evidence            — trials or systematic reviews in people using it for this purpose
@@ -238,7 +247,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
       {
         short: 'Squalane',
         name: 'Squalane',
-        why: 'A light oil that doesn’t go off easily. It’s often called non-clogging, but that hasn’t been properly tested in people. Oily or acne-prone skin: a gel moisturiser may suit you better.',
+        why: 'Squalane is the stable, hydrogenated form of squalene — the natural skin oil that oxidises and has been linked to acne-prone skin. It’s often called non-clogging, but that hasn’t been properly tested in people. Oily or acne-prone skin: a gel moisturiser may suit you better.',
         sourceIds: ['squalane-oxidation'],
       },
     ],
@@ -534,7 +543,11 @@ export const MYTHS: Myth[] = [
 
 export const SEE_SOMEONE: { text: string; sourceIds: string[] }[] = [
   {
-    text: 'Skin that’s red, swollen, hot, painful and spreading — especially on your face or near your eye, or with a fever — contact a GP urgently.',
+    text: 'Skin that’s red, swollen, hot, painful and spreading, especially on your face or near your eye — ask for an urgent GP appointment.',
+    sourceIds: ['nhs-cellulitis', 'hse-cellulitis'],
+  },
+  {
+    text: 'With that, a high fever or feeling hot and shivery, your heart racing or breathing fast, feeling dizzy or confused, or your skin turning pale, cold and clammy — call 112 or 999 or go to an emergency department.',
     sourceIds: ['nhs-cellulitis', 'hse-cellulitis'],
   },
   {
@@ -569,8 +582,8 @@ export const PREGNANCY_NOTE = {
 };
 
 export const BREASTFEEDING_NOTE = {
-  text: 'Breastfeeding? Isotretinoin tablets and tetracycline antibiotics like doxycycline aren’t suitable. Ask a pharmacist before using a retinoid cream, and keep it off the nipple area.',
-  sourceIds: ['lactmed-adapalene'],
+  text: 'Breastfeeding? Isotretinoin tablets and tetracycline antibiotics like doxycycline aren’t suitable. Ask a pharmacist before using a retinoid cream, and keep it off the nipple area. Benzoyl peroxide and salicylic acid are considered low risk — keep treated skin away from anywhere your baby’s skin or mouth might touch it.',
+  sourceIds: ['lactmed-adapalene', 'lactmed-benzoyl-peroxide', 'lactmed-salicylic-acid'],
 };
 
 export const PILL_NOTE = {
@@ -583,7 +596,10 @@ export const EVIDENCE_NOTE = {
   sourceIds: ['review-skin-cycle-2024'],
 };
 
-/** Every source here was opened by a research or validation agent, or by hand, on 13–14 Sep 2026. */
+/**
+ * Every source here was opened by a research or validation agent, or by hand — most on 13–14 Sep
+ * 2026, and the two LactMed breastfeeding entries added on 17 Sep 2026.
+ */
 export const SOURCES: { id: string; label: string; url: string }[] = [
   { id: 'nhs-fertility', label: 'NHS — Fertility in the menstrual cycle', url: 'https://www.nhs.uk/conditions/periods/fertility-in-the-menstrual-cycle/' },
   { id: 'hse-periods', label: 'HSE — Periods', url: 'https://www2.hse.ie/conditions/periods-overview/' },
@@ -634,13 +650,15 @@ export const SOURCES: { id: string; label: string; url: string }[] = [
   { id: 'hse-cellulitis', label: 'HSE — Cellulitis', url: 'https://www2.hse.ie/conditions/cellulitis/' },
   { id: 'hse-anaphylaxis', label: 'HSE — Anaphylaxis', url: 'https://www2.hse.ie/conditions/anaphylaxis/' },
   { id: 'lactmed-adapalene', label: 'LactMed — Adapalene while breastfeeding', url: 'https://www.ncbi.nlm.nih.gov/books/NBK501423/' },
+  { id: 'lactmed-benzoyl-peroxide', label: 'LactMed — Benzoyl peroxide while breastfeeding', url: 'https://www.ncbi.nlm.nih.gov/books/NBK501421/' },
+  { id: 'lactmed-salicylic-acid', label: 'LactMed — Salicylic acid while breastfeeding', url: 'https://www.ncbi.nlm.nih.gov/books/NBK500675/' },
   { id: 'nhs-combined-pill', label: 'NHS — The combined pill', url: 'https://www.nhs.uk/contraception/methods-of-contraception/combined-pill/what-is-it/' },
   { id: 'statpearls-menstrual-cycle', label: 'StatPearls — The menstrual cycle', url: 'https://www.ncbi.nlm.nih.gov/books/NBK500020/' },
   { id: 'harvell-1992-barrier', label: 'Skin barrier across the cycle (Harvell et al., 1992)', url: 'https://pubmed.ncbi.nlm.nih.gov/1493683/' },
   { id: 'statpearls-moisturisers', label: 'StatPearls — Moisturisers and humectants', url: 'https://www.ncbi.nlm.nih.gov/books/NBK545171/' },
   { id: 'ghadially-1992-petrolatum', label: 'Petrolatum and skin barrier repair (Ghadially et al., 1992)', url: 'https://pubmed.ncbi.nlm.nih.gov/1564142/' },
   { id: 'colloidal-oat-lotion', label: 'Colloidal oat lotion for dry, itchy skin', url: 'https://pubmed.ncbi.nlm.nih.gov/23204849/' },
-  { id: 'squalane-oxidation', label: 'Squalane and oxidation', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10748031/' },
+  { id: 'squalane-oxidation', label: 'Squalene oxidation in acne-prone skin (2023)', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10748031/' },
   { id: 'aad-sunscreen-facts', label: 'AAD — Sunscreen facts', url: 'https://www.aad.org/media/stats-sunscreen' },
   { id: 'nhs-sunscreen-safety', label: 'NHS — Sunscreen and sun safety', url: 'https://www.nhs.uk/live-well/seasonal-health/sunscreen-and-sun-safety/' },
   { id: 'aad-retinoid-retinol', label: 'AAD — Retinoid or retinol?', url: 'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging/retinoid-retinol' },

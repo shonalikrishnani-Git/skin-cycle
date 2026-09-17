@@ -10,7 +10,7 @@ been checked.
 cd ~/Projects/skincare-app
 npm install     # first time only
 npm run dev     # then open http://localhost:5180
-npm test        # the cycle maths (Node 23.6+)
+npm test        # the cycle maths and the content checks (Node 23.6+)
 ```
 
 No account, no server, no API key. Everything stays on the device.
@@ -25,7 +25,7 @@ then a small card for your cycle with *my period started today*.
 **Guide** is the full guide for any phase: your routine with the reason for each item, safe home
 care with an honest evidence level and a caution on every remedy, *don't try this at home*,
 *heard online — not quite true*, notes on pregnancy and the pill, when to see a pharmacist or GP,
-and 64 sources.
+and 66 sources.
 
 **Diary** is a calendar tinted by phase, with a face on each day you rated your skin — tap any past
 day to fill it in — and *your skin pattern*: how your skin has felt in each phase, with one plain
@@ -68,8 +68,9 @@ src/
     Pattern.tsx    Setup.tsx      Icons.tsx
   App.tsx        tabs and wiring only
 tests/
-  cycle.test.mjs 12 edge cases for the cycle maths
-design/          source for the design canvas — app screens and ideas
+  cycle.test.mjs   12 edge cases for the cycle maths
+  content.test.mjs every remedy has a caution, every source is used, counts match this README
+design/            source for the design canvas — app screens and ideas
 ```
 
 React 19, strict TypeScript, Vite, Tailwind 4. Nothing else.
@@ -152,6 +153,22 @@ A later review found that the check had covered `skin.ts` only, so a wording err
 a "honey mask" example in the note field, and this README had slipped through. Those are fixed,
 and future checks cover all on-screen text.
 
+**Re-checked 17 Sep 2026**, wider this time: every claim in `skin.ts` and the hormone lines in
+`cycle.ts` again, plus a grep of the whole repo (not just `src/`) for stray wording. That found the
+same "honey mask" placeholder still sitting in `design/Main.dc.html` — the earlier fix only reached
+the live component, not the design mockup that mirrors it — now fixed there too. Three real content
+problems, all corrected: the "Squalane" source actually covered squalene (the related, oxidation-
+prone lipid in sebum), not a test of squalane itself, so the source label and wording were
+corrected rather than left implying a citation it didn't support; the cellulitis-type warning in
+`SEE_SOMEONE` grouped a fever in with "GP urgently" when HSE treats a fever alongside those
+symptoms as a 112/999 sign; and the breastfeeding note didn't cover benzoyl peroxide or salicylic
+acid even though both are named in the Luteal guidance and the pregnancy note already covers them
+— LactMed rates both low risk while breastfeeding, so that note now says so. Two LactMed sources
+were added for that (64 → 66). Every number, evidence label, and source-to-claim match checked
+against a source actually opened — including every study behind a specific figure — held up.
+Content tests (`tests/content.test.mjs`) now catch a missing caution, an unused source, or a count
+drifting from this README automatically.
+
 **Not yet done:** review by a pharmacist or dermatologist. The validation was performed by AI
 agents, not a qualified professional.
 
@@ -164,14 +181,15 @@ agents, not a qualified professional.
 - **Claude Code** (an AI coding assistant) — wrote the code, ran the research, validation and
   review agents, and applied their findings.
 
-## Verified 14 Sep 2026
+## Verified 17 Sep 2026
 
 In the running app: setup requires a skin type · Today opens on "Your skin today" · routine steps
 save in order · editing a sample day keeps only what you changed · all four Guide phases show the
 validated wording, and every remedy carries an evidence level and a caution · 10 don't-try items,
-the pregnancy, breastfeeding and pill notes, and 64 sources render · honey and aloe appear nowhere
-on screen · sample data shows no cycle pattern · no console errors · `tsc --noEmit` clean ·
-`npm run build` succeeds · 12/12 cycle tests pass.
+the pregnancy, breastfeeding and pill notes, and 66 sources render · honey and aloe appear nowhere
+on screen, including the design mockups · sample data shows no cycle pattern · no console errors ·
+`tsc --noEmit` clean · `npm run build` succeeds · 12/12 cycle tests pass · content tests pass
+(every remedy has a caution, every source is referenced, and the counts above match the code).
 
 ## Honest limits
 
