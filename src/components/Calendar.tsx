@@ -90,6 +90,7 @@ export function Calendar({
             dayName.format(parseISO(iso)!),
             info ? `${info.phase.toLowerCase()} phase` : '',
             score ? `skin ${score.label.toLowerCase()}` : '',
+            log?.sample ? 'sample entry, not yours yet' : '',
             starts.has(iso) ? 'period started' : '',
             isToday ? 'today' : '',
             future ? 'predicted' : '',
@@ -120,7 +121,7 @@ export function Calendar({
             >
               <span className={`text-xs leading-none ${isToday ? 'font-bold' : ''}`}>{Number(iso.slice(8))}</span>
               {score ? (
-                <FaceIcon level={score.value} size={14} className="text-ink" />
+                <FaceIcon level={score.value} size={14} className={log?.sample ? 'text-ink opacity-40' : 'text-ink'} />
               ) : (
                 <span className="h-3.5" aria-hidden="true" />
               )}
@@ -141,8 +142,8 @@ export function Calendar({
         ))}
       </ul>
       <p className="text-xs text-muted mt-2 px-1 leading-relaxed">
-        Faded days are predictions · dashed = expected period · dot = a period you logged · ring = today. Tap any past
-        day to fill it in.
+        Faded days are predictions · dashed = expected period · dot = a period you logged · ring = today · a faint
+        face is a sample day, not yours yet. Tap any past day to fill it in.
       </p>
     </section>
   );
