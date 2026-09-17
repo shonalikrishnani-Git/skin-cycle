@@ -43,6 +43,8 @@ export default function App() {
   const [guidePhase, setGuidePhase] = useState<Phase | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [ready, setReady] = useState(false);
+  /** The date whose sample data was JUST replaced by a real entry, so we can explain the switch once. */
+  const [justStarted, setJustStarted] = useState<string | null>(null);
 
   useEffect(() => {
     setProfile(loadProfile());
@@ -106,10 +108,12 @@ export default function App() {
 
   const updateLog = (entry: DayLog) => {
     const previous = logs.find((l) => l.date === entry.date);
-    const real = previous?.sample ? adoptSampleEdit(previous, entry) : { ...entry, sample: false };
+    const wasSample = previous?.sample ?? false;
+    const real = previous && wasSample ? adoptSampleEdit(previous, entry) : { ...entry, sample: false };
     const nextLogs = upsertLog(logs, real);
     saveLogs(nextLogs);
     setLogs(nextLogs);
+    if (wasSample) setJustStarted(entry.date);
   };
 
   const togglePeriodStart = (iso: string) => {
@@ -175,6 +179,7 @@ export default function App() {
               heading="Today’s routine"
               subheading="Tick what you did and how your skin feels."
               onChange={updateLog}
+              justStarted={justStarted === today}
             />
             <CycleCard
               info={info}
@@ -199,12 +204,22 @@ export default function App() {
 
         {tab === 'diary' && (
           <div className="space-y-4">
-            <Calendar profile={profile} logs={logs} today={today} selected={selected} onSelect={setSelected} />
+            <Calendar
+              profile={profile}
+              logs={logs}
+              today={today}
+              selected={selected}
+              onSelect={(iso) => {
+                setSelected(iso);
+                setJustStarted(null);
+              }}
+            />
             <CheckIn
               log={logFor(selected)}
               heading={selected === today ? 'Today' : longDate.format(parseISO(selected)!)}
               subheading={selectedInfo ? `Day ${selectedInfo.day} · ${selectedInfo.phase} phase` : undefined}
               onChange={updateLog}
+              justStarted={justStarted === selected}
               periodToggle={{
                 on: profile.periodStarts.includes(selected),
                 disabled: profile.periodStarts.includes(selected) && onlyOneStart,
