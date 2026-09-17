@@ -38,7 +38,7 @@ export function SkinToday({
       </div>
 
       <h2 className="font-display text-[26px] leading-tight text-balance">{guide.headline}</h2>
-      <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency}</p>
+      <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency.text}</p>
 
       <div className="grid grid-cols-3 gap-2 mt-5">
         <Tile label="Hydrate" value={guide.hydrate[0].short} labelClass="text-follicular-ink" />
