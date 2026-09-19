@@ -6,14 +6,34 @@ Track your routine and how your skin feels, and get simple, safe guidance for ea
 month — what to hydrate and moisturise with, what to go easy on, and home care that has actually
 been checked.
 
+## Live demo
+
+**https://shonalikrishnani-git.github.io/skin-cycle/** — deployed from `main` by GitHub Actions
+(`.github/workflows/pages.yml`). No account, no server, no API key. Everything stays on the device.
+
+## Run locally
+
 ```bash
-cd ~/Projects/skincare-app
+git clone https://github.com/shonalikrishnani-Git/skin-cycle.git
+cd skin-cycle
 npm install     # first time only
 npm run dev     # then open http://localhost:5180
 npm test        # the cycle maths and the content checks (Node 23.6+)
+npm run build   # typecheck + production build into dist/
 ```
 
-No account, no server, no API key. Everything stays on the device.
+## About this project
+
+Skin Cycle is a small, local-only skincare app: a routine for each week of your cycle, home care
+with an honest evidence level and a caution on every remedy, and a diary that learns your own skin
+pattern. **Sonali Krishnani** (M.Sc. Microbiology, secondary-school Biology teacher) set the
+product direction — skin first, the cycle as context — and the acceptance rules the guidance has to
+meet: ingredient types not brands, no "toxic" scores, no scraped reviews, a caution on every
+remedy, and no health claim shipped until it has been validated against a named source (AAD, NHS,
+DermNet, FDA, published studies). She owns that validation and made every call on what to cut
+and keep. The code was written with **Claude Code**, an AI coding assistant, working to those
+rules; the full split is in *Who did what* below, and the validation history is in *Validation*.
+Not yet reviewed by a pharmacist or dermatologist — see *Honest limits*.
 
 ## What it does
 
