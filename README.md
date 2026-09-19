@@ -11,6 +11,10 @@ been checked.
 **https://shonalikrishnani-git.github.io/skin-cycle/** — deployed from `main` by GitHub Actions
 (`.github/workflows/pages.yml`). No account, no server, no API key. Everything stays on the device.
 
+| Today | Guide | Diary |
+|---|---|---|
+| ![Today](docs/screenshots/today.png) | ![Guide](docs/screenshots/guide.png) | ![Diary](docs/screenshots/diary.png) |
+
 ## Run locally
 
 ```bash
