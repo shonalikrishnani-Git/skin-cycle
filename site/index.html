@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skin Cycle</title>
+  <meta name="description" content="A local-only skincare app that tracks your routine and gives sourced, phase-by-phase guidance — with a caution on every remedy and no health claim shipped without a source." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="wordmark" href="./">Skin Cycle</a>
+      <nav>
+        <a href="https://github.com/shonalikrishnani-Git/skin-cycle">Source</a>
+        <a href="about.html">The full story</a>
+      </nav>
+    </header>
+    <p class="tagline">A portfolio project by Sonali Krishnani, built with Claude Code.</p>
+
+    <h1>Skincare that follows your cycle.</h1>
+    <p class="lede">
+      Track your routine and how your skin feels, and get simple, safe guidance for each week of
+      your month — what to hydrate and moisturise with, what to go easy on, and home care that has
+      actually been checked against a real source before it ever reaches the screen.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="app/">Try the live app →</a>
+      <a class="btn btn-secondary" href="about.html">Read the full story</a>
+    </div>
+
+    <p class="note">
+      Portfolio prototype, not released. General skincare information, not medical advice or
+      contraception. "Skin Cycle" is a working title — a rename is on the list before this goes
+      any further. Everything you enter stays on your own device; there's no account and no server.
+    </p>
+
+    <figure class="shots" aria-label="Screenshots of the app">
+      <figure class="shot">
+        <img src="screenshots/today.png" alt="The Today screen: this week's skin tendency, hydrate/moisturise/go-easy-on tiles, and today's routine checklist" loading="lazy" />
+        <figcaption>Today</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="screenshots/guide.png" alt="The Guide screen: phase-by-phase routine, home care with an evidence label and caution on every remedy, and a don't-try-this-at-home list" loading="lazy" />
+        <figcaption>Guide</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="screenshots/diary.png" alt="The Diary screen: a calendar tinted by cycle phase with a face for each day you rated your skin" loading="lazy" />
+        <figcaption>Diary</figcaption>
+      </figure>
+    </figure>
+
+    <h2>What it does</h2>
+    <p>
+      <strong>Today</strong> opens on what your skin tends to do this week and why, three tiles for
+      hydrate / moisturise / go easy on (worded differently for oily, dry, combination and
+      sensitive skin — not just one generic tip), and one home-care idea. Below it: your morning
+      and evening routine, how your skin feels, tags, and a note.
+    </p>
+    <p>
+      <strong>Guide</strong> covers all four phases: your routine with the reason for each step,
+      home care with an honest evidence level and a caution on every remedy, a "don't try this at
+      home" list, a "heard online — not quite true" myth-buster, and a Sources page tracing every
+      claim to what backs it.
+    </p>
+    <p>
+      <strong>Diary</strong> is a calendar tinted by phase, with a face on each day you rate your
+      skin, and a plain sentence about your own pattern once there's enough data to say something
+      true.
+    </p>
+    <ul class="phase-list" aria-hidden="true">
+      <li><span class="dot dot-menstrual"></span>Menstrual</li>
+      <li><span class="dot dot-follicular"></span>Follicular</li>
+      <li><span class="dot dot-ovulatory"></span>Ovulatory</li>
+      <li><span class="dot dot-luteal"></span>Luteal</li>
+    </ul>
+
+    <h2>Built to a QC standard, not a vibe</h2>
+    <p>
+      Every health claim in the guidance had to survive being treated as wrong until a real,
+      opened source backed it — AAD, NHS, HSE, DermNet, the FDA, published studies. That process
+      caught real problems along the way (an incomplete pregnancy note, an under-urgent warning
+      sign, a mislabelled source) and fixed every one. 66 sources back the guidance today, and
+      243 automated tests now catch a missing caution, an unused source, or a stale count on their
+      own — <a href="about.html#validation">the full validation history is on the story page →</a>
+    </p>
+
+    <h2>Who made this</h2>
+    <div class="who">
+      <div class="card">
+        <h3>Sonali</h3>
+        <p>
+          Set the direction — skin first, the cycle as context — and the rules the guidance has to
+          follow: ingredient types not brands, no "toxic" scores, no scraped reviews, a caution on
+          every remedy. Owned the validation and made every call on what to cut and keep.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Claude Code</h3>
+        <p>
+          An AI coding assistant. Wrote the code, ran the research and validation agents, and
+          applied their findings.
+        </p>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <p>
+        <a href="https://github.com/shonalikrishnani-Git/skin-cycle">View the source on GitHub</a>
+        · <a href="app/">Open the app</a> · <a href="about.html">About this project</a>
+      </p>
+      <p>Not a medical device. Not contraception. Nothing here has been reviewed by a pharmacist or dermatologist.</p>
+    </footer>
+  </div>
+</body>
+</html>

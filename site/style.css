@@ -1,0 +1,280 @@
+/* Shared styling for the two static pages (index.html, about.html). Not part of the React app's
+   Tailwind build — these are plain static pages, so the tokens below are copied by hand from
+   src/index.css. If that file's palette ever changes, update both. */
+
+:root {
+  --color-canvas: #fcf7f5;
+  --color-surface: #ffffff;
+  --color-ink: #2d2331;
+  --color-muted: #7b6f7e;
+  --color-line: #f0e5e5;
+
+  --color-accent: #b4506b;
+  --color-accent-soft: #f9e6ec;
+
+  --color-menstrual: #d7607a;
+  --color-menstrual-soft: #fbe4e9;
+  --color-menstrual-ink: #a13a54;
+
+  --color-follicular: #62a584;
+  --color-follicular-soft: #e2f1e9;
+  --color-follicular-ink: #3a7458;
+
+  --color-ovulatory: #e2a04f;
+  --color-ovulatory-soft: #fcefdc;
+  --color-ovulatory-ink: #93601c;
+
+  --color-luteal: #8b76c2;
+  --color-luteal-soft: #ece7f7;
+  --color-luteal-ink: #5b4893;
+
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-canvas);
+}
+
+body {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 20px 64px;
+}
+
+header.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.site-header nav a {
+  font-size: 14px;
+  color: var(--color-muted);
+  text-decoration: none;
+  margin-left: 18px;
+}
+
+.site-header nav a:hover {
+  color: var(--color-ink);
+}
+
+.tagline {
+  color: var(--color-muted);
+  font-size: 14px;
+  margin: 0 0 32px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1.2;
+  margin: 8px 0 12px;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin: 40px 0 12px;
+}
+
+h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  margin: 0 0 8px;
+}
+
+p {
+  margin: 0 0 14px;
+  font-size: 16px;
+}
+
+.lede {
+  font-size: 18px;
+  color: var(--color-ink);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0 8px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: white;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-line);
+}
+
+.note {
+  font-size: 13px;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin: 20px 0;
+}
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 28px 0;
+}
+
+.shot {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.shot figcaption {
+  font-size: 12px;
+  color: var(--color-muted);
+  text-align: center;
+  padding: 8px 0;
+  margin: 0;
+}
+
+@media (max-width: 620px) {
+  .shots {
+    grid-template-columns: 1fr;
+  }
+  h1 {
+    font-size: 28px;
+  }
+}
+
+.phase-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.phase-list li {
+  font-size: 13px;
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-menstrual { background: var(--color-menstrual); }
+.dot-follicular { background: var(--color-follicular); }
+.dot-ovulatory { background: var(--color-ovulatory); }
+.dot-luteal { background: var(--color-luteal); }
+
+ul.plain, ol.plain {
+  padding-left: 22px;
+}
+
+ul.plain li, ol.plain li {
+  margin-bottom: 10px;
+  font-size: 15.5px;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin: 16px 0;
+}
+
+.who {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 560px) {
+  .who {
+    grid-template-columns: 1fr;
+  }
+}
+
+footer.site-footer {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-line);
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+footer.site-footer p {
+  font-size: 13px;
+}
+
+footer.site-footer a {
+  color: var(--color-muted);
+  text-decoration: underline;
+}

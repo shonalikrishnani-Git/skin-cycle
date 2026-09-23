@@ -9,7 +9,10 @@ been checked.
 ## Live demo
 
 **https://shonalikrishnani-git.github.io/skin-cycle/** — deployed from `main` by GitHub Actions
-(`.github/workflows/pages.yml`). No account, no server, no API key. Everything stays on the device.
+(`.github/workflows/pages.yml`). The link opens a plain static landing page first (`site/`), with
+a "Try the live app" button into the actual React app at `.../skin-cycle/app/`, and a second
+static page with the full story at `.../skin-cycle/about.html`. No account, no server, no API key.
+Everything stays on the device.
 
 | Today | Guide | Diary |
 |---|---|---|
@@ -21,10 +24,14 @@ been checked.
 git clone https://github.com/shonalikrishnani-Git/skin-cycle.git
 cd skin-cycle
 npm install     # first time only
-npm run dev     # then open http://localhost:5180
+npm run dev     # then open http://localhost:5180 (the app itself, not the landing page)
 npm test        # the cycle maths and the content checks (Node 23.6+)
-npm run build   # typecheck + production build into dist/
+npm run build   # typecheck + app build into dist/app + copies site/ (landing, about) into dist/
 ```
+
+To preview the landing page and about page locally (they're plain static HTML, not served by
+`vite dev`), open `site/index.html` directly in a browser, or run `npm run build` and serve
+`dist/` with any static file server.
 
 ## About this project
 
@@ -97,6 +104,10 @@ src/
 tests/
   cycle.test.mjs   12 edge cases for the cycle maths
   content.test.mjs every remedy has a caution, every source is used, counts match this README
+site/              the static landing page (index.html) and full-story page (about.html) — plain
+                   HTML/CSS, not part of the React build; copied into dist/ by scripts/build-site.mjs
+scripts/
+  build-site.mjs   copies site/ into dist/ after `vite build` has placed the app at dist/app/
 design/            source for the design canvas — app screens and ideas
 ```
 
