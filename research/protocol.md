@@ -1,7 +1,7 @@
 # Protocol: AI-assisted rapid review — facial skin across the menstrual cycle
 
 **Written:** 27 Sep 2026, before any screening. Not externally registered.
-**Reviewer:** Sonali Krishnani (M.Sc. Microbiology), with AI research agents (Claude). No independent human expert was available; see *AI safeguards*.
+**Lead:** Sonali Krishnani (M.Sc. Microbiology). **Protocol drafted, and screening, extraction and GRADE ratings carried out, by AI agents (Claude).** No human second reviewer or independent expert was available; see *AI safeguards*.
 **Method guidance:** Cochrane Rapid Reviews Methods Group interim guidance (Garritty et al., 2021); reported with a PRISMA 2020 flow diagram; certainty rated with GRADE.
 
 ## Questions
@@ -26,7 +26,7 @@
 - Two AI reviewers screen titles and abstracts **independently**, using the criteria above, without seeing each other's decisions.
 - Disagreements go to a third AI adjudicator. Every decision and reason is logged in `screening.csv`.
 - Full texts (or abstracts where full text isn't free) of included studies are extracted by two AI reviewers independently: design, n, population, phases compared, outcome, measure, result, main risk of bias. Differences are resolved against the source and logged.
-- Sonali reviews the final table and the disagreement log.
+- Planned: Sonali reviews the final table and the disagreement log. (Deviation: see item 5.)
 
 ## Certainty
 GRADE per outcome: start **low** for observational designs; downgrade for risk of bias, inconsistency, indirectness (e.g. non-facial sites), imprecision (small n); report high / moderate / low / very low.
@@ -41,3 +41,4 @@ Any change to this protocol after screening starts will be listed here with a re
 2. **Consensus search capped at 3 results per query** by the connector's free tier, so that supplementary source isn't exhaustive.
 3. **medRxiv/bioRxiv effectively unsearched:** the connector has no keyword search.
 4. **Records in languages other than English (71) were excluded** as the protocol says; about 20 have relevant-looking titles (mostly older German sebum and acne papers). This is a known language-bias limitation.
+5. **No human review of screening or extraction decisions.** Sonali approved publishing the findings and the app changes they led to, but did not check the individual screening or extraction decisions.
