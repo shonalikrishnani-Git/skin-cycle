@@ -1,9 +1,10 @@
 import { PHASE_META, type CycleInfo } from '../lib/cycle';
 import { PHASE_GUIDE, SKIN_TYPE_TIP, tileGoEasyOn, tileShort, type SkinType } from '../lib/skin';
+import { ChevronIcon } from './Icons';
 
 function Tile({ label, value, labelClass }: { label: string; value: string; labelClass: string }) {
   return (
-    <div className="rounded-2xl bg-canvas border border-line p-3 flex flex-col gap-1 min-w-0">
+    <div className="rounded-2xl bg-canvas border border-line p-3 flex flex-col gap-1 min-w-0 hover:-translate-y-0.5 hover:shadow-sm transition">
       <span className={`text-xs uppercase tracking-wider ${labelClass}`}>{label}</span>
       <span className="text-[13px] font-semibold leading-snug">{value}</span>
     </div>
@@ -38,21 +39,27 @@ export function SkinToday({
       </div>
 
       <h2 className="font-display text-[26px] leading-tight text-balance">{guide.headline}</h2>
-      <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency.text}</p>
+      <details className="group mt-2">
+        <summary className="inline-flex items-center gap-1 min-h-11 text-sm text-accent cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+          Why this week?
+          <ChevronIcon direction="down" className="w-4 h-4 transition-transform group-open:rotate-180" />
+        </summary>
+        <p className="anim-fade-up text-sm text-muted leading-relaxed text-pretty">{guide.tendency.text}</p>
+      </details>
 
-      <div className="grid grid-cols-3 gap-2 mt-5">
+      <div className="grid grid-cols-3 gap-2 mt-3 anim-stagger">
         <Tile label="Hydrate" value={tileShort(guide.hydrate[0], skinType)} labelClass="text-follicular-ink" />
         <Tile label="Moisturise" value={tileShort(guide.moisturise[0], skinType)} labelClass="text-luteal-ink" />
         <Tile label="Go easy on" value={tileShort(tileGoEasyOn(info.phase, skinType), skinType)} labelClass="text-menstrual-ink" />
       </div>
 
       <p className="text-xs text-muted leading-relaxed mt-3">
-        <span className="font-semibold text-ink">{skinType} skin:</span> {SKIN_TYPE_TIP[skinType]}
+        <span className="font-semibold text-ink">{skinType}:</span> {SKIN_TYPE_TIP[skinType]}
       </p>
 
       <div className={`mt-5 rounded-2xl p-4 ${meta.soft}`}>
         <div className="flex items-center justify-between gap-2 mb-1">
-          <p className={`text-xs uppercase tracking-widest ${meta.ink}`}>Home care idea</p>
+          <p className={`text-xs uppercase tracking-widest ${meta.ink}`}>Try at home</p>
           <span className={`text-xs text-right ${meta.ink}`}>{remedy.evidence}</span>
         </div>
         <p className="text-sm font-semibold">{remedy.name}</p>
@@ -66,7 +73,7 @@ export function SkinToday({
         onClick={onOpenGuide}
         className="w-full min-h-12 mt-4 rounded-2xl bg-accent text-white text-sm font-semibold hover:opacity-90 transition"
       >
-        See this week’s full skin guide
+        This week’s guide
       </button>
     </section>
   );

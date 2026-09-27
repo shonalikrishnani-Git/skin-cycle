@@ -106,7 +106,9 @@ export function Calendar({
               onClick={() => onSelect(iso)}
               aria-label={label}
               aria-pressed={iso === selected}
+              style={{ animationDelay: `${Math.min(i, 40) * 8}ms` }}
               className={[
+                'anim-fade-up',
                 'relative aspect-square rounded-[10px] flex flex-col items-center justify-center gap-0.5 border-[1.5px] transition',
                 meta ? meta.soft : 'bg-canvas',
                 future ? 'opacity-50 cursor-default' : 'hover:brightness-95',
@@ -141,10 +143,7 @@ export function Calendar({
           </li>
         ))}
       </ul>
-      <p className="text-xs text-muted mt-2 px-1 leading-relaxed">
-        Faded days are predictions · dashed = expected period · dot = a period you logged · ring = today · a faint
-        face is a sample day, not yours yet. Tap any past day to fill it in.
-      </p>
+      <p className="text-xs text-muted mt-2 px-1">Tap a past day to edit it. Faded days are predictions.</p>
     </section>
   );
 }

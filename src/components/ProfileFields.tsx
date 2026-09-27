@@ -19,7 +19,7 @@ export function SkinTypePicker({
   return (
     <fieldset>
       <legend className={hideLegend ? 'sr-only' : FIELD_LABEL}>{legend}</legend>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2 anim-stagger">
         {SKIN_TYPES.map((t) => {
           const on = value === t.id;
           return (
@@ -28,7 +28,7 @@ export function SkinTypePicker({
               type="button"
               aria-pressed={on}
               onClick={() => onChange(t.id)}
-              className={`min-h-16 px-3.5 py-3 rounded-2xl border-[1.5px] text-left transition ${
+              className={`tap-pop min-h-16 px-3.5 py-3 rounded-2xl border-[1.5px] text-left transition ${
                 on ? 'border-accent bg-accent-soft' : 'border-line bg-surface hover:border-muted/50'
               }`}
             >
@@ -87,6 +87,67 @@ export function NumberStepper({
           <PlusIcon />
         </button>
       </div>
+    </div>
+  );
+}
+
+const INPUT =
+  'w-full min-h-13 px-4 rounded-2xl border border-line bg-surface text-[16px] focus:outline-2 focus:outline-accent transition';
+
+export function NameField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <label htmlFor="name" className={FIELD_LABEL}>
+        Your first name
+      </label>
+      <input
+        id="name"
+        type="text"
+        autoComplete="given-name"
+        maxLength={40}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="e.g. Maya"
+        className={INPUT}
+      />
+    </div>
+  );
+}
+
+export function BirthDateField({
+  value,
+  age,
+  max,
+  onChange,
+}: {
+  value: string;
+  age: number | null;
+  max: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div>
+      <label htmlFor="birthDate" className={FIELD_LABEL}>
+        Date of birth
+      </label>
+      <div className="relative">
+        <input
+          id="birthDate"
+          type="date"
+          autoComplete="bday"
+          max={max}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={INPUT}
+        />
+      </div>
+      <p className="text-sm mt-2 min-h-6" aria-live="polite">
+        {age !== null && age >= 0 && (
+          <span key={age} className="anim-pop inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-accent-soft text-accent font-semibold">
+            Age {age}
+          </span>
+        )}
+      </p>
     </div>
   );
 }

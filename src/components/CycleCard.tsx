@@ -4,9 +4,9 @@ import { CycleRing } from './CycleRing';
 function nextText(next: NextPeriod | null): string {
   if (!next) return '';
   if (next.late > 0) return `${next.late} day${next.late === 1 ? '' : 's'} later than usual — cycles vary.`;
-  if (next.inDays === 0) return 'Period expected today.';
-  if (next.inDays === 1) return 'Period expected tomorrow.';
-  return `Next period in about ${next.inDays} days.`;
+  if (next.inDays === 0) return 'Period due today.';
+  if (next.inDays === 1) return 'Period due tomorrow.';
+  return `Period in about ${next.inDays} days.`;
 }
 
 /** The cycle, deliberately second: it's the context for the skin guidance, not the headline. */
@@ -54,12 +54,9 @@ export function CycleCard({
             : 'border-menstrual text-menstrual-ink hover:bg-menstrual-soft'
         }`}
       >
-        {periodStartedToday ? (canUndoPeriod ? 'Period logged today · Undo' : 'Period logged today') : 'My period started today'}
+        {periodStartedToday ? (canUndoPeriod ? 'Period logged · Undo' : 'Period logged') : 'My period started today'}
       </button>
 
-      <p className="text-xs text-muted text-center mt-4 leading-relaxed">
-        Phases are estimates from the dates you log. Not for contraception or medical use.
-      </p>
     </section>
   );
 }

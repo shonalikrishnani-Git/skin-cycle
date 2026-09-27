@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { APP_NAME } from './lib/brand';
-import { addDays, cycleInfoFor, daysBetween, nextPeriod, parseISO, todayISO, type Phase } from './lib/cycle';
+import { addDays, ageOn, cycleInfoFor, daysBetween, nextPeriod, parseISO, todayISO, type Phase } from './lib/cycle';
 import {
   DEFAULT_ROUTINE,
   adoptSampleEdit,
@@ -17,7 +17,7 @@ import { Calendar } from './components/Calendar';
 import { CheckIn } from './components/CheckIn';
 import { CycleCard } from './components/CycleCard';
 import { Guide } from './components/Guide';
-import { LogoMark } from './components/Icons';
+import { GearIcon, LogoMark } from './components/Icons';
 import { Onboarding, SITE_HOME } from './components/Onboarding';
 import { Pattern } from './components/Pattern';
 import { Settings } from './components/Settings';
@@ -58,12 +58,14 @@ function useToday(): string {
 }
 
 /**
- * The tour's sample person: combination skin, day 22 of a 28-day cycle, three logged periods.
+ * The tour's sample person, Maya: combination skin, day 22 of a 28-day cycle, three logged periods.
  * Held in memory only — the demo never reads or writes anyone's real diary.
  */
 function demoData(today: string): { profile: Profile; logs: DayLog[] } {
   const start = addDays(today, -21);
   const profile: Profile = {
+    name: 'Maya',
+    birthDate: `${Number(today.slice(0, 4)) - 29}-01-15`,
     periodStarts: [addDays(start, -56), addDays(start, -28), start],
     cycleLength: 28,
     periodLength: 5,
@@ -107,8 +109,6 @@ export default function App() {
   /** The guided tour: its step, and the sample diary it runs on. null when not touring. */
   const [tour, setTour] = useState<number | null>(null);
   const [demo, setDemo] = useState<{ profile: Profile; logs: DayLog[] } | null>(null);
-  /** After the tour's "Start my own diary", setup opens on its first question, not the welcome page. */
-  const [skipWelcome, setSkipWelcome] = useState(false);
   const [screenshot, setScreenshot] = useState(false);
 
   useEffect(() => {
@@ -148,15 +148,15 @@ export default function App() {
     const t = window.setTimeout(() => {
       const el = document.querySelector(`[data-tour="${stop.target}"]`);
       if (!el) return;
-      if (tour === 0 || stop.tab === 'guide') window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (stop.target === 'skin-today' || stop.tab === 'guide') window.scrollTo({ top: 0, behavior: 'smooth' });
       else el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 60);
     return () => window.clearTimeout(t);
   }, [tour]);
 
-  // Stop 2 fills in today's entry one tap at a time, so the diary is seen working.
+  // The routine stop fills in today's entry one tap at a time, so the diary is seen working.
   useEffect(() => {
-    if (tour !== 1 || !demo) return;
+    if (tour === null || TOUR[tour].target !== 'routine' || !demo) return;
     const day = todayISO();
     const { am } = demo.profile.routine;
     const taps: ((l: DayLog) => DayLog)[] = [
@@ -195,7 +195,6 @@ export default function App() {
   if (!activeProfile) {
     return (
       <Onboarding
-        startAtQuestions={skipWelcome}
         onTour={startTour}
         onSave={(p) => {
           const seeded = sampleHistory(p, today);
@@ -206,7 +205,6 @@ export default function App() {
           setSelected(today);
           setGuidePhase(null);
           setTab('today');
-          setSkipWelcome(false);
           window.scrollTo(0, 0);
         }}
       />
@@ -290,7 +288,7 @@ export default function App() {
         <div className="sticky top-0 z-30 bg-ink/95 backdrop-blur text-white text-xs">
           <div className="max-w-xl mx-auto px-4 sm:px-8 min-h-10 flex items-center justify-between gap-3">
             <span>
-              <strong className="font-semibold">Tour</strong> · sample diary, nothing is saved
+              <strong className="font-semibold">Demo</strong> · sample diary, nothing is saved
             </span>
             <button type="button" onClick={endTour} className="min-h-10 underline underline-offset-2">
               Exit
@@ -302,9 +300,9 @@ export default function App() {
       <div className="max-w-xl mx-auto px-4 py-5 sm:p-8">
         <header className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <LogoMark size={34} />
+            <LogoMark size={36} className="anim-spin-in" />
             <div>
-              <h1 className="font-display text-2xl leading-none">{APP_NAME}</h1>
+              <h1 className="font-display text-2xl leading-none">{p.name ? `Hi, ${p.name.split(' ')[0]}` : APP_NAME}</h1>
               <p className="text-xs text-muted mt-1">{longDate.format(parseISO(today)!)}</p>
             </div>
           </div>
@@ -312,9 +310,10 @@ export default function App() {
             <button
               type="button"
               onClick={() => setSettings('all')}
-              className="min-h-11 px-3 -mr-2 text-sm text-muted hover:text-ink transition"
+              aria-label="Settings"
+              className="w-11 h-11 -mr-2 rounded-full flex items-center justify-center text-muted hover:text-ink hover:bg-surface transition"
             >
-              Settings
+              <GearIcon />
             </button>
           )}
         </header>
@@ -345,7 +344,7 @@ export default function App() {
 
         <main>
           {tab === 'today' && (
-            <div className="space-y-4">
+            <div className="space-y-4 anim-fade-up">
               <div data-tour="skin-today" className={`scroll-mt-40 rounded-3xl ${tourRing('skin-today')}`}>
                 <SkinToday info={info} skinType={p.skinType} onOpenGuide={() => go('guide')} />
               </div>
@@ -354,7 +353,6 @@ export default function App() {
                   log={logFor(today)}
                   routine={p.routine}
                   heading="Today’s routine"
-                  subheading="Tick what you did and how your skin feels."
                   onChange={updateLog}
                   onEditRoutine={touring ? undefined : () => setSettings('routine')}
                   justStarted={justStarted === today}
@@ -373,7 +371,7 @@ export default function App() {
           )}
 
           {tab === 'guide' && (
-            <div data-tour="guide" className={`rounded-3xl ${tourRing('guide')}`}>
+            <div data-tour="guide" className={`rounded-3xl anim-fade-up ${tourRing('guide')}`}>
               <Guide
                 currentPhase={info.phase}
                 skinType={p.skinType}
@@ -384,7 +382,7 @@ export default function App() {
           )}
 
           {tab === 'diary' && (
-            <div className="space-y-4">
+            <div className="space-y-4 anim-fade-up">
               <Calendar
                 profile={p}
                 logs={activeLogs}
@@ -417,33 +415,37 @@ export default function App() {
           )}
         </main>
 
-        <footer className="text-xs text-muted text-center mt-10 leading-relaxed space-y-1">
-          <p>No account. Everything stays on this device.</p>
-          <p>
-            Not medical advice ·{' '}
-            <a href={SITE_HOME} className="underline underline-offset-2 hover:text-ink">
-              About this project
-            </a>
-            {!touring && (
-              <>
-                {' '}
-                ·{' '}
-                <button type="button" onClick={startTour} className="underline underline-offset-2 hover:text-ink">
-                  Take the tour
-                </button>
-              </>
-            )}
-          </p>
+        <footer className="text-xs text-muted text-center mt-10">
+          Stays on this device ·{' '}
+          <a href={SITE_HOME} className="underline underline-offset-2 hover:text-ink">
+            About
+          </a>
+          {!touring && (
+            <>
+              {' '}
+              ·{' '}
+              <button type="button" onClick={startTour} className="min-h-11 underline underline-offset-2 hover:text-ink">
+                Demo
+              </button>
+            </>
+          )}
         </footer>
       </div>
 
       {tour !== null && (
         <Tour
           step={tour}
+          person={{
+            name: p.name,
+            age: p.birthDate ? ageOn(p.birthDate, today) : null,
+            skinType: p.skinType,
+            day: info.day,
+            cycleLength: p.cycleLength,
+            phase: info.phase,
+          }}
           onStep={setTour}
           onExit={endTour}
           onStartOwn={() => {
-            setSkipWelcome(true);
             endTour();
           }}
         />

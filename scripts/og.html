@@ -9,7 +9,15 @@
   .og p { font-size: 26px; color: var(--color-muted); margin: 0; }
   .mark { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: 30px; }
   .mark img { width: 48px; height: 48px; }
-  .og .phone { max-width: 320px; margin-top: 150px; }
+  .stage { position: relative; display: flex; justify-content: center; }
+  .stage::before { content: ''; position: absolute; inset: 10% -10% -20%; border-radius: 60px; filter: blur(40px);
+    background: radial-gradient(circle at 20% 20%, var(--color-menstrual-soft), transparent 60%),
+      radial-gradient(circle at 80% 30%, var(--color-ovulatory-soft), transparent 60%),
+      radial-gradient(circle at 30% 90%, var(--color-follicular-soft), transparent 60%),
+      radial-gradient(circle at 80% 80%, var(--color-luteal-soft), transparent 60%); }
+  .phone { position: relative; width: 320px; margin-top: 170px; border-radius: 44px; padding: 10px; background: #2d2331;
+    box-shadow: 0 40px 80px -30px rgba(45, 35, 49, 0.5); }
+  .phone img { width: 100%; border-radius: 35px; display: block; }
   .og .tag { margin-top: 34px; font-size: 20px; color: var(--color-accent); font-weight: 600; }
 </style></head>
 <body><div class="og">
@@ -19,5 +27,5 @@
     <p>A private skin diary. Every tip backed by a source.</p>
     <p class="tag">Portfolio project · Sonali Krishnani</p>
   </div>
-  <div class="hero-visual"><div class="phone"><img src="../site/screenshots/today.png" alt=""></div></div>
+  <div class="stage"><div class="phone"><img src="../site/screenshots/today.png" alt=""></div></div>
 </div></body></html>

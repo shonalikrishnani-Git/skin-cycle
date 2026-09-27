@@ -10,6 +10,7 @@ globalThis.localStorage = {
 
 const { addStep, moveStep, toggleStep, cleanStepName, sampleHistory, DEFAULT_ROUTINE, MAX_STEPS } = await import('../src/lib/log.ts');
 const { loadProfile, loadLogs, saveLogs } = await import('../src/lib/storage.ts');
+const { ageOn } = await import('../src/lib/cycle.ts');
 
 let pass = 0, fail = 0;
 const check = (name, got, want) => {
@@ -54,6 +55,17 @@ check('logged custom steps survive a reload', loadLogs()[0].am.concat(loadLogs()
 const mine = { periodStarts: ['2026-09-01'], cycleLength: 28, periodLength: 5, skinType: 'Normal', routine: { am: ['Wash', 'Sunscreen'], pm: ['Wash'] } };
 const steps = new Set(sampleHistory(mine, '2026-09-27').flatMap((l) => [...l.am, ...l.pm]));
 check('sample entries only use your own steps', [...steps].sort(), ['Sunscreen', 'Wash']);
+
+// --- Name and age -----------------------------------------------------------------------------------
+check('age the day before a birthday', ageOn('1997-09-28', '2026-09-27'), 28);
+check('age on a birthday', ageOn('1997-09-27', '2026-09-27'), 29);
+check('a leap-day birthday counts on 1 March', ageOn('2004-02-29', '2025-03-01'), 21);
+check('a birth date in the future has no age', ageOn('2030-01-01', '2026-09-27'), null);
+
+put('skincycle:v1:profile', { name: '  Maya  ', birthDate: '1997-01-15', periodStarts: ['2026-09-01'], cycleLength: 28, periodLength: 5, skinType: 'Dry' });
+check('name is trimmed and birth date kept', [loadProfile()?.name, loadProfile()?.birthDate], ['Maya', '1997-01-15']);
+put('skincycle:v1:profile', { birthDate: 'not a date', periodStarts: ['2026-09-01'], cycleLength: 28, periodLength: 5, skinType: 'Dry' });
+check('older profiles without a name or birth date still load', [loadProfile()?.name, loadProfile()?.birthDate], ['', null]);
 
 console.log(`\n${pass} passed, ${fail} failed`);
 if (fail) process.exit(1);

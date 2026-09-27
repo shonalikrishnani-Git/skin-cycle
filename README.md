@@ -4,7 +4,7 @@ Skincare that follows your cycle — a private skin diary with week-by-week tips
 health claim is backed by a source.
 
 **[Live site](https://shonalikrishnani-git.github.io/skin-cycle/)** ·
-**[1-minute tour](https://shonalikrishnani-git.github.io/skin-cycle/app/?tour)** ·
+**[Demo](https://shonalikrishnani-git.github.io/skin-cycle/app/?tour)** ·
 **[Case study](https://shonalikrishnani-git.github.io/skin-cycle/about.html)**
 
 A portfolio project by **Sonali Krishnani** (M.Sc. Microbiology, Biology teacher), built with
@@ -16,13 +16,14 @@ A portfolio project by **Sonali Krishnani** (M.Sc. Microbiology, Biology teacher
 
 ## What it does
 
+- **Start** — name, date of birth (for your age), skin type, cycle and routine, in four short steps.
 - **Today** — what skin tends to need this week, matched to your skin type, plus a two-tap diary:
   tick your routine steps and rate your skin.
 - **Guide** — each phase's routine, home care with an evidence level and a caution on every remedy,
   myths, when to see a GP, and 66 sources.
 - **Diary** — a calendar coloured by cycle phase, and your own skin pattern once there's enough data.
 - **Your routine** — pick suggested steps or type your own, in your order.
-- **Tour** — a guided demo with a sample diary. Nothing is saved.
+- **Demo** — a guided five-step walk-through of a sample diary. Nothing is saved.
 
 No account, no server: everything stays in your browser.
 
@@ -65,17 +66,18 @@ React 19, strict TypeScript, Vite, Tailwind 4 — nothing else.
 ```
 src/lib/        skin.ts (the guidance and sources) · cycle.ts (phase maths) · log.ts (diary, routine)
                 storage.ts (localStorage, validated on load) · brand.ts (the app name)
-src/components/ Onboarding · Settings · RoutineEditor · Tour · SkinToday · CheckIn · Guide
+src/components/ Onboarding · Settings · RoutineEditor · Tour (the demo) · SkinToday · CheckIn · Guide
                 Sources · Calendar · Pattern · CycleCard
-site/           the static landing page and case study
+site/           the one-page landing (index.html, landing.css, landing.js) and case study
 tests/          cycle, content, and routine/storage tests
 ```
 
 ## Verified 27 Sep 2026
 
-Welcome page, three-step setup and your own routine steps work at 375px and on desktop · the tour
-runs all four steps without saving anything · 10 don't-try items and 66 sources render · no text
-under 12px, and muted text passes WCAG AA contrast · `npm test` and `npm run build` pass.
+Landing page on desktop and at 375px · four-step setup with name and date of birth (age shown,
+under-13s stopped) · your own routine steps · the five-step demo saves nothing · Guide sections
+fold open and closed · 10 don't-try items and 66 sources render · no text under 12px, muted text
+passes WCAG AA · animations switch off with reduced motion · `npm test` and `npm run build` pass.
 
 ## Limits
 
@@ -83,4 +85,3 @@ under 12px, and muted text passes WCAG AA contrast · `npm test` and `npm run bu
 - General skincare information, not medical advice or contraception.
 - Phases are estimates from the dates you log.
 - One browser on one device; clearing site data erases the diary.
-- "Skin Cycle" is a working title.

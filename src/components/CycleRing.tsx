@@ -45,24 +45,27 @@ export function CycleRing({
         aria-label={`Day ${day} of a ${cycleLength}-day cycle, ${phase.toLowerCase()} phase`}
       >
         <circle cx={CENTER} cy={CENTER} r={RADIUS} fill="none" stroke="var(--color-line)" strokeWidth={STROKE} />
-        {ranges.map((r) => {
-          const start = ((r.start - 1) / cycleLength) * CIRCUMFERENCE;
-          const length = ((r.end - r.start + 1) / cycleLength) * CIRCUMFERENCE;
-          return (
-            <circle
-              key={r.phase}
-              cx={CENTER}
-              cy={CENTER}
-              r={RADIUS}
-              fill="none"
-              stroke={PHASE_META[r.phase].stroke}
-              strokeWidth={STROKE}
-              strokeDasharray={`0 ${start + GAP / 2} ${Math.max(0, length - GAP)} ${CIRCUMFERENCE}`}
-              transform={`rotate(-90 ${CENTER} ${CENTER})`}
-              opacity={r.phase === phase ? 1 : 0.4}
-            />
-          );
-        })}
+        <g className="anim-spin-in" style={{ transformOrigin: 'center' }}>
+          {ranges.map((r) => {
+            const start = ((r.start - 1) / cycleLength) * CIRCUMFERENCE;
+            const length = ((r.end - r.start + 1) / cycleLength) * CIRCUMFERENCE;
+            return (
+              <circle
+                key={r.phase}
+                cx={CENTER}
+                cy={CENTER}
+                r={RADIUS}
+                fill="none"
+                stroke={PHASE_META[r.phase].stroke}
+                strokeWidth={STROKE}
+                strokeDasharray={`0 ${start + GAP / 2} ${Math.max(0, length - GAP)} ${CIRCUMFERENCE}`}
+                transform={`rotate(-90 ${CENTER} ${CENTER})`}
+                opacity={r.phase === phase ? 1 : 0.4}
+              />
+            );
+          })}
+        </g>
+        <circle cx={markerX} cy={markerY} r={12} fill="none" stroke={PHASE_META[phase].stroke} strokeWidth={3} className="ring-halo" />
         <circle cx={markerX} cy={markerY} r={compact ? 15 : 12} fill="white" stroke="var(--color-ink)" strokeWidth={compact ? 4 : 3} />
       </svg>
 

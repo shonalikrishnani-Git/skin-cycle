@@ -15,9 +15,8 @@ import {
   type SkinType,
 } from '../lib/skin';
 import { CARD, EVIDENCE_STYLE } from './guideStyles';
+import { ChevronIcon } from './Icons';
 import { Sources } from './Sources';
-
-const EYEBROW = 'text-xs uppercase tracking-widest text-muted';
 
 function PickList({ title, picks, titleClass }: { title: string; picks: Pick[]; titleClass: string }) {
   return (
@@ -32,6 +31,22 @@ function PickList({ title, picks, titleClass }: { title: string; picks: Pick[]; 
         ))}
       </ul>
     </div>
+  );
+}
+
+/** A card that opens and closes, so the guide reads as a list of topics rather than one long page. */
+function Fold({ title, count, open, children }: { title: string; count?: number; open?: boolean; children: React.ReactNode }) {
+  return (
+    <details open={open} className={`${CARD} group !py-1`}>
+      <summary className="flex items-center justify-between gap-3 min-h-14 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+        <h2 className="font-display text-xl">
+          {title}
+          {count !== undefined && <span className="ml-2 text-sm font-sans text-muted">{count}</span>}
+        </h2>
+        <ChevronIcon direction="down" className="text-muted shrink-0 transition-transform duration-300 group-open:rotate-180" />
+      </summary>
+      <div className="anim-fade-up pb-5 pt-1">{children}</div>
+    </details>
   );
 }
 
@@ -84,21 +99,20 @@ export function Guide({
         <h2 className="font-display text-[26px] leading-tight text-balance">{guide.headline}</h2>
         <p className="text-sm text-muted leading-relaxed mt-2 text-pretty">{guide.tendency.text}</p>
         <p className="text-sm leading-relaxed mt-4 pt-4 border-t border-line">
-          <span className="font-semibold">{skinType} skin:</span> <span className="text-muted">{SKIN_TYPE_TIP[skinType]}</span>
+          <span className="font-semibold">{skinType}:</span> <span className="text-muted">{SKIN_TYPE_TIP[skinType]}</span>
         </p>
       </section>
 
-      <section aria-label="Your routine" className={`${CARD} flex flex-col gap-5`}>
-        <h2 className="font-display text-2xl">Your routine</h2>
-        <PickList title="Hydrate" picks={guide.hydrate} titleClass="text-follicular-ink" />
-        <PickList title="Moisturise" picks={guide.moisturise} titleClass="text-luteal-ink" />
-        <PickList title="Go easy on" picks={guide.goEasyOn} titleClass="text-menstrual-ink" />
-        <PickList title="Keep doing" picks={guide.keepDoing} titleClass="text-muted" />
-      </section>
+      <Fold title="Your routine" open>
+        <div className="flex flex-col gap-5">
+          <PickList title="Hydrate" picks={guide.hydrate} titleClass="text-follicular-ink" />
+          <PickList title="Moisturise" picks={guide.moisturise} titleClass="text-luteal-ink" />
+          <PickList title="Go easy on" picks={guide.goEasyOn} titleClass="text-menstrual-ink" />
+          <PickList title="Keep doing" picks={guide.keepDoing} titleClass="text-muted" />
+        </div>
+      </Fold>
 
-      <section aria-label="Home care" className={CARD}>
-        <h2 className="font-display text-2xl mb-1">Home care</h2>
-        <p className="text-sm text-muted mb-4">Simple, safe things to try at home in this phase.</p>
+      <Fold title="Try at home" count={guide.homeCare.length} open>
         <ul className="flex flex-col gap-3">
           {guide.homeCare.map((r) => (
             <li key={r.name} className="rounded-2xl bg-canvas border border-line p-4">
@@ -114,11 +128,9 @@ export function Guide({
             </li>
           ))}
         </ul>
-      </section>
+      </Fold>
 
-      <section aria-label="Don’t try this at home" className={CARD}>
-        <h2 className="font-display text-2xl mb-1">Don’t try this at home</h2>
-        <p className="text-sm text-muted mb-4">Popular online — and more likely to hurt your skin than help it.</p>
+      <Fold title="Don’t try this at home" count={DONT_TRY.length}>
         <ul className="flex flex-col gap-3">
           {DONT_TRY.map((w) => (
             <li key={w.name}>
@@ -127,11 +139,9 @@ export function Guide({
             </li>
           ))}
         </ul>
-      </section>
+      </Fold>
 
-      <section aria-label="Heard online" className={CARD}>
-        <h2 className="font-display text-2xl mb-1">Heard online — not quite true</h2>
-        <p className="text-sm text-muted mb-4">Common cycle-and-skin claims, checked against the research.</p>
+      <Fold title="Myths" count={MYTHS.length}>
         <ul className="flex flex-col gap-4">
           {MYTHS.map((m) => (
             <li key={m.claim}>
@@ -140,57 +150,51 @@ export function Guide({
             </li>
           ))}
         </ul>
-      </section>
+      </Fold>
 
-      <section aria-label="Worth knowing" className={`${CARD} flex flex-col gap-5`}>
-        <div>
-          <h2 className="font-display text-2xl mb-2">Worth knowing</h2>
-          <p className="text-sm leading-relaxed">{PREGNANCY_NOTE.text}</p>
-          <p className="text-sm leading-relaxed mt-3">{BREASTFEEDING_NOTE.text}</p>
-          <p className="text-sm leading-relaxed mt-3">{PILL_NOTE.text}</p>
+      <Fold title="When to see a pharmacist or GP">
+        <ul className="flex flex-col gap-1.5 list-disc pl-5 text-sm text-muted leading-relaxed">
+          {SEE_SOMEONE.map((s) => (
+            <li key={s.text}>{s.text}</li>
+          ))}
+        </ul>
+      </Fold>
+
+      <Fold title="Pregnancy, breastfeeding and the pill">
+        <div className="flex flex-col gap-3 text-sm leading-relaxed">
+          <p>{PREGNANCY_NOTE.text}</p>
+          <p>{BREASTFEEDING_NOTE.text}</p>
+          <p>{PILL_NOTE.text}</p>
         </div>
-        <div>
-          <h3 className={`${EYEBROW} mb-2`}>See a pharmacist or GP if you notice</h3>
-          <ul className="flex flex-col gap-1.5 list-disc pl-5 text-sm text-muted leading-relaxed">
-            {SEE_SOMEONE.map((s) => (
-              <li key={s.text}>{s.text}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3 className={`${EYEBROW} mb-2`}>How strong is the evidence?</h3>
-          <p className="text-sm text-muted leading-relaxed">{EVIDENCE_NOTE.text}</p>
-        </div>
-        {SOURCES.length > 0 && (
-          <div>
-            <h3 className={`${EYEBROW} mb-1`}>Sources</h3>
-            <ul className="flex flex-col">
-              {SOURCES.map((s) => (
-                <li key={s.url}>
-                  <a
-                    href={s.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center min-h-11 text-sm text-accent underline underline-offset-2"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        <p className="text-xs text-muted leading-relaxed pt-4 border-t border-line">
-          General skincare information, not medical advice.
-        </p>
-      </section>
+      </Fold>
+
+      <Fold title="How strong is the evidence?">
+        <p className="text-sm text-muted leading-relaxed">{EVIDENCE_NOTE.text}</p>
+      </Fold>
+
+      <Fold title="Sources" count={SOURCES.length}>
+        <ul className="flex flex-col">
+          {SOURCES.map((s) => (
+            <li key={s.url}>
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center min-h-11 text-sm text-accent underline underline-offset-2"
+              >
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Fold>
 
       <button
         type="button"
         onClick={() => setShowSources(true)}
         className="w-full min-h-11 text-sm text-accent underline underline-offset-2"
       >
-        See every claim and its source →
+        Every claim and its source →
       </button>
     </div>
   );

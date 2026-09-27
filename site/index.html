@@ -1,130 +1,200 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Skin Cycle — skincare that follows your cycle</title>
-  <meta name="description" content="A private skin diary with week-by-week skincare tips for your menstrual cycle, backed by 66 sources. A portfolio project by Sonali Krishnani." />
+  <meta name="description" content="A private skin diary with skincare tips for each week of your menstrual cycle, backed by 66 sources. A portfolio project by Sonali Krishnani." />
   <meta name="theme-color" content="#fcf7f5" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Skin Cycle — skincare that follows your cycle" />
-  <meta property="og:description" content="A private skin diary with week-by-week skincare tips. Every tip is backed by a real source." />
+  <meta property="og:description" content="A private skin diary with tips for each week of your cycle. Every tip backed by a source." />
   <meta property="og:image" content="https://shonalikrishnani-git.github.io/skin-cycle/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="landing.css" />
+  <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
-  <div class="wrap wrap-wide">
-    <header class="site-header">
-      <a class="wordmark" href="./"><img src="favicon.svg" alt="" width="30" height="30" />Skin Cycle</a>
+  <header class="top">
+    <div class="page">
+      <a class="wordmark" href="./"><img class="logo-spin" src="favicon.svg" alt="" width="30" height="30" />Skin Cycle</a>
       <nav aria-label="Site">
         <a href="about.html">Case study</a>
-        <a href="https://github.com/shonalikrishnani-Git/skin-cycle">Source</a>
+        <a href="https://github.com/shonalikrishnani-Git/skin-cycle">GitHub</a>
+        <a class="btn btn-primary btn-sm" href="app/">Start</a>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <main>
-      <section class="hero">
-        <div>
-          <p class="eyebrow">Portfolio project · Sonali Krishnani</p>
-          <h1>Skincare that follows your cycle.</h1>
-          <p class="lede">A private skin diary with week-by-week skincare tips. Every tip is backed by a real source.</p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="app/?tour">Take the 1-minute tour →</a>
-            <a class="btn btn-secondary" href="app/">Open the app</a>
-          </div>
-          <ul class="trust" aria-label="At a glance">
-            <li>No account</li>
-            <li>Data stays on your device</li>
-            <li>66 sources</li>
-          </ul>
-        </div>
-        <div class="hero-visual">
-          <div class="phone">
-            <img src="screenshots/today.png" width="780" height="1688" alt="The Today screen: what skin tends to do this week, with hydrate, moisturise and go-easy-on tips" />
-          </div>
-        </div>
-      </section>
+  <main class="page">
+    <section class="hero">
+      <div class="blobs" aria-hidden="true">
+        <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+      </div>
 
-      <ol class="steps" aria-label="What it does">
-        <li class="step">
-          <span class="step-num" aria-hidden="true">1</span>
-          <h3>Today</h3>
-          <p>This week's skin tips, then tick your routine and rate your skin.</p>
-          <div class="shot"><img src="screenshots/routine.png" width="780" height="1688" alt="Today's routine: steps ticked and a face picked for how skin feels" loading="lazy" /></div>
+      <div>
+        <p class="eyebrow rise" style="--i: 0">Portfolio project · Sonali Krishnani</p>
+        <h1 class="rise" style="--i: 1">Skincare that <span class="accent">follows your cycle.</span></h1>
+        <p class="lede rise" style="--i: 2">A private skin diary with tips for each week of your menstrual cycle. Every tip is backed by a source.</p>
+        <div class="cta-row rise" style="--i: 3">
+          <a class="btn btn-primary" href="app/">Start my diary</a>
+          <a class="btn btn-secondary btn-play" href="app/?tour">
+            <span class="play" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 1.8v8.4L10 6z" fill="currentColor" /></svg></span>
+            See the demo
+          </a>
+        </div>
+        <ul class="pills rise" style="--i: 4" aria-label="At a glance">
+          <li>No account</li>
+          <li>Stays on your device</li>
+          <li>66 sources</li>
+        </ul>
+      </div>
+
+      <div class="stage" aria-label="App screens">
+        <div class="phone">
+          <div class="screen" id="screen">
+            <img class="on" src="screenshots/today.png" width="780" height="1688" alt="Today: this week's skin tips" />
+            <img src="screenshots/routine.png" width="780" height="1688" alt="Today's routine, ticked, with skin rated Good" />
+            <img src="screenshots/guide.png" width="780" height="1688" alt="The Guide: tips with an evidence level and a caution" />
+            <img src="screenshots/diary.png" width="780" height="1688" alt="The Diary: a calendar coloured by cycle phase" />
+          </div>
+          <div class="dots" id="dots" role="group" aria-label="Choose a screen"></div>
+        </div>
+
+        <div class="chip c1" aria-hidden="true">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 28 28"><circle cx="14" cy="14" r="9" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="40 57" transform="rotate(-90 14 14)" /></svg></span>
+          <span>Day 22 · Luteal<small>Phase today</small></span>
+        </div>
+        <div class="chip c2" aria-hidden="true">
+          <span class="ic"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+          <span>Morning done<small>4 of 4 steps</small></span>
+        </div>
+        <div class="chip c3" aria-hidden="true">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M10 5.5C8.5 4.3 6.3 3.8 3.5 4v11.5c2.8-.2 5 .3 6.5 1.5m0-11.5c1.5-1.2 3.7-1.7 6.5-1.5v11.5c-2.8-.2-5 .3-6.5 1.5m0-11.5V17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg></span>
+          <span>Some evidence<small>Hydrocolloid patch</small></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="how-title">
+      <div class="band-head reveal">
+        <p class="kicker">How it works</p>
+        <h2 id="how-title">Four steps, two minutes</h2>
+      </div>
+      <ol class="how reveal">
+        <li class="reveal" style="--i: 1">
+          <span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg></span>
+          <h3>Add your details</h3>
+          <p>Name, date of birth, skin type and cycle.</p>
         </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">2</span>
-          <h3>Guide</h3>
-          <p>Home care with an evidence level and a caution on every tip.</p>
-          <div class="shot"><img src="screenshots/guide.png" width="780" height="1688" alt="The Guide: home care tips, each with an evidence level and a caution" loading="lazy" /></div>
+        <li class="reveal" style="--i: 2">
+          <span class="num"><svg width="26" height="26" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 2.8c2.9 3.4 5 6.3 5 8.9a5 5 0 0 1-10 0c0-2.6 2.1-5.5 5-8.9Z" /></svg></span>
+          <h3>Get this week’s tips</h3>
+          <p>What to hydrate, moisturise and go easy on.</p>
         </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">3</span>
-          <h3>Diary</h3>
-          <p>A calendar of your skin, coloured by cycle phase.</p>
-          <div class="shot"><img src="screenshots/diary.png" width="780" height="1688" alt="The Diary: a calendar coloured by cycle phase with a face on each rated day" loading="lazy" /></div>
+        <li class="reveal" style="--i: 3">
+          <span class="num"><svg width="26" height="26" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7" /></svg></span>
+          <h3>Log in two taps</h3>
+          <p>Tick your routine and rate your skin.</p>
+        </li>
+        <li class="reveal" style="--i: 4">
+          <span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 19V11M10 19V6M16 19v-9M22 19H2" /></svg></span>
+          <h3>See your pattern</h3>
+          <p>How your skin feels in each phase.</p>
         </li>
       </ol>
+    </section>
 
-      <section class="evidence" aria-labelledby="evidence-title">
-        <div>
-          <h2 id="evidence-title">Checked, not guessed</h2>
-          <p>Every health claim had to be backed by a source that was actually opened — AAD, NHS, HSE, DermNet, FDA or a published study.</p>
-          <p><a href="about.html">Read the case study →</a></p>
-        </div>
-        <ul class="stats">
-          <li><strong>66</strong>sources</li>
-          <li><strong>3</strong>rounds of fact-checking</li>
-          <li><strong>2</strong>popular remedies cut: honey and aloe vera</li>
-          <li><strong>0</strong>brands, "toxic" scores or scraped reviews</li>
-        </ul>
-      </section>
+    <section class="band" aria-labelledby="features-title">
+      <div class="band-head reveal">
+        <p class="kicker">Features</p>
+        <h2 id="features-title">Small app, careful advice</h2>
+      </div>
 
-      <section aria-labelledby="who-title">
-        <div class="section-head">
-          <h2 id="who-title">My role</h2>
-        </div>
-        <div class="who">
-          <div class="card">
-            <h3>Sonali Krishnani <span class="role">M.Sc. Microbiology · Biology teacher</span></h3>
-            <ul class="plain">
-              <li>Came up with the idea and product direction</li>
-              <li>Set the rules the advice must follow</li>
-              <li>Led the fact-checking and decided what to cut</li>
-            </ul>
+      <div class="features">
+        <article class="feature wide reveal">
+          <div>
+            <div class="ic f-green" style="background: var(--color-follicular-soft); color: var(--color-follicular-ink)">
+              <svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 5.5C8.5 4.3 6.3 3.8 3.5 4v11.5c2.8-.2 5 .3 6.5 1.5m0-11.5c1.5-1.2 3.7-1.7 6.5-1.5v11.5c-2.8-.2-5 .3-6.5 1.5m0-11.5V17" /></svg>
+            </div>
+            <p class="big-num" data-count="66">66</p>
+            <h3>Sources behind every tip</h3>
+            <p>AAD, NHS, HSE, DermNet, FDA and published studies. Each tip shows how strong the evidence is.</p>
           </div>
-          <div class="card">
-            <h3>Claude Code <span class="role">AI coding assistant</span></h3>
-            <ul class="plain">
-              <li>Wrote the code</li>
-              <li>Ran research and review agents</li>
-              <li>Applied the fixes they found</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+          <ul class="mini" aria-label="Example tips with their evidence level">
+            <li class="reveal" style="--i: 1">Warm compress <span class="ev-derm">Dermatologist advice</span></li>
+            <li class="reveal" style="--i: 2">Hydrocolloid patch <span class="ev-some">Some evidence</span></li>
+            <li class="reveal" style="--i: 3">Colloidal oatmeal <span class="ev-some">Some evidence</span></li>
+            <li class="reveal" style="--i: 4"><s>Honey mask</s> <span class="ev-cut" style="background: var(--color-menstrual-soft); color: var(--color-menstrual-ink)">Cut</span></li>
+          </ul>
+        </article>
 
-      <section class="closing">
-        <h2>See it in a minute</h2>
-        <p>The tour fills in a sample diary. Nothing is saved.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="app/?tour">Take the tour →</a>
-        </div>
-      </section>
-    </main>
+        <article class="feature f-pink reveal" style="--i: 1">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 2.8c2.9 3.4 5 6.3 5 8.9a5 5 0 0 1-10 0c0-2.6 2.1-5.5 5-8.9Z" /></svg></div>
+          <h3>Matched to your skin</h3>
+          <p>Oily, dry, combination or sensitive — the tips change with it.</p>
+        </article>
 
-    <footer class="site-footer">
-      <p>
-        <a href="about.html">Case study</a> ·
-        <a href="https://github.com/shonalikrishnani-Git/skin-cycle">Source on GitHub</a> ·
-        <a href="app/">Open the app</a>
+        <article class="feature f-purple reveal">
+          <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true" style="margin-bottom: 8px">
+            <circle cx="60" cy="60" r="46" fill="none" stroke="var(--color-line)" stroke-width="14" />
+            <g transform="rotate(-90 60 60)" fill="none" stroke-width="14">
+              <!-- A 28-day cycle: 5 + 6 + 5 + 12 days on a ring of length 289. -->
+              <circle class="ring-arc" style="--len: 45; --i: 0" cx="60" cy="60" r="46" stroke="var(--color-menstrual)" transform="rotate(2 60 60)" />
+              <circle class="ring-arc" style="--len: 56; --i: 1" cx="60" cy="60" r="46" stroke="var(--color-follicular)" transform="rotate(66 60 60)" />
+              <circle class="ring-arc" style="--len: 45; --i: 2" cx="60" cy="60" r="46" stroke="var(--color-ovulatory)" transform="rotate(143 60 60)" />
+              <circle class="ring-arc" style="--len: 118; --i: 3" cx="60" cy="60" r="46" stroke="var(--color-luteal)" transform="rotate(208 60 60)" />
+            </g>
+          </svg>
+          <h3>Four phases</h3>
+          <ul class="phase-key">
+            <li><span class="dot dot-menstrual"></span>Menstrual</li>
+            <li><span class="dot dot-follicular"></span>Follicular</li>
+            <li><span class="dot dot-ovulatory"></span>Ovulatory</li>
+            <li><span class="dot dot-luteal"></span>Luteal</li>
+          </ul>
+        </article>
+
+        <article class="feature f-green reveal" style="--i: 1">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7" /></svg></div>
+          <h3>Your own routine</h3>
+          <p>Pick suggested steps or add your own, in your order.</p>
+        </article>
+
+        <article class="feature dark reveal" style="--i: 2">
+          <div class="ic" style="background: rgba(255, 255, 255, 0.1); color: #fff"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="8.5" width="12" height="9" rx="2.2" /><path d="M7 8.5V6.2a3 3 0 0 1 6 0v2.3" stroke-linecap="round" /></svg></div>
+          <h3>Private by design</h3>
+          <p>No account, no server. Your diary stays on your device.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="final reveal" aria-labelledby="final-title">
+      <h2 id="final-title">See it in a minute</h2>
+      <p>The demo fills in a sample diary. Nothing is saved.</p>
+      <div class="cta-row">
+        <a class="btn btn-light btn-play" href="app/?tour">
+          <span class="play" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 1.8v8.4L10 6z" fill="currentColor" /></svg></span>
+          See the demo
+        </a>
+        <a class="btn btn-ghost" href="app/">Start my diary</a>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p>Designed by Sonali Krishnani · built with Claude Code</p>
+      <p><a href="about.html">Case study</a> · <a href="https://github.com/shonalikrishnani-Git/skin-cycle">GitHub</a></p>
+      <p class="disclaimer">
+        General skincare information, not medical advice, a medical device or contraception. Checked
+        against published sources; not reviewed by a pharmacist or dermatologist.
       </p>
-      <p>General skincare information, not medical advice. Not yet reviewed by a pharmacist or dermatologist.</p>
     </footer>
-  </div>
+  </main>
+
+  <script src="landing.js" defer></script>
 </body>
 </html>

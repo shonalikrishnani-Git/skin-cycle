@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { CYCLE_RANGE, PERIOD_RANGE, type Profile } from '../lib/storage';
+import { ageOn, todayISO } from '../lib/cycle';
+import { CYCLE_RANGE, MAX_NAME_LENGTH, PERIOD_RANGE, type Profile } from '../lib/storage';
 import { ChevronIcon } from './Icons';
-import { NumberStepper, SkinTypePicker } from './ProfileFields';
+import { BirthDateField, NameField, NumberStepper, SkinTypePicker } from './ProfileFields';
 import { RoutineEditor } from './RoutineEditor';
 import { SITE_HOME } from './Onboarding';
 
@@ -9,8 +10,8 @@ const CARD = 'bg-surface border border-line rounded-3xl p-6';
 const H2 = 'font-display text-xl mb-4';
 
 /**
- * Settings save as you go — there's nothing to lose by changing a skin type or a step. Period dates
- * aren't here: they're logged from Today and the diary, where they happen.
+ * Settings save as you go. Period dates aren't here: they're logged from Today and the diary,
+ * where they happen.
  */
 export function Settings({
   profile,
@@ -27,6 +28,7 @@ export function Settings({
   focus?: 'routine';
 }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const today = todayISO();
 
   useEffect(() => {
     if (focus) document.getElementById(focus)?.scrollIntoView({ block: 'start' });
@@ -46,9 +48,22 @@ export function Settings({
             Done
           </button>
         </header>
-        <p className="text-sm text-muted mb-5 -mt-2">Changes save as you make them.</p>
+        <main className="space-y-4 anim-stagger">
+          <section className={CARD} aria-labelledby="s-you">
+            <h2 id="s-you" className={H2}>
+              About you
+            </h2>
+            <div className="space-y-5">
+              <NameField value={profile.name} onChange={(name) => onChange({ ...profile, name: name.slice(0, MAX_NAME_LENGTH) })} />
+              <BirthDateField
+                value={profile.birthDate ?? ''}
+                max={today}
+                age={profile.birthDate ? ageOn(profile.birthDate, today) : null}
+                onChange={(birthDate) => onChange({ ...profile, birthDate: birthDate || null })}
+              />
+            </div>
+          </section>
 
-        <main className="space-y-4">
           <section className={CARD} aria-labelledby="s-skin">
             <h2 id="s-skin" className={H2}>
               Your skin
@@ -80,18 +95,14 @@ export function Settings({
                 onChange={(periodLength) => onChange({ ...profile, periodLength })}
               />
             </div>
-            <p className="text-xs text-muted mt-3 leading-relaxed">
-              Log when a period starts from Today, or tap any past day in the Diary.
-            </p>
+            <p className="text-xs text-muted mt-3">Log a new period from Today or the Diary.</p>
           </section>
 
           <section id="routine" className={`${CARD} scroll-mt-4`} aria-labelledby="s-routine">
             <h2 id="s-routine" className={H2}>
               Your routine
             </h2>
-            <p className="text-sm text-muted -mt-2 mb-5 leading-relaxed">
-              Removing a step keeps it on the days you already logged it.
-            </p>
+
             <RoutineEditor routine={profile.routine} onChange={(routine) => onChange({ ...profile, routine })} />
           </section>
 
@@ -99,13 +110,10 @@ export function Settings({
             <h2 id="s-data" className={H2}>
               Your data
             </h2>
-            <p className="text-sm text-muted leading-relaxed mb-4">
-              Everything is stored in this browser on this device — no account, no server. Clearing your browser’s site
-              data erases it too.
-            </p>
+            <p className="text-sm text-muted mb-4">Stored only in this browser.</p>
             {confirmDelete ? (
               <div className="bg-menstrual-soft rounded-2xl p-4">
-                <p className="text-sm mb-3">Delete your skin diary, routine and cycle dates? This can’t be undone.</p>
+                <p className="text-sm mb-3">Delete everything? This can’t be undone.</p>
                 <div className="flex flex-wrap gap-2">
                   <button type="button" onClick={onDeleteAll} className="px-4 min-h-11 rounded-xl bg-menstrual-ink text-white text-sm font-semibold">
                     Delete everything
@@ -136,7 +144,6 @@ export function Settings({
           >
             <span>
               <span className="block font-semibold">About this project</span>
-              <span className="block text-muted mt-0.5">How it was built and how the guidance was checked</span>
             </span>
             <ChevronIcon direction="right" className="text-muted shrink-0" />
           </a>

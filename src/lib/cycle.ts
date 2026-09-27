@@ -107,6 +107,14 @@ export function daysBetween(from: string, to: string): number {
   return a === null || b === null ? 0 : Math.round((b - a) / DAY_MS);
 }
 
+/** Whole years from a birth date to `on` — the age you'd say out loud. */
+export function ageOn(birthDate: string, on: string): number | null {
+  if (parseISO(birthDate) === null || parseISO(on) === null || birthDate > on) return null;
+  const [by, bm, bd] = birthDate.split('-').map(Number);
+  const [y, m, d] = on.split('-').map(Number);
+  return y - by - (m < bm || (m === bm && d < bd) ? 1 : 0);
+}
+
 // --- Phases ----------------------------------------------------------------------------
 
 const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));

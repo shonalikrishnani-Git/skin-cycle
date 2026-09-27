@@ -9,6 +9,10 @@ import { DEFAULT_ROUTINE, MAX_STEPS, SKIN_TAGS, addStep, type DayLog, type Routi
 import { SKIN_TYPES, type SkinType } from './skin';
 
 export interface Profile {
+  /** First name, for a greeting. Optional for profiles made before it was asked. */
+  name: string;
+  /** YYYY-MM-DD, used only to show your age. null for profiles made before it was asked. */
+  birthDate: string | null;
   /** Every period start you've logged, YYYY-MM-DD, ascending. Always at least one. */
   periodStarts: string[];
   cycleLength: number;
@@ -19,6 +23,8 @@ export interface Profile {
 }
 
 export const CYCLE_RANGE = { min: 21, max: 45 } as const;
+export const AGE_RANGE = { min: 13, max: 100 } as const;
+export const MAX_NAME_LENGTH = 40;
 export const PERIOD_RANGE = { min: 2, max: 10 } as const;
 
 const PROFILE_KEY = 'skincycle:v1:profile';
@@ -65,7 +71,15 @@ function readRoutine(v: unknown): Routine {
 
 export function loadProfile(): Profile | null {
   const p = read(PROFILE_KEY) as
-    | { periodStarts?: unknown; cycleLength?: unknown; periodLength?: unknown; skinType?: unknown; routine?: unknown }
+    | {
+        name?: unknown;
+        birthDate?: unknown;
+        periodStarts?: unknown;
+        cycleLength?: unknown;
+        periodLength?: unknown;
+        skinType?: unknown;
+        routine?: unknown;
+      }
     | null;
   if (!p || !Array.isArray(p.periodStarts)) return null;
   const periodStarts = [...new Set(p.periodStarts.filter(isISO))].sort();
@@ -75,6 +89,8 @@ export function loadProfile(): Profile | null {
   // Profiles saved before skin type was asked get a neutral default rather than being thrown away.
   const skinType = SKIN_TYPES.find((t) => t.id === p.skinType)?.id ?? 'Normal';
   return {
+    name: typeof p.name === 'string' ? p.name.trim().slice(0, MAX_NAME_LENGTH) : '',
+    birthDate: isISO(p.birthDate) ? p.birthDate : null,
     periodStarts,
     cycleLength: Math.round(p.cycleLength),
     periodLength: Math.round(p.periodLength),

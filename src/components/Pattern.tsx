@@ -16,7 +16,7 @@ export function Pattern({
   return (
     <section aria-label="Your skin pattern" className="bg-surface border border-line rounded-3xl p-6">
       <h2 className="font-display text-2xl mb-1">Your skin pattern</h2>
-      <p className="text-sm text-muted mb-5">How your skin has felt in each phase, from what you've logged.</p>
+      <p className="text-sm text-muted mb-5">Average rating in each phase.</p>
 
       <ul className="space-y-4">
         {summaries.map((s) => {
@@ -42,7 +42,7 @@ export function Pattern({
                 aria-valuemax={5}
                 aria-valuenow={s.avgSkin === null ? undefined : Number(s.avgSkin.toFixed(1))}
               >
-                <div className={`h-full rounded-full ${meta.dot}`} style={{ width: `${((s.avgSkin ?? 0) / 5) * 100}%` }} />
+                <div className={`h-full rounded-full anim-grow-x ${meta.dot}`} style={{ width: `${((s.avgSkin ?? 0) / 5) * 100}%` }} />
               </div>
               {s.topTag && <p className="text-xs text-muted mt-1.5">Most logged: {s.topTag.toLowerCase()}</p>}
             </li>
@@ -52,11 +52,9 @@ export function Pattern({
 
       <div className="mt-6 pt-4 border-t border-line text-sm leading-relaxed">
         {insight.kind === 'not-enough' && (
-          <p className="text-muted">
-            Rate your skin on a few days in different phases, and your pattern will show up here.
-          </p>
+          <p className="text-muted">Rate your skin for a few weeks to see your pattern.</p>
         )}
-        {insight.kind === 'steady' && <p>Your skin has been fairly steady across your cycle so far.</p>}
+        {insight.kind === 'steady' && <p>Steady across your cycle so far.</p>}
         {insight.kind === 'pattern' && (
           <p>
             Your skin feels best in your{' '}
@@ -69,19 +67,16 @@ export function Pattern({
                 — usually logged as <strong>{insight.worstTag.toLowerCase()}</strong>
               </>
             )}
-            . Worth keeping an eye on.
+            .
           </p>
         )}
       </div>
 
       {hasSample && (
         <div className="mt-5 p-4 rounded-2xl bg-ovulatory-soft">
-          <p className="text-xs text-ovulatory-ink leading-relaxed mb-2">
-            <strong>This includes sample entries</strong> so there's something to see on day one. They aren't
-            your data.
-          </p>
+          <p className="text-xs text-ovulatory-ink leading-relaxed mb-2">Includes sample entries, not yours.</p>
           <button type="button" onClick={onClearSample} className="min-h-11 text-xs underline text-ovulatory-ink hover:opacity-70">
-            Remove the sample entries
+            Remove samples
           </button>
         </div>
       )}
