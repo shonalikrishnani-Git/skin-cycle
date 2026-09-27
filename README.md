@@ -1,7 +1,7 @@
 # Skin Cycle
 
 Skincare that follows your cycle — a private skin diary with tips for each phase of your cycle,
-checked against 66 sources.
+checked against 67 sources.
 
 **[Live site](https://shonalikrishnani-git.github.io/skin-cycle/)** ·
 **[Demo](https://shonalikrishnani-git.github.io/skin-cycle/app/?tour)** ·
@@ -20,7 +20,7 @@ A portfolio project by **Sonali Krishnani** (M.Sc. Microbiology, Biology teacher
 - **Today** — tips for your current phase, matched to your skin type, plus a two-tap diary:
   tick your routine steps and rate your skin.
 - **Guide** — each phase's routine, home care with an evidence level and a caution on every remedy,
-  myths, when to see a GP, and 66 sources.
+  myths, when to see a GP, and 67 sources.
 - **Diary** — a calendar coloured by cycle phase, and your own skin pattern once there's enough data.
 - **Your routine** — pick suggested steps or type your own, in your order.
 - **Demo** — a guided five-step walk-through of a sample diary. Nothing is saved.
@@ -76,7 +76,7 @@ tests/          cycle, content, and routine/storage tests
 
 Landing page on desktop and at 375px · four-step setup with name and date of birth (age shown,
 under-13s stopped) · your own routine steps · the five-step demo saves nothing · Guide sections
-fold open and closed · 10 don't-try items and 66 sources render · no text under 12px, muted text
+fold open and closed · 10 don't-try items and 67 sources render · no text under 12px, muted text
 passes WCAG AA · animations switch off with reduced motion · `npm test` and `npm run build` pass.
 
 ## Limits

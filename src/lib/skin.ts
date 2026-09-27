@@ -20,8 +20,9 @@
  *      type — same ingredient, texture adjusted per AAD's own moisturiser-by-skin-type guidance
  *      (aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer and .../dry/oily-skin):
  *      oily and combination skin do best with gel, oil-free, noncomedogenic-labelled products; dry
- *      skin needs a heavier cream, not a lotion; sensitive skin needs fragrance-free products,
- *      ideally with ceramides and hyaluronic acid, and no alcohol. Normal skin keeps the phase's
+ *      skin needs a heavier cream, not a lotion, ideally with ceramides and hyaluronic acid, and no
+ *      alcohol or fragrance. (Corrected 27 Sep 2026: those last lines are the page's dry-skin
+ *      advice, not its sensitive-skin advice.) Normal skin keeps the phase's
  *      original wording. See `shortBySkinType` on `Pick` and `tileShort`/`tileGoEasyOn` below.
  *   7. Also on 17 Sep 2026, a wider re-check (this file, cycle.ts, README, and a grep of the whole
  *      repo) opened every one of the sources below again. Three real fixes came out of it: the
@@ -32,6 +33,10 @@
  *      cover benzoyl peroxide or salicylic acid, even though both are named in the Luteal guidance
  *      and the pregnancy note already covers them (LactMed rates both low risk while breastfeeding).
  *      Everything else checked out against the source actually opened.
+ *   8. On 27 Sep 2026 every remaining unsourced item was researched: the four phase headlines,
+ *      two go-easy-on tips and the five skin-type tips now carry sources, each opened, and six were
+ *      reworded to match what the source says. The warm compress now follows the AAD steps
+ *      (hot water, used once it feels warm). Tests now fail if any tip is left without a source.
  *
  * Evidence labels, as shown to users:
  *   Good evidence            — trials or systematic reviews in people using it for this purpose
@@ -58,11 +63,20 @@ export const SKIN_TYPES: { id: SkinType; hint: string }[] = [
 ];
 
 export const SKIN_TYPE_TIP: Record<SkinType, string> = {
-  Normal: 'A lotion is usually enough — keep the same simple routine most days.',
+  Normal: 'A lotion is usually enough. Perimenopausal or over 50? Use a cream.',
   Oily: 'Gel or oil-free, non-comedogenic textures — and still moisturise.',
-  Dry: 'Creams hold more water than lotions. Look for ceramides; skip alcohol and fragrance.',
-  Combination: 'Moisturise the dry areas; go light on, or skip, the oily ones.',
-  Sensitive: 'Fragrance-free, fewer products used consistently, and patch test everything.',
+  Dry: 'Creams add more moisture than lotions. Look for ceramides; skip alcohol and fragrance.',
+  Combination: 'Moisturise the dry areas; skip the oily ones.',
+  Sensitive: 'Fragrance-free, fewer products used consistently, and patch test anything new.',
+};
+
+/** Sources for each skin-type tip (27 Sep 2026: every part of each tip checked against these). */
+export const SKIN_TYPE_TIP_SOURCES: Record<SkinType, string[]> = {
+  Normal: ['aad-pick-moisturiser'],
+  Oily: ['aad-oily-skin', 'aad-pick-moisturiser'],
+  Dry: ['aad-pick-moisturiser', 'aad-dry-skin-tips'],
+  Combination: ['aad-pick-moisturiser'],
+  Sensitive: ['aad-skincare-guide-2025', 'aad-patch-test'],
 };
 
 export type Evidence = 'Good evidence' | 'Some evidence' | 'Dermatologist advice' | 'Low risk, little evidence';
@@ -95,6 +109,8 @@ export interface Remedy {
 
 export interface PhaseGuide {
   headline: string;
+  /** Sources for the headline — both its skin claim and its advice. Added 27 Sep 2026. */
+  headlineSourceIds: string[];
   tendency: { text: string; sourceIds: string[] };
   hydrate: Pick[];
   moisturise: Pick[];
@@ -129,6 +145,7 @@ const GREEN_TEA: Remedy = {
 export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
   Menstrual: {
     headline: 'Go gentle — skin may be a little more reactive around the start of your period.',
+    headlineSourceIds: ['agner-1991-irritation', 'aad-max-antiaging'],
     tendency: {
       text: 'Oestrogen and progesterone are low. In a study of 29 women, a skin irritant caused a stronger reaction on day 1 of the cycle than on days 9–11, so skin may react to products more easily now.',
       sourceIds: ['agner-1991-irritation'],
@@ -175,7 +192,8 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
       {
         short: 'Stinging actives',
         name: 'Actives that sting — retinoids, acids, strong vitamin C',
-        why: 'If your usual one stings or burns more than normal, pause it for a few nights, then restart every other night and build back up. Stop and ask a pharmacist if it keeps stinging. If it’s prescribed, check with your prescriber first.',
+        why: 'If your usual one stings or burns more than normal, stop it for now. Restart every other night and build back up. If it’s prescribed, ask your prescriber first.',
+        sourceIds: ['aad-max-antiaging', 'aad-retinoid-retinol', 'agner-1991-irritation'],
       },
       { short: 'Scrubs', name: 'Scrubs', why: 'Scrubbing irritates skin and can make breakouts worse.', sourceIds: ['aad-habits-acne-worse'] },
     ],
@@ -195,7 +213,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
         why: 'It seals water in, and in a study with human volunteers it helped the skin barrier repair faster.',
         evidence: 'Some evidence',
         caution: 'If you’re acne-prone, keep it off your face — it may cause breakouts.',
-        sourceIds: ['ghadially-1992-petrolatum', 'aad-petroleum-jelly'],
+        sourceIds: ['ghadially-1992-petrolatum', 'aad-petroleum-jelly', 'aad-dry-skin-tips'],
       },
       {
         name: 'Cool compress',
@@ -208,7 +226,8 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     ],
   },
   Follicular: {
-    headline: 'Skin may be a little less reactive now — a handy time to start something new, if you want to.',
+    headline: 'Skin may be a little less reactive now. Starting something new? Start just one.',
+    headlineSourceIds: ['agner-1991-irritation', 'aad-max-antiaging'],
     tendency: {
       text: 'Oestrogen is rising. In one study of 29 women, skin reacted less to an irritant on days 9–11 than on day 1. Another study found skin lost a little less water just before ovulation than just before a period.',
       sourceIds: ['agner-1991-irritation', 'harvell-1992-barrier'],
@@ -256,7 +275,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
         short: 'Several actives',
         name: 'Layering several new actives at once',
         why: 'If you start something, start just one — then you’ll know what it does.',
-        sourceIds: ['aad-patch-test'],
+        sourceIds: ['aad-patch-test', 'aad-max-antiaging'],
       },
     ],
     keepDoing: [
@@ -265,7 +284,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
         short: 'One new active',
         name: 'Introduce one new active, if you want to',
         why: 'A retinoid, acid or vitamin C. Use retinoids at night only, starting every other night and building up slowly. Most products take at least 6 weeks to show results, and acne treatments often take 3 months or more — so it will run through every phase anyway. Very dry skin? Wait until it settles. Pregnant or trying to get pregnant? Don’t use a retinoid.',
-        sourceIds: ['aad-retinoid-retinol', 'dermnet-topical-retinoids'],
+        sourceIds: ['aad-retinoid-retinol', 'dermnet-topical-retinoids', 'aad-max-antiaging'],
       },
       {
         short: 'Strict SPF with acids',
@@ -295,6 +314,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
   },
   Ovulatory: {
     headline: 'Skin may hold water a little better around now — keep your routine simple.',
+    headlineSourceIds: ['barrier-ovulation-2025', 'barrier-ovulation-2025-correction', 'harvell-1992-barrier', 'aad-max-antiaging'],
     tendency: {
       text: 'Oestrogen peaks just before ovulation. In a small study of 36 women, skin lost a little less water and held a little more at ovulation than a week later. Whether oil rises now or before your period is unclear — studies disagree.',
       sourceIds: ['barrier-ovulation-2025', 'barrier-ovulation-2025-correction'],
@@ -328,7 +348,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
         short: 'Adding lots',
         name: 'Adding several new products at once',
         why: 'Using several new products at once can irritate skin, and you won’t know which one caused it.',
-        sourceIds: ['aad-patch-test'],
+        sourceIds: ['aad-patch-test', 'aad-max-antiaging'],
       },
     ],
     keepDoing: [SPF, GENTLE_CLEANSE],
@@ -346,6 +366,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
   },
   Luteal: {
     headline: 'Many people with acne break out more before a period — keep things steady.',
+    headlineSourceIds: ['stoll-2001-flares', 'lucky-2004-spots', 'geller-2014-acne', 'aad-habits-acne-worse'],
     tendency: {
       text: 'Progesterone is high after ovulation, then both hormones fall before your period. In one small study, skin lost a little more water a week after ovulation than at ovulation. Among women with acne, spots often get worse just before or during a period — 44% to 65% in three studies — so plenty don’t notice a change.',
       sourceIds: ['harvell-1992-barrier', 'stoll-2001-flares', 'lucky-2004-spots', 'geller-2014-acne'],
@@ -386,7 +407,8 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
       {
         short: 'Anything new',
         name: 'Starting anything new',
-        why: 'If you break out this week, you won’t know whether it’s the new product or your cycle.',
+        why: 'If you break out this week, it may be hard to tell if it’s the new product or your cycle.',
+        sourceIds: ['aad-habits-acne-worse', 'stoll-2001-flares', 'geller-2014-acne', 'aad-patch-test'],
       },
       { short: 'Face oils', name: 'Face oils and heavy creams on acne-prone skin', why: 'Greasy products can cause or worsen acne.', sourceIds: ['aad-habits-acne-worse'] },
       {
@@ -404,10 +426,10 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     homeCare: [
       {
         name: 'Warm compress on a deep, sore spot',
-        how: 'Soak a clean washcloth in warm water, wring it out, and hold it on the spot for 10–15 minutes, three times a day. Use a fresh cloth each time.',
+        how: 'Soak a clean washcloth in hot water, wring it out, and let it cool until it feels warm, not hot. Hold it on the spot for 10–15 minutes, three times a day. Use a clean cloth each time.',
         why: 'It’s what the American Academy of Dermatology recommends for deep, painful pimples.',
         evidence: 'Dermatologist advice',
-        caution: 'Use warm, not hot, water. Never squeeze a deep spot. If the skin around it turns hot or swollen, the redness spreads, or you feel unwell, get an urgent GP appointment. See a GP if it doesn’t settle or you keep getting deep, painful spots — they can scar.',
+        caution: 'Test it on your wrist first — it should feel warm, never hot. Don’t use boiling water. Never squeeze a deep spot. If the skin around it turns hot or swollen, the redness spreads, or you feel unwell, get an urgent GP appointment. See a GP if it doesn’t settle or you keep getting deep, painful spots — they can scar.',
         sourceIds: ['aad-deep-pimple'],
       },
       {
@@ -664,6 +686,7 @@ export const SOURCES: { id: string; label: string; url: string }[] = [
   { id: 'aad-retinoid-retinol', label: 'AAD — Retinoid or retinol?', url: 'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging/retinoid-retinol' },
   { id: 'aad-max-antiaging', label: 'AAD — Getting the most from skin care products', url: 'https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging/maximize-anti-aging-products' },
   { id: 'aad-dry-skin-tips', label: 'AAD — Tips to relieve dry skin', url: 'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin' },
+  { id: 'aad-skincare-guide-2025', label: 'AAD — A dermatologist’s guide to skincare (2025)', url: 'https://www.aad.org/news/dermatologist-guide-skincare' },
   { id: 'dermnet-topical-retinoids', label: 'DermNet — Topical retinoids', url: 'https://dermnetnz.org/topics/topical-retinoids' },
   { id: 'nhs-itchy-skin', label: 'NHS — Itchy skin', url: 'https://www.nhs.uk/symptoms/itchy-skin/' },
   { id: 'aad-hives-cool-compress', label: 'AAD — Hives self-care (cool compress)', url: 'https://www.aad.org/public/diseases/a-z/hives-self-care' },

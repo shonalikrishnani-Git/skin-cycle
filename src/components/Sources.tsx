@@ -8,13 +8,16 @@ import {
   PILL_NOTE,
   PREGNANCY_NOTE,
   SEE_SOMEONE,
+  SKIN_TYPES,
+  SKIN_TYPE_TIP,
+  SKIN_TYPE_TIP_SOURCES,
   SOURCES,
   type Evidence,
 } from '../lib/skin';
 import { CARD, EVIDENCE_STYLE } from './guideStyles';
 
-/** The latest full pass in README.md's Validation section (14 Sep, re-checked in full 17 Sep). */
-const VERIFIED_ON = '17 Sep 2026';
+/** The latest check: every claim re-checked in full 17 Sep; the last unsourced items sourced 27 Sep. */
+const VERIFIED_ON = '27 Sep 2026';
 
 const SOURCE_BY_ID: Record<string, { id: string; label: string; url: string }> = Object.fromEntries(
   SOURCES.map((s) => [s.id, s]),
@@ -55,6 +58,14 @@ function buildGroups(): Group[] {
     const guide = PHASE_GUIDE[phase];
     const rows: Row[] = [];
 
+    rows.push({
+      id: `${phase}-headline`,
+      claim: guide.headline,
+      tag: 'Headline',
+      typeLabel: 'This week',
+      sourceIds: guide.headlineSourceIds,
+    });
+
     if (guide.tendency.sourceIds.length > 0) {
       rows.push({
         id: `${phase}-tendency`,
@@ -92,6 +103,17 @@ function buildGroups(): Group[] {
 
     if (rows.length > 0) groups.push({ title: `${phase} phase`, rows });
   }
+
+  groups.push({
+    title: 'Skin-type tips',
+    rows: SKIN_TYPES.map(({ id }) => ({
+      id: `skin-type-${id}`,
+      claim: SKIN_TYPE_TIP[id],
+      tag: id,
+      typeLabel: 'Skin-type tip',
+      sourceIds: SKIN_TYPE_TIP_SOURCES[id],
+    })),
+  });
 
   const dontTry = DONT_TRY.filter((w) => w.sourceIds.length > 0).map(
     (w, i): Row => ({

@@ -9,7 +9,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
-  PHASE_GUIDE, DONT_TRY, MYTHS, SEE_SOMEONE, SKIN_TYPE_TIP,
+  PHASE_GUIDE, DONT_TRY, MYTHS, SEE_SOMEONE, SKIN_TYPE_TIP, SKIN_TYPE_TIP_SOURCES,
   PREGNANCY_NOTE, BREASTFEEDING_NOTE, PILL_NOTE, EVIDENCE_NOTE, SOURCES,
 } from '../src/lib/skin.ts';
 
@@ -128,7 +128,8 @@ const KEYWORD_BY_LABEL = {
   'NHS — Sunscreen and sun safety': 'reapply about every 2 hours',
   'AAD — Retinoid or retinol?': 'Use retinoids at night only',
   'AAD — Getting the most from skin care products': '6 weeks to show results',
-  'AAD — Tips to relieve dry skin': 'Creams hold more water than lotions',
+  'AAD — Tips to relieve dry skin': 'Creams add more moisture than lotions',
+  'AAD — A dermatologist’s guide to skincare (2025)': 'fewer products used consistently',
   'DermNet — Topical retinoids': 'building up slowly',
   'NHS — Itchy skin': 'itchy or irritated skin',
   'AAD — Hives self-care (cool compress)': 'Cooling soothes itch and irritation',
@@ -175,6 +176,34 @@ check('README states a "NN sources render" count in Verified', readmeSourcesInVe
 check('README "and NN sources render" count matches SOURCES.length',
   Number(readmeSourcesInVerified) === SOURCES.length,
   `README says ${readmeSourcesInVerified}, SOURCES has ${SOURCES.length} entries — update README.md`);
+
+// --- Every tip carries a source, and every source is attached to something ----------------------
+// Added 27 Sep 2026, when the last unsourced items were researched. "Tips checked against sources"
+// on the site is only true while this passes.
+
+const known = new Set(SOURCES.map((s) => s.id));
+const claims = [
+  ...Object.entries(PHASE_GUIDE).flatMap(([phase, g]) => [
+    { what: `${phase} headline`, ids: g.headlineSourceIds },
+    { what: `${phase} tendency`, ids: g.tendency.sourceIds },
+    ...['hydrate', 'moisturise', 'goEasyOn', 'keepDoing'].flatMap((k) => g[k].map((p) => ({ what: `${phase} ${k} "${p.name}"`, ids: p.sourceIds }))),
+    ...g.homeCare.map((r) => ({ what: `${phase} home care "${r.name}"`, ids: r.sourceIds })),
+  ]),
+  ...Object.entries(SKIN_TYPE_TIP_SOURCES).map(([t, ids]) => ({ what: `${t} skin-type tip`, ids })),
+  ...DONT_TRY.map((w) => ({ what: `don't-try "${w.name}"`, ids: w.sourceIds })),
+  ...MYTHS.map((m) => ({ what: `myth "${m.claim}"`, ids: m.sourceIds })),
+  ...SEE_SOMEONE.map((x, i) => ({ what: `see-someone #${i + 1}`, ids: x.sourceIds })),
+  ...[PREGNANCY_NOTE, BREASTFEEDING_NOTE, PILL_NOTE, EVIDENCE_NOTE].map((n, i) => ({ what: `note #${i + 1}`, ids: n.sourceIds })),
+];
+for (const c of claims) {
+  check(`${c.what} has a source`, Array.isArray(c.ids) && c.ids.length > 0);
+  const unknown = (c.ids ?? []).filter((id) => !known.has(id));
+  check(`${c.what} only cites sources that exist`, unknown.length === 0, `unknown ids: ${unknown.join(', ')}`);
+}
+const attached = new Set(claims.flatMap((c) => c.ids ?? []));
+const loose = SOURCES.filter((s) => !attached.has(s.id)).map((s) => s.id);
+check('every source is attached to at least one claim', loose.length === 0, `not attached: ${loose.join(', ')}`);
+check('every skin type has a tip and sources', Object.keys(SKIN_TYPE_TIP).every((t) => SKIN_TYPE_TIP_SOURCES[t]?.length > 0));
 
 // --- The public site's source counts must match too --------------------------------------------
 // site/ is hand-written HTML, so a "66 sources" there can't read SOURCES itself.
