@@ -5,7 +5,8 @@ checked against 67 sources.
 
 **[Live site](https://shonalikrishnani-git.github.io/skin-cycle/)** ·
 **[Demo](https://shonalikrishnani-git.github.io/skin-cycle/app/?tour)** ·
-**[Case study](https://shonalikrishnani-git.github.io/skin-cycle/about.html)**
+**[Case study](https://shonalikrishnani-git.github.io/skin-cycle/about.html)** ·
+**[Evidence review](https://shonalikrishnani-git.github.io/skin-cycle/research.html)** (AI-assisted)
 
 A portfolio project by **Sonali Krishnani** (M.Sc. Microbiology, Biology teacher), built with
 **Claude Code**, an AI coding assistant.

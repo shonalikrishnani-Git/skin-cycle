@@ -208,7 +208,7 @@ check('every skin type has a tip and sources', Object.keys(SKIN_TYPE_TIP).every(
 // --- The public site's source counts must match too --------------------------------------------
 // site/ is hand-written HTML, so a "66 sources" there can't read SOURCES itself.
 
-for (const page of ['index.html', 'about.html']) {
+for (const page of ['index.html', 'about.html', 'research.html']) {
   const html = readFileSync(join(__dirname, '..', 'site', page), 'utf8').replace(/<[^>]+>/g, ' ');
   const counts = [...html.matchAll(/(\d+)\s+sources\b/g)].map((m) => Number(m[1]));
   check(`site/${page}: every "NN sources" matches SOURCES.length`, counts.every((n) => n === SOURCES.length),

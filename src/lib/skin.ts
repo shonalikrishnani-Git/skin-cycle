@@ -37,6 +37,9 @@
  *      two go-easy-on tips and the five skin-type tips now carry sources, each opened, and six were
  *      reworded to match what the source says. The warm compress now follows the AAD steps
  *      (hot water, used once it feels warm). Tests now fail if any tip is left without a source.
+ *      The same day, an evidence review re-read the key studies and found two wrong citations
+ *      (the Luteal water-loss line is the 2025 study, not Harvell; the pill-survey line is Stoll)
+ *      and four claims a little stronger than their sources — all corrected.
  *
  * Evidence labels, as shown to users:
  *   Good evidence            — trials or systematic reviews in people using it for this purpose
@@ -313,10 +316,10 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     ],
   },
   Ovulatory: {
-    headline: 'Skin may hold water a little better around now — keep your routine simple.',
+    headline: 'In one small study, skin held water a little better around now — keep your routine simple.',
     headlineSourceIds: ['barrier-ovulation-2025', 'barrier-ovulation-2025-correction', 'harvell-1992-barrier', 'aad-max-antiaging'],
     tendency: {
-      text: 'Oestrogen peaks just before ovulation. In a small study of 36 women, skin lost a little less water and held a little more at ovulation than a week later. Whether oil rises now or before your period is unclear — studies disagree.',
+      text: 'Oestrogen peaks just before ovulation. In a small study of 36 women, skin lost a little less water and held a little more at ovulation than a week later.',
       sourceIds: ['barrier-ovulation-2025', 'barrier-ovulation-2025-correction'],
     },
     hydrate: [
@@ -369,7 +372,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     headlineSourceIds: ['stoll-2001-flares', 'lucky-2004-spots', 'geller-2014-acne', 'aad-habits-acne-worse'],
     tendency: {
       text: 'Progesterone is high after ovulation, then both hormones fall before your period. In one small study, skin lost a little more water a week after ovulation than at ovulation. Among women with acne, spots often get worse just before or during a period — 44% to 65% in three studies — so plenty don’t notice a change.',
-      sourceIds: ['harvell-1992-barrier', 'stoll-2001-flares', 'lucky-2004-spots', 'geller-2014-acne'],
+      sourceIds: ['barrier-ovulation-2025', 'barrier-ovulation-2025-correction', 'stoll-2001-flares', 'lucky-2004-spots', 'geller-2014-acne'],
     },
     hydrate: [
       {
@@ -538,12 +541,12 @@ export const MYTHS: Myth[] = [
   },
   {
     claim: 'Science has mapped what skin does each week',
-    truth: 'A 2024 review found just 26 studies on how skin changes across the cycle. Most were small, and most measured skin temperature or blood flow. It didn’t look at acne or oil at all.',
+    truth: 'A 2024 review found just 26 studies on how skin changes across the cycle. Most were small, and most measured skin temperature or blood flow. None looked at acne.',
     sourceIds: ['review-skin-cycle-2024'],
   },
   {
     claim: 'Ovulation gives you a visible glow',
-    truth: 'In a study of 22 women, facial redness rose slightly before ovulation, but not enough for anyone to see.',
+    truth: 'In a study of 22 women, facial redness rose slightly around ovulation and stayed up afterwards, but not enough for anyone to see.',
     sourceIds: ['burriss-2015-redness'],
   },
   {
@@ -558,8 +561,8 @@ export const MYTHS: Myth[] = [
   },
   {
     claim: 'Switch products every phase — or try seed cycling',
-    truth: 'No trials have tested switching routines by phase, and changing acne treatments too often can irritate skin and cause breakouts. Seed-cycling studies are few and small, most didn’t test the actual seed rotation, and results for acne were mixed.',
-    sourceIds: ['seed-cycling-review-2025'],
+    truth: 'We found no study testing whether switching routines by phase helps, and trying a new acne treatment every week or so can make acne worse. Seed-cycling studies are few and small, most didn’t test the actual seed rotation, and results for acne were mixed.',
+    sourceIds: ['seed-cycling-review-2025', 'review-skin-cycle-2024', 'aad-habits-acne-worse'],
   },
 ];
 
@@ -610,11 +613,11 @@ export const BREASTFEEDING_NOTE = {
 
 export const PILL_NOTE = {
   text: 'On the combined pill? It stops ovulation, so these phases may not match your skin. In one survey of women with acne, those on the pill had pre-period flares about as often as those who weren’t. The pill can also help acne.',
-  sourceIds: ['nhs-combined-pill'],
+  sourceIds: ['nhs-combined-pill', 'stoll-2001-flares'],
 };
 
 export const EVIDENCE_NOTE = {
-  text: 'Your cycle can nudge your skin, but no study yet shows that switching products by phase beats a steady, gentle routine. Research on skin across the cycle is thin — mostly small studies that sometimes disagree. Treat these as timing tips, not rules.',
+  text: 'Your cycle can nudge your skin, but we found no study showing that switching products by phase beats a steady, gentle routine. Research on skin across the cycle is thin — mostly small studies that sometimes disagree. Treat these as timing tips, not rules.',
   sourceIds: ['review-skin-cycle-2024'],
 };
 
