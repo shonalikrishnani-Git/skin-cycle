@@ -1,0 +1,17 @@
+# Skin Cycle
+
+> A private skin diary with skincare tips for each phase of the menstrual cycle, checked against 67 sources. A portfolio project by Sonali Krishnani (M.Sc. Microbiology, registered Biology teacher, Limerick, Ireland), built with Claude Code. Not medical advice.
+
+## Pages
+- [Landing page](https://shonalikrishnani-git.github.io/skin-cycle/): what the app does and how it works
+- [Demo](https://shonalikrishnani-git.github.io/skin-cycle/app/?tour): a five-step guided demo with a sample diary
+- [Case study](https://shonalikrishnani-git.github.io/skin-cycle/about.html): the problem, Sonali's role, how the advice was checked, key decisions
+- [Rapid review](https://shonalikrishnani-git.github.io/skin-cycle/research.html): AI-assisted rapid review of 47 studies with GRADE ratings; screening and extraction by AI agents, directed by Sonali Krishnani
+
+## Key facts
+- Only self-reported premenstrual acne flares reach low certainty; other skin changes across the cycle are very low certainty.
+- No study or registered trial has compared cycle-timed skincare with a steady routine.
+- Every tip in the app links to at least one of 67 sources (AAD, NHS, HSE, DermNet, FDA, PubMed studies).
+
+## Author
+- Sonali Krishnani: https://www.linkedin.com/in/sonali-krishnani-9aaa4b7a · https://github.com/shonalikrishnani-Git
