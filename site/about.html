@@ -3,138 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Skin Cycle</title>
-  <meta name="description" content="The full story behind Skin Cycle: why it exists, how the guidance was validated, what was deliberately left out, and its honest limits." />
+  <title>Case study — Skin Cycle</title>
+  <meta name="description" content="Skin Cycle case study: the problem, my role, how every health claim was checked, and the key decisions." />
+  <meta name="theme-color" content="#fcf7f5" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="wrap">
     <header class="site-header">
-      <a class="wordmark" href="./">Skin Cycle</a>
-      <nav>
+      <a class="wordmark" href="./"><img src="favicon.svg" alt="" width="30" height="30" />Skin Cycle</a>
+      <nav aria-label="Site">
         <a href="app/">Open the app</a>
         <a href="https://github.com/shonalikrishnani-Git/skin-cycle">Source</a>
       </nav>
     </header>
-    <p class="tagline"><a href="./">← Back home</a></p>
 
-    <h1>The full story</h1>
-    <p class="lede">
-      Skin Cycle started as a prototype built in Google AI Studio during an AI certificate, then
-      was rebuilt from scratch in Claude Code as its own project. The direction changed more than
-      once along the way — the honest version of that history is below, not a tidied-up one.
-    </p>
+    <main>
+      <p class="eyebrow" style="margin-top: 32px">Case study</p>
+      <h1>Skin Cycle</h1>
+      <p class="lede">
+        A private skin diary that gives skincare tips for each week of the menstrual cycle — built
+        so every health claim can be traced to a source.
+      </p>
 
-    <h2>Skin first, not a period tracker</h2>
-    <p>
-      An early version tracked routine and mood alongside the cycle and read like a menstrual
-      app with skincare bolted on. That was corrected: the cycle is context for the guidance, not
-      the headline. Two ideas were also considered and rejected outright rather than built:
-      "toxic ingredient" scores (toxicity depends on dose and route, which an ingredient list
-      doesn't have) and scraped retail reviews (against most retailers' terms, and star ratings
-      are the noise this app is meant to be an alternative to).
-    </p>
+      <h2>The problem</h2>
+      <p>
+        Skincare advice online is full of brand pushing, myths and "toxic" scare scores. Advice
+        about skin and the menstrual cycle is often stated with more confidence than the research
+        supports.
+      </p>
 
-    <h2 id="validation">How the guidance was validated</h2>
-    <p>
-      Every sentence of health guidance was treated as wrong until a source someone actually
-      opened — the AAD, NHS, HSE, DermNet, the FDA, or a published study — supported it. This
-      happened in three rounds, and each one found real things to fix:
-    </p>
-    <ul class="plain">
-      <li>
-        <strong>First pass.</strong> Cut honey (a randomised trial found it no better than soap
-        for acne) and aloe vera (only two small studies, alongside other treatments, and it can
-        cause rashes). Replaced ice on a deep spot with the AAD's current warm-compress advice.
-        Downgraded oatmeal from "good" to "some evidence" (the studies were in eczema, not acne)
-        and green tea to "little evidence" (lotions were tested; brewed tea wasn't). Removed an
-        unsupported "drier and duller during your period" claim and moved "ovulation glow" to the
-        myths list. Sources: 22 → 64.
-      </li>
-      <li>
-        <strong>Second pass</strong> found the first one had only checked the guidance file, so a
-        wording slip in the cycle-phase code, a stray example in a text field, and the README
-        itself had gone unchecked. Fixed, and the check was widened to cover everything on screen,
-        not one file.
-      </li>
-      <li>
-        <strong>Third pass</strong> went wider still — every claim re-opened against its source a
-        second time, plus a full repo grep for anything the earlier passes might have missed. It
-        caught a source that was actually about a related but different compound (relabelled), a
-        cellulitis warning that grouped a "call emergency services" sign in with a "see your GP"
-        sign (split into the right tiers), and a breastfeeding note missing two ingredients that
-        were already named elsewhere in the guidance (added, with two new sources). Sources: 64 →
-        66. This pass also added 243 automated tests that now check every remedy has a caution,
-        every source is actually used, and this page's own numbers match the code — so the next
-        change that quietly breaks one of those gets caught by a test, not by hoping someone
-        checks by hand again.
-      </li>
-    </ul>
-    <p>
-      <strong>What hasn't happened yet:</strong> review by an actual pharmacist or dermatologist.
-      Every check above was done by AI validation agents opening real sources, not by a licensed
-      professional — that's a real gap, not a formality, and it's why the app says plainly that
-      it isn't medical advice.
-    </p>
+      <h2>My role</h2>
+      <ul class="plain">
+        <li>Came up with the idea: skin first, with the cycle as context — not a period tracker.</li>
+        <li>Set the rules: ingredient types, not brands; no "toxic" scores; no scraped reviews; a caution on every remedy.</li>
+        <li>Led three rounds of fact-checking and decided what to cut and keep.</li>
+        <li>Built it with Claude Code, an AI coding assistant, which wrote the code and ran the research agents.</li>
+      </ul>
 
-    <h2>Decisions worth knowing</h2>
-    <ul class="plain">
-      <li><strong>Phases scale with your cycle</strong> — ovulation is counted back from the end
-        of your cycle, so a 35-day cycle isn't treated like a 28-day one.</li>
-      <li><strong>Routine steps, not a yes/no checkbox.</strong> Morning: cleanse, serum,
-        moisturise, SPF. Evening: cleanse, treatment, moisturise — always in that order.</li>
-      <li><strong>A day you never rated is never counted as "okay."</strong> The pattern feature
-        stays quiet until there's enough real data to say something true.</li>
-      <li><strong>Skin type actually changes the advice</strong>, not just a tip line underneath
-        it — oily, dry, combination and sensitive skin see different tile wording, sourced from
-        the AAD's own guidance on picking a moisturiser by skin type.</li>
-      <li><strong>Accessible basics</strong> — a real page heading and landmark, no text under
-        12px, and two elements that measurably failed contrast now pass WCAG AA.</li>
-    </ul>
+      <h2 id="validation">How the advice was checked</h2>
+      <p>Every claim was treated as wrong until an opened source backed it: AAD, NHS, HSE, DermNet, FDA or a published study.</p>
+      <ul class="plain">
+        <li><strong>Cut:</strong> honey (no better than soap in a trial) and aloe vera (weak evidence, can cause rashes).</li>
+        <li><strong>Corrected:</strong> an incomplete pregnancy note, an under-urgent warning sign, a mislabelled source.</li>
+        <li><strong>Moved to myths:</strong> the "ovulation glow".</li>
+        <li><strong>Result:</strong> 66 sources, and automated tests that fail if a remedy loses its caution or a source goes unused.</li>
+      </ul>
 
-    <h2>Who did what</h2>
-    <div class="who">
-      <div class="card">
-        <h3>Sonali</h3>
-        <p>
-          M.Sc. Microbiology and a secondary-school Biology teacher. Set the product direction,
-          the acceptance rules above, and owned the validation — every cut and every keep was her
-          call, not the AI's.
-        </p>
+      <h2>Key decisions</h2>
+      <ul class="plain">
+        <li><strong>Private by default.</strong> No account, no server — data stays on the device.</li>
+        <li><strong>Honest about evidence.</strong> The app says research on skin across the cycle is thin, and shows a pattern only when your own ratings support one.</li>
+        <li><strong>Your routine.</strong> Pick suggested steps or type your own.</li>
+        <li><strong>Accessible.</strong> Large tap targets, readable contrast, works on a phone.</li>
+      </ul>
+
+      <h2>Limits</h2>
+      <ul class="plain">
+        <li>Not yet reviewed by a pharmacist or dermatologist — the checks were done by AI agents against published sources.</li>
+        <li>General skincare information, not medical advice or contraception.</li>
+        <li>Data lives in one browser; clearing site data erases it.</li>
+      </ul>
+
+      <h2>Built with</h2>
+      <p>React, TypeScript, Vite and Tailwind. Tested with automated checks on the cycle maths and the content.</p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="app/?tour">Take the 1-minute tour →</a>
+        <a class="btn btn-secondary" href="https://github.com/shonalikrishnani-Git/skin-cycle">View the code</a>
       </div>
-      <div class="card">
-        <h3>Claude Code</h3>
-        <p>
-          An AI coding assistant. Wrote the code, ran the research and validation agents against
-          those rules, and applied what they found.
-        </p>
-      </div>
-    </div>
-
-    <h2>Built with</h2>
-    <p>React 19, strict TypeScript, Vite, Tailwind 4. Everything stays in your browser's local
-      storage — no account, no server, no API key, nothing sent anywhere.</p>
-
-    <h2>Honest limits</h2>
-    <ul class="plain">
-      <li>One device, one browser. Clearing your site data erases everything.</li>
-      <li><strong>"Skin Cycle" is a working title</strong> — other apps and skincare brands already
-        use variations of the name, and "skin cycling" is an established trend of its own. A
-        rename is still on the list.</li>
-      <li>General skincare information only — not medical advice, not a medical device, not
-        contraception.</li>
-      <li>Phases are estimates from the dates you log, not measured.</li>
-      <li>The published research on skin changing across the cycle is genuinely thin. The app
-        says so on screen rather than overstating what a handful of small studies can support.</li>
-      <li>New installs get eight weeks of clearly-labelled sample entries so the diary isn't empty
-        on day one — removable in one tap.</li>
-    </ul>
+    </main>
 
     <footer class="site-footer">
-      <p>
-        <a href="https://github.com/shonalikrishnani-Git/skin-cycle">View the source on GitHub</a>
-        · <a href="app/">Open the app</a> · <a href="./">Home</a>
-      </p>
+      <p><a href="./">Home</a> · <a href="app/">Open the app</a> · <a href="https://github.com/shonalikrishnani-Git/skin-cycle">Source on GitHub</a></p>
     </footer>
   </div>
 </body>

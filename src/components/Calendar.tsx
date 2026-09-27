@@ -12,8 +12,8 @@ const dayName = new Intl.DateTimeFormat('en-IE', { day: 'numeric', month: 'long'
  * The month at a glance: every day tinted by its phase, a face on every day you rated your skin.
  * Past days can be tapped to fill in or fix. Future days are faded — they're predictions.
  *
- * Padding and gaps are tight on purpose: seven columns on a 390px phone only reach the 44px
- * minimum tap size with a 12px card inset and 2px gutters.
+ * Padding and gaps are tight on purpose: seven columns on a phone only reach the 44px
+ * minimum tap size with a 16px page inset, an 8px card inset and 2px gutters (44.7px on a 375px phone).
  */
 export function Calendar({
   profile,
@@ -55,7 +55,7 @@ export function Calendar({
     'w-11 h-11 rounded-full border border-line flex items-center justify-center text-muted hover:text-ink transition';
 
   return (
-    <section aria-label="Calendar" className="bg-surface border border-line rounded-3xl px-3 py-4">
+    <section aria-label="Calendar" className="bg-surface border border-line rounded-3xl px-2 py-4">
       <div className="flex items-center justify-between mb-3.5 px-1">
         <button type="button" onClick={() => shift(-1)} aria-label="Previous month" className={navButton}>
           <ChevronIcon direction="left" />

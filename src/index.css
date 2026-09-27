@@ -4,7 +4,7 @@
   --color-canvas: #fcf7f5;
   --color-surface: #ffffff;
   --color-ink: #2d2331;
-  --color-muted: #7b6f7e;
+  --color-muted: #6d6170; /* 4.8:1 or better on every background it sits on (WCAG AA) */
   --color-line: #f0e5e5;
 
   --color-accent: #b4506b;
@@ -41,4 +41,34 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+/* The guided tour: the part of the screen each stop is about gets a soft, breathing outline. */
+.tour-focus {
+  outline: 2.5px solid var(--color-accent);
+  outline-offset: 5px;
+  animation: tour-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes tour-pulse {
+  50% {
+    outline-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+}
+
+@keyframes tour-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

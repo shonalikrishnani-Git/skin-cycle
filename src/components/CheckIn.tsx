@@ -1,12 +1,4 @@
-import {
-  AM_STEPS,
-  PM_STEPS,
-  SKIN_SCORES,
-  SKIN_TAGS,
-  toggleStep,
-  type DayLog,
-  type SkinTag,
-} from '../lib/log';
+import { SKIN_SCORES, SKIN_TAGS, toggleStep, type DayLog, type Routine, type SkinTag } from '../lib/log';
 import { CheckIcon, FaceIcon, MoonIcon, SunIcon } from './Icons';
 
 const LABEL = 'flex items-center gap-1.5 text-xs uppercase tracking-widest text-muted mb-2';
@@ -15,6 +7,48 @@ const selectable = (on: boolean) =>
   on ? 'border-accent bg-accent-soft text-ink' : 'border-line text-muted hover:border-muted';
 
 const chip = (on: boolean) => `min-h-11 px-4 rounded-full border text-[13px] transition ${selectable(on)}`;
+
+/** One half of the routine: your steps in order, plus any logged that day that you've since removed. */
+function Steps({
+  icon,
+  title,
+  order,
+  done,
+  onChange,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  order: string[];
+  done: string[];
+  onChange: (steps: string[]) => void;
+}) {
+  const removed = done.filter((s) => !order.includes(s));
+  const count = done.filter((s) => order.includes(s)).length;
+  return (
+    <div>
+      <span className={LABEL}>
+        {icon} {title}
+        <span className="ml-auto normal-case tracking-normal">
+          {order.length ? `${count} of ${order.length}` : 'no steps yet'}
+        </span>
+      </span>
+      <div className="flex flex-wrap gap-1.5">
+        {[...order, ...removed].map((step) => (
+          <button
+            key={step}
+            type="button"
+            aria-pressed={done.includes(step)}
+            onClick={() => onChange(toggleStep(order, done, step))}
+            className={chip(done.includes(step))}
+            title={order.includes(step) ? undefined : 'No longer in your routine'}
+          >
+            {step}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 /**
  * One day in the skin diary: which routine steps you did, whether you tried a home-care
@@ -27,8 +61,12 @@ export function CheckIn({
   onChange,
   periodToggle,
   justStarted,
+  routine,
+  onEditRoutine,
 }: {
   log: DayLog;
+  routine: Routine;
+  onEditRoutine?: () => void;
   heading: string;
   subheading?: string;
   onChange: (log: DayLog) => void;
@@ -58,49 +96,29 @@ export function CheckIn({
         )}
       </div>
 
-      <div>
-        <span className={LABEL}>
-          <SunIcon className="text-muted" /> Morning
-          <span className="ml-auto normal-case tracking-normal">
-            {log.am.length} of {AM_STEPS.length}
-          </span>
-        </span>
-        <div className="flex flex-wrap gap-1.5">
-          {AM_STEPS.map((step) => (
-            <button
-              key={step}
-              type="button"
-              aria-pressed={log.am.includes(step)}
-              onClick={() => onChange({ ...log, am: toggleStep(AM_STEPS, log.am, step) })}
-              className={chip(log.am.includes(step))}
-            >
-              {step}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <span className={LABEL}>
-          <MoonIcon className="text-muted" /> Evening
-          <span className="ml-auto normal-case tracking-normal">
-            {log.pm.length} of {PM_STEPS.length}
-          </span>
-        </span>
-        <div className="flex flex-wrap gap-1.5">
-          {PM_STEPS.map((step) => (
-            <button
-              key={step}
-              type="button"
-              aria-pressed={log.pm.includes(step)}
-              onClick={() => onChange({ ...log, pm: toggleStep(PM_STEPS, log.pm, step) })}
-              className={chip(log.pm.includes(step))}
-            >
-              {step}
-            </button>
-          ))}
-        </div>
-      </div>
+      <Steps
+        icon={<SunIcon className="text-muted" />}
+        title="Morning"
+        order={routine.am}
+        done={log.am}
+        onChange={(am) => onChange({ ...log, am })}
+      />
+      <Steps
+        icon={<MoonIcon className="text-muted" />}
+        title="Evening"
+        order={routine.pm}
+        done={log.pm}
+        onChange={(pm) => onChange({ ...log, pm })}
+      />
+      {onEditRoutine && (
+        <button
+          type="button"
+          onClick={onEditRoutine}
+          className="-mt-3 self-start min-h-11 text-xs text-accent underline underline-offset-4 hover:opacity-75"
+        >
+          Edit my routine steps
+        </button>
+      )}
 
       <button
         type="button"

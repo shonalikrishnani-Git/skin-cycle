@@ -176,6 +176,16 @@ check('README "and NN sources render" count matches SOURCES.length',
   Number(readmeSourcesInVerified) === SOURCES.length,
   `README says ${readmeSourcesInVerified}, SOURCES has ${SOURCES.length} entries — update README.md`);
 
+// --- The public site's source counts must match too --------------------------------------------
+// site/ is hand-written HTML, so a "66 sources" there can't read SOURCES itself.
+
+for (const page of ['index.html', 'about.html']) {
+  const html = readFileSync(join(__dirname, '..', 'site', page), 'utf8').replace(/<[^>]+>/g, ' ');
+  const counts = [...html.matchAll(/(\d+)\s+sources\b/g)].map((m) => Number(m[1]));
+  check(`site/${page}: every "NN sources" matches SOURCES.length`, counts.every((n) => n === SOURCES.length),
+    `site/${page} says ${counts.join(', ')} — SOURCES has ${SOURCES.length}`);
+}
+
 // --- Stray wording that was deliberately cut should never reappear on screen -----------------
 
 const HONEY_ALOE = /\b(honey|aloe)\b/i;

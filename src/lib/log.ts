@@ -7,10 +7,51 @@
 import { PHASES, addDays, cycleInfoFor, type Phase } from './cycle';
 import type { Profile } from './storage';
 
-export const AM_STEPS = ['Cleanse', 'Serum', 'Moisturise', 'SPF'] as const;
-export const PM_STEPS = ['Cleanse', 'Treatment', 'Moisturise'] as const;
-export type AmStep = (typeof AM_STEPS)[number];
-export type PmStep = (typeof PM_STEPS)[number];
+// --- Your routine ----------------------------------------------------------------------
+// A step is just its name. Steps are chosen from suggestions or typed in, so the name IS the
+// identity: past diary days keep the names they were logged with even after a step is removed.
+
+export interface Routine {
+  am: string[];
+  pm: string[];
+}
+
+export const DEFAULT_ROUTINE: Routine = {
+  am: ['Cleanse', 'Serum', 'Moisturise', 'SPF'],
+  pm: ['Cleanse', 'Treatment', 'Moisturise'],
+};
+
+/** Suggestions are step names only — ingredient types, never brands, and no claims attached. */
+export const SUGGESTED_STEPS: Routine = {
+  am: ['Cleanse', 'Toner', 'Serum', 'Eye cream', 'Moisturise', 'SPF'],
+  pm: ['Remove make-up', 'Cleanse', 'Toner', 'Exfoliant', 'Treatment', 'Serum', 'Eye cream', 'Moisturise', 'Face oil'],
+};
+
+export const MAX_STEPS = 10;
+export const MAX_STEP_LENGTH = 30;
+
+/** Tidies a typed step name: trims, collapses spaces, caps length and capitalises the first letter. */
+export function cleanStepName(raw: string): string {
+  const s = raw.replace(/\s+/g, ' ').trim().slice(0, MAX_STEP_LENGTH);
+  return s ? s[0].toUpperCase() + s.slice(1) : '';
+}
+
+const sameStep = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
+
+/** Adds a step to one half of the routine, ignoring blanks, duplicates (any case) and overflow. */
+export function addStep(list: string[], raw: string): string[] {
+  const name = cleanStepName(raw);
+  if (!name || list.length >= MAX_STEPS || list.some((s) => sameStep(s, name))) return list;
+  return [...list, name];
+}
+
+export function moveStep(list: string[], index: number, by: -1 | 1): string[] {
+  const to = index + by;
+  if (to < 0 || to >= list.length) return list;
+  const next = [...list];
+  [next[index], next[to]] = [next[to], next[index]];
+  return next;
+}
 
 export const SKIN_TAGS = ['Breakout', 'Oily', 'Dry', 'Dull', 'Sensitive', 'Redness'] as const;
 export type SkinTag = (typeof SKIN_TAGS)[number];
@@ -26,8 +67,8 @@ export const SKIN_SCORES: { value: number; label: string }[] = [
 
 export interface DayLog {
   date: string;
-  am: AmStep[];
-  pm: PmStep[];
+  am: string[];
+  pm: string[];
   homeCare: boolean;
   /** 1–5, or null when not rated. Never defaulted — an untouched day must not count as "okay". */
   skin: number | null;
@@ -58,12 +99,15 @@ export function upsertLog(logs: DayLog[], entry: DayLog): DayLog[] {
   return next.sort((a, b) => a.date.localeCompare(b.date));
 }
 
-/** Toggle one routine step while keeping steps in routine order (cleanse before moisturise). */
-export function toggleStep<T extends string>(order: readonly T[], current: T[], step: T): T[] {
+/**
+ * Toggle one routine step while keeping steps in routine order (cleanse before moisturise).
+ * Steps logged on this day that have since left the routine stay, after the current ones.
+ */
+export function toggleStep(order: readonly string[], current: string[], step: string): string[] {
   const chosen = new Set(current);
   if (chosen.has(step)) chosen.delete(step);
   else chosen.add(step);
-  return order.filter((s) => chosen.has(s));
+  return [...order.filter((s) => chosen.has(s)), ...[...chosen].filter((s) => !order.includes(s))];
 }
 
 export const hasSample = (logs: DayLog[]) => logs.some((l) => l.sample);
@@ -133,15 +177,19 @@ export function patternInsight(summaries: PhaseSummary[]): Insight {
  * worst before a period" — a pattern the app's own Guide calls unproven — so the demo taught a myth.
  * Now ratings and tags vary on a 3- and 5-day rhythm that spreads evenly across every phase.
  */
-export function sampleHistory(_profile: Profile, today: string, days = 56): DayLog[] {
+export function sampleHistory(profile: Profile, today: string, days = 56): DayLog[] {
   const logs: DayLog[] = [];
+  const { am, pm } = profile.routine;
+  // Every step some days, the essentials (first, and the last one or two) on others.
+  const amShort = am.filter((_, i) => i === 0 || i >= am.length - 2);
+  const pmShort = pm.filter((_, i) => i === 0 || i === pm.length - 1);
 
   for (let back = days; back >= 1; back--) {
     if (back % 6 === 0) continue; // a few skipped days, like a real person
     logs.push({
       date: addDays(today, -back),
-      am: back % 7 === 0 ? [] : back % 3 === 0 ? ['Cleanse', 'Serum', 'Moisturise', 'SPF'] : ['Cleanse', 'Moisturise', 'SPF'],
-      pm: back % 4 === 0 ? [] : back % 5 === 0 ? ['Cleanse', 'Treatment', 'Moisturise'] : ['Cleanse', 'Moisturise'],
+      am: back % 7 === 0 ? [] : back % 3 === 0 ? [...am] : amShort,
+      pm: back % 4 === 0 ? [] : back % 5 === 0 ? [...pm] : pmShort,
       homeCare: back % 6 === 1,
       skin: 2 + ((back * 7) % 3), // 2, 3 or 4 — the same spread in every phase
       tags: back % 5 === 0 ? ['Oily'] : back % 7 === 0 ? ['Dry'] : [],

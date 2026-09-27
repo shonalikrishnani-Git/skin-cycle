@@ -13,8 +13,8 @@ import {
 } from '../lib/skin';
 import { CARD, EVIDENCE_STYLE } from './guideStyles';
 
-/** Matches the convention in README.md's Validation section — one AI validation pass, one date. */
-const VERIFIED_ON = '14 Sep 2026';
+/** The latest full pass in README.md's Validation section (14 Sep, re-checked in full 17 Sep). */
+const VERIFIED_ON = '17 Sep 2026';
 
 const SOURCE_BY_ID: Record<string, { id: string; label: string; url: string }> = Object.fromEntries(
   SOURCES.map((s) => [s.id, s]),
@@ -140,7 +140,7 @@ function buildGroups(): Group[] {
 function EvidenceOrType({ row }: { row: Row }) {
   if (row.evidence) {
     return (
-      <span className={`text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap ${EVIDENCE_STYLE[row.evidence]}`}>
+      <span className={`text-xs px-2 py-0.5 rounded-full whitespace-nowrap ${EVIDENCE_STYLE[row.evidence]}`}>
         {row.evidence}
       </span>
     );
@@ -205,7 +205,7 @@ function GroupSection({ group }: { group: Group }) {
           <li key={row.id} className="rounded-2xl bg-canvas border border-line p-4">
             <p className="text-sm font-semibold leading-snug">{row.claim}</p>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
-              <span className="text-[10px] uppercase tracking-widest text-muted">{row.tag}</span>
+              <span className="text-xs uppercase tracking-widest text-muted">{row.tag}</span>
               <EvidenceOrType row={row} />
             </div>
             <div className="mt-2">
@@ -214,7 +214,7 @@ function GroupSection({ group }: { group: Group }) {
                 className="inline-flex items-center min-h-11 text-sm text-accent underline underline-offset-2"
               />
             </div>
-            <p className="text-[10px] text-muted mt-1">Verified {VERIFIED_ON}</p>
+            <p className="text-xs text-muted mt-1">Verified {VERIFIED_ON}</p>
           </li>
         ))}
       </ul>

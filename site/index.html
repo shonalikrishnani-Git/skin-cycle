@@ -3,114 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Skin Cycle</title>
-  <meta name="description" content="A local-only skincare app that tracks your routine and gives sourced, phase-by-phase guidance — with a caution on every remedy and no health claim shipped without a source." />
+  <title>Skin Cycle — skincare that follows your cycle</title>
+  <meta name="description" content="A private skin diary with week-by-week skincare tips for your menstrual cycle, backed by 66 sources. A portfolio project by Sonali Krishnani." />
+  <meta name="theme-color" content="#fcf7f5" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Skin Cycle — skincare that follows your cycle" />
+  <meta property="og:description" content="A private skin diary with week-by-week skincare tips. Every tip is backed by a real source." />
+  <meta property="og:image" content="https://shonalikrishnani-git.github.io/skin-cycle/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="wrap">
+  <div class="wrap wrap-wide">
     <header class="site-header">
-      <a class="wordmark" href="./">Skin Cycle</a>
-      <nav>
+      <a class="wordmark" href="./"><img src="favicon.svg" alt="" width="30" height="30" />Skin Cycle</a>
+      <nav aria-label="Site">
+        <a href="about.html">Case study</a>
         <a href="https://github.com/shonalikrishnani-Git/skin-cycle">Source</a>
-        <a href="about.html">The full story</a>
       </nav>
     </header>
-    <p class="tagline">A portfolio project by Sonali Krishnani, built with Claude Code.</p>
 
-    <h1>Skincare that follows your cycle.</h1>
-    <p class="lede">
-      Track your routine and how your skin feels, and get simple, safe guidance for each week of
-      your month — what to hydrate and moisturise with, what to go easy on, and home care that has
-      actually been checked against a real source before it ever reaches the screen.
-    </p>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Portfolio project · Sonali Krishnani</p>
+          <h1>Skincare that follows your cycle.</h1>
+          <p class="lede">A private skin diary with week-by-week skincare tips. Every tip is backed by a real source.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="app/?tour">Take the 1-minute tour →</a>
+            <a class="btn btn-secondary" href="app/">Open the app</a>
+          </div>
+          <ul class="trust" aria-label="At a glance">
+            <li>No account</li>
+            <li>Data stays on your device</li>
+            <li>66 sources</li>
+          </ul>
+        </div>
+        <div class="hero-visual">
+          <div class="phone">
+            <img src="screenshots/today.png" width="780" height="1688" alt="The Today screen: what skin tends to do this week, with hydrate, moisturise and go-easy-on tips" />
+          </div>
+        </div>
+      </section>
 
-    <div class="cta-row">
-      <a class="btn btn-primary" href="app/">Try the live app →</a>
-      <a class="btn btn-secondary" href="about.html">Read the full story</a>
-    </div>
+      <ol class="steps" aria-label="What it does">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">1</span>
+          <h3>Today</h3>
+          <p>This week's skin tips, then tick your routine and rate your skin.</p>
+          <div class="shot"><img src="screenshots/routine.png" width="780" height="1688" alt="Today's routine: steps ticked and a face picked for how skin feels" loading="lazy" /></div>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">2</span>
+          <h3>Guide</h3>
+          <p>Home care with an evidence level and a caution on every tip.</p>
+          <div class="shot"><img src="screenshots/guide.png" width="780" height="1688" alt="The Guide: home care tips, each with an evidence level and a caution" loading="lazy" /></div>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">3</span>
+          <h3>Diary</h3>
+          <p>A calendar of your skin, coloured by cycle phase.</p>
+          <div class="shot"><img src="screenshots/diary.png" width="780" height="1688" alt="The Diary: a calendar coloured by cycle phase with a face on each rated day" loading="lazy" /></div>
+        </li>
+      </ol>
 
-    <p class="note">
-      Portfolio prototype, not released. General skincare information, not medical advice or
-      contraception. "Skin Cycle" is a working title — a rename is on the list before this goes
-      any further. Everything you enter stays on your own device; there's no account and no server.
-    </p>
+      <section class="evidence" aria-labelledby="evidence-title">
+        <div>
+          <h2 id="evidence-title">Checked, not guessed</h2>
+          <p>Every health claim had to be backed by a source that was actually opened — AAD, NHS, HSE, DermNet, FDA or a published study.</p>
+          <p><a href="about.html">Read the case study →</a></p>
+        </div>
+        <ul class="stats">
+          <li><strong>66</strong>sources</li>
+          <li><strong>3</strong>rounds of fact-checking</li>
+          <li><strong>2</strong>popular remedies cut: honey and aloe vera</li>
+          <li><strong>0</strong>brands, "toxic" scores or scraped reviews</li>
+        </ul>
+      </section>
 
-    <figure class="shots" aria-label="Screenshots of the app">
-      <figure class="shot">
-        <img src="screenshots/today.png" alt="The Today screen: this week's skin tendency, hydrate/moisturise/go-easy-on tiles, and today's routine checklist" loading="lazy" />
-        <figcaption>Today</figcaption>
-      </figure>
-      <figure class="shot">
-        <img src="screenshots/guide.png" alt="The Guide screen: phase-by-phase routine, home care with an evidence label and caution on every remedy, and a don't-try-this-at-home list" loading="lazy" />
-        <figcaption>Guide</figcaption>
-      </figure>
-      <figure class="shot">
-        <img src="screenshots/diary.png" alt="The Diary screen: a calendar tinted by cycle phase with a face for each day you rated your skin" loading="lazy" />
-        <figcaption>Diary</figcaption>
-      </figure>
-    </figure>
+      <section aria-labelledby="who-title">
+        <div class="section-head">
+          <h2 id="who-title">My role</h2>
+        </div>
+        <div class="who">
+          <div class="card">
+            <h3>Sonali Krishnani <span class="role">M.Sc. Microbiology · Biology teacher</span></h3>
+            <ul class="plain">
+              <li>Came up with the idea and product direction</li>
+              <li>Set the rules the advice must follow</li>
+              <li>Led the fact-checking and decided what to cut</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Claude Code <span class="role">AI coding assistant</span></h3>
+            <ul class="plain">
+              <li>Wrote the code</li>
+              <li>Ran research and review agents</li>
+              <li>Applied the fixes they found</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-    <h2>What it does</h2>
-    <p>
-      <strong>Today</strong> opens on what your skin tends to do this week and why, three tiles for
-      hydrate / moisturise / go easy on (worded differently for oily, dry, combination and
-      sensitive skin — not just one generic tip), and one home-care idea. Below it: your morning
-      and evening routine, how your skin feels, tags, and a note.
-    </p>
-    <p>
-      <strong>Guide</strong> covers all four phases: your routine with the reason for each step,
-      home care with an honest evidence level and a caution on every remedy, a "don't try this at
-      home" list, a "heard online — not quite true" myth-buster, and a Sources page tracing every
-      claim to what backs it.
-    </p>
-    <p>
-      <strong>Diary</strong> is a calendar tinted by phase, with a face on each day you rate your
-      skin, and a plain sentence about your own pattern once there's enough data to say something
-      true.
-    </p>
-    <ul class="phase-list" aria-hidden="true">
-      <li><span class="dot dot-menstrual"></span>Menstrual</li>
-      <li><span class="dot dot-follicular"></span>Follicular</li>
-      <li><span class="dot dot-ovulatory"></span>Ovulatory</li>
-      <li><span class="dot dot-luteal"></span>Luteal</li>
-    </ul>
-
-    <h2>Built to a QC standard, not a vibe</h2>
-    <p>
-      Every health claim in the guidance had to survive being treated as wrong until a real,
-      opened source backed it — AAD, NHS, HSE, DermNet, the FDA, published studies. That process
-      caught real problems along the way (an incomplete pregnancy note, an under-urgent warning
-      sign, a mislabelled source) and fixed every one. 66 sources back the guidance today, and
-      243 automated tests now catch a missing caution, an unused source, or a stale count on their
-      own — <a href="about.html#validation">the full validation history is on the story page →</a>
-    </p>
-
-    <h2>Who made this</h2>
-    <div class="who">
-      <div class="card">
-        <h3>Sonali</h3>
-        <p>
-          Set the direction — skin first, the cycle as context — and the rules the guidance has to
-          follow: ingredient types not brands, no "toxic" scores, no scraped reviews, a caution on
-          every remedy. Owned the validation and made every call on what to cut and keep.
-        </p>
-      </div>
-      <div class="card">
-        <h3>Claude Code</h3>
-        <p>
-          An AI coding assistant. Wrote the code, ran the research and validation agents, and
-          applied their findings.
-        </p>
-      </div>
-    </div>
+      <section class="closing">
+        <h2>See it in a minute</h2>
+        <p>The tour fills in a sample diary. Nothing is saved.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="app/?tour">Take the tour →</a>
+        </div>
+      </section>
+    </main>
 
     <footer class="site-footer">
       <p>
-        <a href="https://github.com/shonalikrishnani-Git/skin-cycle">View the source on GitHub</a>
-        · <a href="app/">Open the app</a> · <a href="about.html">About this project</a>
+        <a href="about.html">Case study</a> ·
+        <a href="https://github.com/shonalikrishnani-Git/skin-cycle">Source on GitHub</a> ·
+        <a href="app/">Open the app</a>
       </p>
-      <p>Not a medical device. Not contraception. Nothing here has been reviewed by a pharmacist or dermatologist.</p>
+      <p>General skincare information, not medical advice. Not yet reviewed by a pharmacist or dermatologist.</p>
     </footer>
   </div>
 </body>

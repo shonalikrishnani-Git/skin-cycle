@@ -1,0 +1,23 @@
+<!doctype html>
+<!-- Source for site/og.png, the 1200x630 link-preview image. Re-render with:
+     node scripts/screenshots.mjs (with the dev server running) -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../site/style.css">
+<style>
+  body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--color-canvas); }
+  .og { display: grid; grid-template-columns: 1fr 400px; height: 630px; padding: 0 80px; gap: 40px; align-items: center; }
+  .og h1 { font-size: 72px; line-height: 1.02; margin: 18px 0 20px; }
+  .og p { font-size: 26px; color: var(--color-muted); margin: 0; }
+  .mark { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: 30px; }
+  .mark img { width: 48px; height: 48px; }
+  .og .phone { max-width: 320px; margin-top: 150px; }
+  .og .tag { margin-top: 34px; font-size: 20px; color: var(--color-accent); font-weight: 600; }
+</style></head>
+<body><div class="og">
+  <div>
+    <div class="mark"><img src="../site/favicon.svg" alt="">Skin Cycle</div>
+    <h1>Skincare that follows your cycle.</h1>
+    <p>A private skin diary. Every tip backed by a source.</p>
+    <p class="tag">Portfolio project · Sonali Krishnani</p>
+  </div>
+  <div class="hero-visual"><div class="phone"><img src="../site/screenshots/today.png" alt=""></div></div>
+</div></body></html>
