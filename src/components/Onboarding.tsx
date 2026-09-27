@@ -204,7 +204,7 @@ export function Onboarding({ onSave, onTour }: { onSave: (p: Profile) => void; o
             )}
             {step === 0 && (
               <p className="text-xs text-muted text-center pt-2">
-                Stays on this device. General skincare information, not medical advice.
+                Stays on this device. General skincare information, not medical advice or contraception.
               </p>
             )}
           </div>

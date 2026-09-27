@@ -25,7 +25,7 @@ export const TOUR: TourStep[] = [
     tab: 'today',
     target: 'skin-today',
     title: 'Tips for this week',
-    body: 'What skin tends to need at this point in the cycle, matched to combination skin.',
+    body: 'How skin tends to change at this point in the cycle, with tips for combination skin.',
   },
   {
     tab: 'today',
@@ -37,13 +37,13 @@ export const TOUR: TourStep[] = [
     tab: 'guide',
     target: 'guide',
     title: 'Advice you can check',
-    body: 'Every tip has an evidence level, a caution and a source.',
+    body: 'Every home remedy shows how strong the evidence is and a caution. Tap through to the sources.',
   },
   {
     tab: 'diary',
     target: 'pattern',
     title: 'A pattern over time',
-    body: 'Ratings build into a picture of each phase. A pattern shows only when the ratings support one.',
+    body: 'Ratings build into a picture of each phase. A pattern shows once there are enough ratings.',
   },
 ];
 

@@ -152,7 +152,7 @@ export function Guide({
         </ul>
       </Fold>
 
-      <Fold title="When to see a pharmacist or GP">
+      <Fold title="When to see a pharmacist or GP" open>
         <ul className="flex flex-col gap-1.5 list-disc pl-5 text-sm text-muted leading-relaxed">
           {SEE_SOMEONE.map((s) => (
             <li key={s.text}>{s.text}</li>

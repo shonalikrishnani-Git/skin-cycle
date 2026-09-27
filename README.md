@@ -1,7 +1,7 @@
 # Skin Cycle
 
-Skincare that follows your cycle — a private skin diary with week-by-week tips, where every
-health claim is backed by a source.
+Skincare that follows your cycle — a private skin diary with tips for each phase of your cycle,
+checked against 66 sources.
 
 **[Live site](https://shonalikrishnani-git.github.io/skin-cycle/)** ·
 **[Demo](https://shonalikrishnani-git.github.io/skin-cycle/app/?tour)** ·
@@ -17,7 +17,7 @@ A portfolio project by **Sonali Krishnani** (M.Sc. Microbiology, Biology teacher
 ## What it does
 
 - **Start** — name, date of birth (for your age), skin type, cycle and routine, in four short steps.
-- **Today** — what skin tends to need this week, matched to your skin type, plus a two-tap diary:
+- **Today** — tips for your current phase, matched to your skin type, plus a two-tap diary:
   tick your routine steps and rate your skin.
 - **Guide** — each phase's routine, home care with an evidence level and a caution on every remedy,
   myths, when to see a GP, and 66 sources.
@@ -31,7 +31,7 @@ No account, no server: everything stays in your browser.
 
 - Product idea and direction: skin first, the cycle as context — not a period tracker.
 - The rules the advice must follow: ingredient types, not brands; no "toxic" scores; no scraped
-  reviews; a caution on every remedy; no claim without a source.
+  reviews; a caution on every remedy; no health claim without a checked source.
 - Led three rounds of fact-checking and made every call on what to cut and keep.
 
 Claude Code wrote the code, ran the research and review agents, and applied their findings.

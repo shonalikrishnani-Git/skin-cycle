@@ -4,8 +4,8 @@ import { CycleRing } from './CycleRing';
 function nextText(next: NextPeriod | null): string {
   if (!next) return '';
   if (next.late > 0) return `${next.late} day${next.late === 1 ? '' : 's'} later than usual — cycles vary.`;
-  if (next.inDays === 0) return 'Period due today.';
-  if (next.inDays === 1) return 'Period due tomorrow.';
+  if (next.inDays === 0) return 'Period expected today.';
+  if (next.inDays === 1) return 'Period expected tomorrow.';
   return `Period in about ${next.inDays} days.`;
 }
 
