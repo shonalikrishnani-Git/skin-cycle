@@ -1,7 +1,7 @@
 # Protocol: AI-assisted rapid review — facial skin across the menstrual cycle
 
 **Written:** 27 Sep 2026, before any screening. Not externally registered.
-**Lead:** Sonali Krishnani (M.Sc. Microbiology). **Protocol drafted, and screening, extraction and GRADE ratings carried out, by AI agents (Claude).** No human second reviewer or independent expert was available; see *AI safeguards*.
+**Directed by:** Sonali Krishnani (M.Sc. Microbiology). **Protocol drafted, and screening, extraction and GRADE ratings carried out, by AI agents (Claude).** No human second reviewer or independent expert was available; see *AI safeguards*.
 **Method guidance:** Cochrane Rapid Reviews Methods Group interim guidance (Garritty et al., 2021); reported with a PRISMA 2020 flow diagram; certainty rated with GRADE.
 
 ## Questions
