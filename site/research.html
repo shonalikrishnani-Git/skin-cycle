@@ -3,101 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evidence review — Skin Cycle</title>
-  <meta name="description" content="An AI-assisted evidence review: what published studies say about facial skin across the menstrual cycle, and whether they support changing a skincare routine by phase." />
+  <title>Rapid review — Skin Cycle</title>
+  <meta name="description" content="An AI-assisted rapid review of 47 studies: does facial skin change across the menstrual cycle, and has anyone tested cycle-timed skincare?" />
   <meta name="theme-color" content="#fcf7f5" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .label {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      background: var(--color-luteal-soft);
-      color: var(--color-luteal-ink);
-      border-radius: 18px;
-      padding: 14px 18px;
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 18px 0 8px;
-    }
-    .label strong {
-      display: block;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .label svg {
-      flex: none;
-      margin-top: 2px;
-    }
-    .question {
-      font-family: var(--font-display);
-      font-size: 22px;
-      line-height: 1.35;
-      border-left: 4px solid var(--color-accent);
-      padding: 4px 0 4px 18px;
-      margin: 8px 0 0;
-    }
-    ul.findings {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 12px;
-    }
-    ul.findings li {
-      background: var(--color-surface);
-      border: 1px solid var(--color-line);
-      border-radius: 18px;
-      padding: 16px 18px;
-      font-size: 15.5px;
-    }
-    ul.findings li strong {
-      display: block;
-      font-family: var(--font-display);
-      font-weight: normal;
-      font-size: 19px;
-      margin-bottom: 4px;
-    }
-    .verdict {
-      background: var(--color-ink);
-      color: #fff;
-      border-radius: 22px;
-      padding: 22px 24px;
-      margin: 18px 0 0;
-    }
-    .verdict strong {
-      display: block;
-      font-family: var(--font-display);
-      font-weight: normal;
-      font-size: 22px;
-      margin-bottom: 6px;
-    }
-    .verdict p {
-      margin: 0;
-      color: rgba(255, 255, 255, 0.85);
-    }
-    sup a {
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 12px;
-      padding: 0 1px;
-    }
-    ol.refs {
-      padding-left: 22px;
-      font-size: 14px;
-      color: var(--color-muted);
-    }
-    ol.refs li {
-      margin-bottom: 8px;
-    }
-    ol.refs a {
-      word-break: break-word;
-    }
-    ol.refs li:target {
-      background: var(--color-accent-soft);
-      border-radius: 8px;
+    .wrap { max-width: 880px; }
+    .label { display: flex; gap: 12px; align-items: flex-start; background: var(--color-luteal-soft); color: var(--color-luteal-ink); border-radius: 18px; padding: 14px 18px; font-size: 14px; line-height: 1.5; margin: 18px 0 8px; }
+    .label strong { display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .label svg { flex: none; margin-top: 2px; }
+    .qs { display: grid; gap: 10px; margin: 8px 0 0; }
+    .q { font-family: var(--font-display); font-size: 20px; line-height: 1.35; border-left: 4px solid var(--color-accent); padding: 2px 0 2px 16px; margin: 0; }
+    .q span { font-family: var(--font-sans); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--color-accent); display: block; }
+    .glance { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 24px 0 0; list-style: none; padding: 0; }
+    .glance li { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: 18px; padding: 14px 16px; font-size: 13.5px; color: var(--color-muted); line-height: 1.4; }
+    .glance b { display: block; font-family: var(--font-display); font-weight: normal; font-size: 32px; color: var(--color-ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+    .answer { border-radius: 22px; padding: 20px 22px; }
+    .answer.a1 { background: var(--color-surface); border: 1px solid var(--color-line); }
+    .answer.a2 { background: var(--color-ink); color: #fff; }
+    .answer h3 { font-family: var(--font-display); font-size: 20px; text-transform: none; letter-spacing: 0; color: inherit; margin: 0 0 8px; }
+    .answer p { margin: 0; font-size: 15.5px; }
+    .answer.a2 p { color: rgba(255,255,255,0.85); }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--color-line); border-radius: 18px; background: var(--color-surface); margin-top: 12px; }
+    table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 14px; }
+    th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--color-line); }
+    th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted); font-weight: 600; background: var(--color-canvas); }
+    tr:last-child td { border-bottom: 0; }
+    td.o { font-weight: 600; }
+    td.n { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--color-muted); }
+    .cert { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+    .low { background: var(--color-ovulatory-soft); color: var(--color-ovulatory-ink); }
+    .vlow { background: var(--color-menstrual-soft); color: var(--color-menstrual-ink); }
+    .none { background: var(--color-line); color: var(--color-ink); }
+    .flow { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: 18px; padding: 16px; display: grid; gap: 6px; margin-top: 12px; }
+    .flow .row { display: grid; gap: 8px; }
+    .flow .r5 { grid-template-columns: repeat(5, 1fr); }
+    .flow .r2 { grid-template-columns: 2fr 1fr; }
+    .flow .r2b { grid-template-columns: 1fr 1fr; }
+    .box { border: 1.5px solid var(--color-line); border-radius: 12px; padding: 10px 12px; background: var(--color-canvas); font-size: 13px; color: var(--color-muted); line-height: 1.35; }
+    .box b { display: block; font-size: 22px; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+    .box.key { border-color: var(--color-accent); background: var(--color-accent-soft); }
+    .box.out { border-style: dashed; }
+    .arrow { text-align: center; color: var(--color-muted); font-size: 13px; }
+    ul.files { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    ul.files a { display: block; background: var(--color-surface); border: 1px solid var(--color-line); border-radius: 14px; padding: 12px 14px; text-decoration: none; color: var(--color-ink); font-size: 14px; }
+    ul.files a span { display: block; color: var(--color-muted); font-size: 13px; }
+    ul.files a:hover { border-color: var(--color-accent); }
+    ol.refs { padding-left: 22px; font-size: 14px; color: var(--color-muted); }
+    ol.refs li { margin-bottom: 6px; }
+    ol.refs a { word-break: break-word; }
+    @media (max-width: 720px) {
+      .glance { grid-template-columns: 1fr 1fr; }
+      .answers, ul.files { grid-template-columns: 1fr; }
+      .flow .r5 { grid-template-columns: 1fr 1fr; }
+      .flow .r2, .flow .r2b { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -112,93 +73,131 @@
     </header>
 
     <main>
-      <p class="eyebrow" style="margin-top: 32px">Evidence review · 27 Sep 2026</p>
-      <h1>Skin across the menstrual cycle: what the evidence says</h1>
+      <p class="eyebrow" style="margin-top: 32px">Rapid review · 27 Sep 2026</p>
+      <h1>Does skin change across the menstrual cycle?</h1>
 
       <div class="label" role="note">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="7.5" /><path d="M10 6.2v4.6M10 13.6v.2" stroke-linecap="round" /></svg>
         <span>
-          <strong>AI-assisted desk review</strong>
-          Sources were found and summarised by AI research agents and checked against the original papers.
-          Sonali Krishnani set the rules and made the calls. Not a systematic review, not peer-reviewed, not medical advice.
+          <strong>AI-assisted rapid review</strong>
+          Following Cochrane rapid-review guidance, with AI agents as screeners and extractors. Designed and led by Sonali Krishnani.
+          No human second reviewer; not peer-reviewed; not medical advice.
         </span>
       </div>
 
-      <h2>Question</h2>
-      <p class="question">What does published evidence say about how facial skin changes across the menstrual cycle, and does it support changing a skincare routine by cycle phase?</p>
+      <div class="qs">
+        <p class="q"><span>Question 1</span>In people with natural cycles, does facial skin differ between cycle phases?</p>
+        <p class="q"><span>Question 2</span>Has anyone tested whether timing skincare to the cycle beats a steady routine?</p>
+      </div>
+
+      <ul class="glance" aria-label="At a glance">
+        <li><b>484</b>records screened from PubMed, ClinicalTrials.gov, Consensus and reference lists</li>
+        <li><b>47</b>studies included</li>
+        <li><b>κ 0.87</b>agreement between two independent screeners (97%)</li>
+        <li><b>0</b>studies or registered trials of cycle-timed vs steady skincare</li>
+      </ul>
+
+      <div class="answers">
+        <div class="answer a1">
+          <h3>Answer to question 1</h3>
+          <p>Only acne shows a fairly consistent pattern: many people with acne say it flares around their period, most often the week before. For oil, hydration, barrier, sensitivity, colour and skin bacteria, the studies are small and conflicting, and measured changes are small.</p>
+        </div>
+        <div class="answer a2">
+          <h3>Answer to question 2</h3>
+          <p>It has never been tested. No study or registered trial compares cycle-timed skincare with a steady routine. Untested isn't the same as harmful, but it isn't evidence either.</p>
+        </div>
+      </div>
+
+      <h2>Summary of findings</h2>
+      <p>Certainty uses GRADE. All studies are observational, so each outcome starts at <em>low</em> and drops for bias, inconsistency, indirectness or small samples.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Outcome</th><th>Studies (people)</th><th>What the evidence shows</th><th>Certainty</th><th>What the app says</th></tr></thead>
+          <tbody>
+            <tr><td class="o">Acne flares, self-reported</td><td class="n">21 (~7,400)</td><td>Many women with acne report flares around their period; median about 60% (range 12–98%). The week before is most common.</td><td><span class="cert low">Low</span></td><td>"Many people with acne break out more before a period"</td></tr>
+            <tr><td class="o">Acne spots, counted</td><td class="n">3 (152)</td><td>Two small studies found about 25% more inflamed spots before the period; a third saw no change.</td><td><span class="cert vlow">Very low</span></td><td>Supporting evidence only</td></tr>
+            <tr><td class="o">Oil (sebum)</td><td class="n">7 (~100)</td><td>Conflicting. The best facial study (51 women) found no difference.</td><td><span class="cert vlow">Very low</span></td><td>No oiliness claims by phase</td></tr>
+            <tr><td class="o">Skin barrier (water loss)</td><td class="n">4 (36)</td><td>Slightly more water loss after ovulation (9.9 vs 8.9 g/h/m²); mostly non-facial sites.</td><td><span class="cert vlow">Very low</span></td><td>"In one small study…"</td></tr>
+            <tr><td class="o">Hydration</td><td class="n">6 (~150)</td><td>Conflicting: no difference, higher at ovulation, or driest days 1–6.</td><td><span class="cert vlow">Very low</span></td><td>"In one small study…"</td></tr>
+            <tr><td class="o">Sensitivity and irritation</td><td class="n">5 (95)</td><td>4 of 5 found no difference; one (29 women) found a stronger irritant reaction on day 1.</td><td><span class="cert vlow">Very low</span></td><td>"In one small study… treat this as a maybe"</td></tr>
+            <tr><td class="o">Colour and redness</td><td class="n">3 (29)</td><td>Redness varies, but by less than the eye can see.</td><td><span class="cert vlow">Very low</span></td><td>"Ovulation glow" listed as a myth</td></tr>
+            <tr><td class="o">Skin bacteria</td><td class="n">3 (95)</td><td>No phase difference in the sequencing studies.</td><td><span class="cert vlow">Very low</span></td><td>No claims</td></tr>
+            <tr><td class="o">Cycle-timed vs steady skincare</td><td class="n">0 direct</td><td>Never tested. One indirect study (30 women, peel timing) can't answer it.</td><td><span class="cert none">No evidence</span></td><td>"Timing tips, not rules"</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2>Method</h2>
       <ul class="plain">
-        <li><strong>Sources:</strong> PubMed/PMC studies and reviews, plus public health and dermatology guidance (AAD, NHS, HSE, DermNet, FDA, LactMed).</li>
-        <li><strong>AI plus checking:</strong> AI research agents found and summarised sources. Every claim was treated as wrong until a source someone had actually opened supported it.</li>
-        <li><strong>Checks:</strong> three rounds (13, 14 and 17 Sep 2026), then a wording and sourcing check on 27 Sep 2026, when the key studies were read again for this review.</li>
-        <li><strong>Sonali’s role:</strong> set the rules (ingredient types, not brands; a caution on every remedy; nothing goes in without a source) and decided what to keep and cut.</li>
-        <li><strong>Not a systematic review:</strong> no protocol, no risk-of-bias scoring, one reviewer, AI-assisted.</li>
+        <li><strong>Protocol first:</strong> question, eligibility, sources and analysis were written down before any screening, with a log of every deviation.</li>
+        <li><strong>Search with life-science connectors:</strong> PubMed (473 records), ClinicalTrials.gov, Consensus and medRxiv, plus reference lists of key papers.</li>
+        <li><strong>Two independent screeners:</strong> each judged all 484 records without seeing the other's decisions (97.1% agreement, Cohen's κ 0.87). A third settled the 26 undecided records.</li>
+        <li><strong>Two independent extractors:</strong> each recorded design, size, how phase was measured, results and risk of bias for all 47 studies. 90% agreed on the direction of results; every difference was checked against the paper.</li>
+        <li><strong>Certainty:</strong> GRADE per outcome.</li>
+        <li><strong>Sonali's role:</strong> set the question and rules, reviewed the decisions, and decided what the app should and shouldn't say.</li>
       </ul>
 
-      <h2>Findings</h2>
-      <ul class="findings">
-        <li>
-          <strong>Hormones shift through the cycle</strong>
-          Oestrogen rises through the follicular phase and peaks just before ovulation. After ovulation, progesterone becomes the main hormone<sup><a href="#r1">1</a></sup>, with a smaller second rise in oestrogen mid-luteal<sup><a href="#r4">4</a></sup>. Both are lowest in the days just before a period<sup><a href="#r3">3</a></sup>.
-        </li>
-        <li>
-          <strong>The research is thin</strong>
-          A 2024 scoping review found 26 studies. Most had fewer than 20 women, and most measured skin temperature, blood flow or sweating. None looked at acne<sup><a href="#r1">1</a></sup>.
-        </li>
-        <li>
-          <strong>Irritation and water loss: small differences</strong>
-          In 29 women, a skin irritant caused a stronger reaction on day 1 than on days 9–11<sup><a href="#r2">2</a></sup>. One study found skin lost more water just before a period than just before ovulation, measured on the back and forearm<sup><a href="#r3">3</a></sup>. In 36 women, skin lost more water and held less a week after ovulation than at ovulation, but their own ratings of dryness, itch and sensitivity didn't change significantly<sup><a href="#r4">4</a>,<a href="#r5">5</a></sup>. The only facial moisture study in the 2024 review (51 women) found no change across phases<sup><a href="#r1">1</a></sup>.
-        </li>
-        <li>
-          <strong>Premenstrual acne flares are common, not universal</strong>
-          44% of 400 women with acne reported flares before their period<sup><a href="#r6">6</a></sup>. 63% of untreated adult women showed a 25% premenstrual rise in inflamed spots<sup><a href="#r7">7</a></sup>. 65% of 105 women said their acne was worse around their period<sup><a href="#r8">8</a></sup>. Many don't flare at all.
-        </li>
-        <li>
-          <strong>The ovulation "glow" isn't visible</strong>
-          In 22 women, facial redness rose around ovulation and stayed up afterwards, but the change was too small for the human eye to detect, even in ideal lighting<sup><a href="#r9">9</a></sup>.
-        </li>
-        <li>
-          <strong>The combined pill changes the picture</strong>
-          It works by stopping ovulation and can help acne<sup><a href="#r10">10</a></sup>. In the 400-woman survey, taking the pill made no difference to how often women had premenstrual flares<sup><a href="#r6">6</a></sup>.
-        </li>
-      </ul>
-
-      <div class="verdict">
-        <strong>Overall</strong>
-        <p>Studies show small average differences between phases, in small groups, and they sometimes disagree<sup><a href="#r1" style="color:#fff">1</a>,<a href="#r4" style="color:#fff">4</a></sup>. We found no study testing whether switching skincare products by phase improves skin. So the app treats its phase advice as timing tips, not rules.</p>
+      <h2>How the studies were found</h2>
+      <div class="flow" aria-label="PRISMA flow diagram">
+        <div class="row r5">
+          <div class="box"><b>473</b>PubMed</div>
+          <div class="box"><b>9</b>Consensus</div>
+          <div class="box"><b>2</b>ClinicalTrials.gov</div>
+          <div class="box"><b>0</b>medRxiv</div>
+          <div class="box"><b>6</b>Reference lists</div>
+        </div>
+        <p class="arrow">↓ 6 duplicates removed</p>
+        <div class="row r2">
+          <div class="box key"><b>484</b>Records screened by two independent reviewers</div>
+          <div class="box out"><b>415</b>Excluded by both</div>
+        </div>
+        <p class="arrow">↓ 26 undecided → third reviewer</p>
+        <div class="row r2b">
+          <div class="box out"><b>13</b>Excluded after reading</div>
+          <div class="box out"><b>9</b>Couldn't be obtained</div>
+        </div>
+        <p class="arrow">↓</p>
+        <div class="box key"><b>47</b>Studies included (43 agreed + 4 from the third reviewer)</div>
       </div>
 
       <h2>What this changed in the app</h2>
       <ul class="plain">
-        <li><strong>Cut:</strong> honey and aloe vera, because the evidence didn't hold up. Ice on a deep spot was replaced with the AAD's warm-compress advice.</li>
-        <li><strong>Replaced:</strong> "drier and duller during your period", with the supported finding that skin may react more easily around day 1<sup><a href="#r2">2</a></sup>.</li>
-        <li><strong>Moved to myths:</strong> the "ovulation glow"<sup><a href="#r9">9</a></sup>.</li>
-        <li><strong>Hedged:</strong> headlines say "may" and "a little"; acne flares are given as a 44–65% range<sup><a href="#r6">6</a>–<a href="#r8">8</a></sup>; a note on the pill was added<sup><a href="#r10">10</a></sup>.</li>
-        <li><strong>Corrected on 27 Sep:</strong> two citations pointed at the wrong study, and four claims were a little stronger than their sources. All fixed, and every tip now links to at least one source.</li>
+        <li>Phase headlines about sensitivity and hydration now start "In one small study…", because only one study each supports them.</li>
+        <li>The acne headline stays: it's the one finding with consistent support.</li>
+        <li>The app's core message, "timing tips, not rules", is backed by the finding that cycle-timed skincare has never been tested.</li>
+        <li>Earlier checks the same day cut overstatements, fixed two wrong citations, and gave every tip at least one source.</li>
       </ul>
 
       <h2>Limits</h2>
       <ul class="plain">
-        <li>The search wasn't exhaustive: it started from the sources the app already cited, so relevant studies may be missing.</li>
-        <li>The studies are small, measure different body sites on different cycle days, and the acne figures mostly come from surveys.</li>
-        <li>Four studies<sup><a href="#r2">2</a>,<a href="#r3">3</a>,<a href="#r6">6</a>,<a href="#r7">7</a></sup> were read as abstracts only.</li>
-        <li>No dermatologist or pharmacist has reviewed this yet.</li>
+        <li>AI agents screened and extracted; there was no human second reviewer.</li>
+        <li>33 of 47 studies could only be read as abstracts; only 4 confirmed cycle phase with hormone tests, and only 3 excluded people on the pill.</li>
+        <li>71 non-English records were excluded; Consensus was capped at 3 results per search; preprints were effectively unsearched.</li>
+        <li>The two screeners briefly shared a scratch file; this is logged in the protocol.</li>
       </ul>
 
-      <h2>References</h2>
+      <h2>Data and files</h2>
+      <ul class="files">
+        <li><a href="https://github.com/shonalikrishnani-Git/skin-cycle/blob/main/research/protocol.md">Protocol<span>Question, rules, deviations</span></a></li>
+        <li><a href="https://github.com/shonalikrishnani-Git/skin-cycle/blob/main/research/search-log.md">Search log<span>Exact queries and counts</span></a></li>
+        <li><a href="https://github.com/shonalikrishnani-Git/skin-cycle/blob/main/research/screening-final.csv">Screening decisions<span>All 484 records, with reasons</span></a></li>
+        <li><a href="https://github.com/shonalikrishnani-Git/skin-cycle/blob/main/research/extract-final.csv">Evidence table<span>47 studies, 64 outcome rows</span></a></li>
+        <li><a href="https://github.com/shonalikrishnani-Git/skin-cycle/blob/main/research/summary-of-findings.md">Summary of findings<span>GRADE ratings and reasons</span></a></li>
+        <li><a href="https://github.com/shonalikrishnani-Git/skin-cycle/blob/main/research/reconciliation.csv">Reconciliation log<span>Every difference between extractors</span></a></li>
+      </ul>
+
+      <h2>Key studies</h2>
       <ol class="refs">
-        <li id="r1">Nguyen et al. (2024). Physiological changes in women's skin during the menstrual cycle: a scoping review. <em>Cureus</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11703644/">pmc.ncbi.nlm.nih.gov/articles/PMC11703644</a></li>
-        <li id="r2">Agner et al. (1991). Menstrual cycle and skin reactivity. <em>J Am Acad Dermatol</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/2033132/">pubmed.ncbi.nlm.nih.gov/2033132</a></li>
-        <li id="r3">Harvell et al. (1992). Changes in transepidermal water loss and cutaneous blood flow during the menstrual cycle. <em>Contact Dermatitis</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/1493683/">pubmed.ncbi.nlm.nih.gov/1493683</a></li>
-        <li id="r4">Nikoletić et al. (2025). Menopause, menstrual cycle, and skin barrier function. <em>Skin Res Technol</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12206585/">pmc.ncbi.nlm.nih.gov/articles/PMC12206585</a></li>
-        <li id="r5">Correction to reference 4 (2025). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12509239/">pmc.ncbi.nlm.nih.gov/articles/PMC12509239</a></li>
-        <li id="r6">Stoll et al. (2001). The effect of the menstrual cycle on acne. <em>J Am Acad Dermatol</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/11712049/">pubmed.ncbi.nlm.nih.gov/11712049</a></li>
-        <li id="r7">Lucky (2004). Quantitative documentation of a premenstrual flare of facial acne in adult women. <em>Arch Dermatol</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/15096370/">pubmed.ncbi.nlm.nih.gov/15096370</a></li>
-        <li id="r8">Geller et al. (2014). Perimenstrual flare of adult acne. <em>J Clin Aesthet Dermatol</em>. <a href="https://jcadonline.com/perimenstrual-flare-of-adult-acne/">jcadonline.com/perimenstrual-flare-of-adult-acne</a></li>
-        <li id="r9">Burriss et al. (2015). Changes in women's facial skin color over the ovulatory cycle are not detectable by the human visual system. <em>PLOS ONE</em>. <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0130093">journals.plos.org/plosone (10.1371/journal.pone.0130093)</a></li>
-        <li id="r10">NHS. The combined pill. <a href="https://www.nhs.uk/contraception/methods-of-contraception/combined-pill/what-is-it/">nhs.uk/contraception/methods-of-contraception/combined-pill</a></li>
+        <li>Nguyen et al. (2024). Physiological changes in women's skin during the menstrual cycle: a scoping review. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11703644/">PMC11703644</a></li>
+        <li>Stoll et al. (2001). The effect of the menstrual cycle on acne. <a href="https://pubmed.ncbi.nlm.nih.gov/11712049/">PMID 11712049</a></li>
+        <li>Lucky (2004). Quantitative documentation of a premenstrual flare of facial acne in adult women. <a href="https://pubmed.ncbi.nlm.nih.gov/15096370/">PMID 15096370</a></li>
+        <li>Geller et al. (2014). Perimenstrual flare of adult acne. <a href="https://jcadonline.com/perimenstrual-flare-of-adult-acne/">JCAD</a></li>
+        <li>Agner et al. (1991). Menstrual cycle and skin reactivity. <a href="https://pubmed.ncbi.nlm.nih.gov/2033132/">PMID 2033132</a></li>
+        <li>Nikoletić et al. (2025). Menopause, menstrual cycle, and skin barrier function. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12206585/">PMC12206585</a>, with <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12509239/">correction</a></li>
+        <li>Burriss et al. (2015). Facial skin colour over the ovulatory cycle is not detectable by the human eye. <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0130093">PLOS ONE</a></li>
+        <li>Garritty et al. (2021). Cochrane Rapid Reviews Methods Group interim guidance. <a href="https://doi.org/10.1016/j.jclinepi.2020.10.007">J Clin Epidemiol</a></li>
       </ol>
+      <p style="font-size: 14px; color: var(--color-muted)">All 47 included studies, with links, are in the <a href="https://github.com/shonalikrishnani-Git/skin-cycle/blob/main/research/extract-final.csv">evidence table</a>.</p>
 
       <div class="cta-row">
         <a class="btn btn-primary" href="app/?tour">See the demo →</a>
@@ -208,7 +207,7 @@
 
     <footer class="site-footer">
       <p><a href="./">Home</a> · <a href="about.html">Case study</a> · <a href="https://github.com/shonalikrishnani-Git/skin-cycle">Source on GitHub</a></p>
-      <p>AI-assisted desk review. General information, not medical advice.</p>
+      <p>AI-assisted rapid review. General information, not medical advice.</p>
     </footer>
   </div>
 </body>

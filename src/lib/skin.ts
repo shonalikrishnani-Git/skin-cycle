@@ -40,6 +40,11 @@
  *      The same day, an evidence review re-read the key studies and found two wrong citations
  *      (the Luteal water-loss line is the 2025 study, not Harvell; the pill-survey line is Stoll)
  *      and four claims a little stronger than their sources — all corrected.
+ *   9. Also 27 Sep 2026: an AI-assisted rapid review (research/, 47 studies, GRADE) rated every
+ *      phase difference except self-reported acne flares as very-low certainty, and found 4 of 5
+ *      reactivity studies showed no difference. The Menstrual and Follicular headlines now say
+ *      "in one small study", like the Ovulatory one; the Menstrual tendency says others found
+ *      little difference (research/summary-of-findings.md).
  *
  * Evidence labels, as shown to users:
  *   Good evidence            — trials or systematic reviews in people using it for this purpose
@@ -147,11 +152,11 @@ const GREEN_TEA: Remedy = {
 
 export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
   Menstrual: {
-    headline: 'Go gentle — skin may be a little more reactive around the start of your period.',
+    headline: 'In one small study, skin reacted a little more around the start of a period — go gentle.',
     headlineSourceIds: ['agner-1991-irritation', 'aad-max-antiaging'],
     tendency: {
-      text: 'Oestrogen and progesterone are low. In a study of 29 women, a skin irritant caused a stronger reaction on day 1 of the cycle than on days 9–11, so skin may react to products more easily now.',
-      sourceIds: ['agner-1991-irritation'],
+      text: 'Oestrogen and progesterone are low. In a study of 29 women, a skin irritant caused a stronger reaction on day 1 of the cycle than on days 9–11, Other studies found little difference, so treat this as a maybe.',
+      sourceIds: ['agner-1991-irritation', 'harvell-1992-barrier', 'barrier-ovulation-2025', 'barrier-ovulation-2025-correction'],
     },
     hydrate: [
       {
@@ -229,7 +234,7 @@ export const PHASE_GUIDE: Record<Phase, PhaseGuide> = {
     ],
   },
   Follicular: {
-    headline: 'Skin may be a little less reactive now. Starting something new? Start just one.',
+    headline: 'In one small study, skin reacted a little less now than on day 1. Starting something new? Start just one.',
     headlineSourceIds: ['agner-1991-irritation', 'aad-max-antiaging'],
     tendency: {
       text: 'Oestrogen is rising. In one study of 29 women, skin reacted less to an irritant on days 9–11 than on day 1. Another study found skin lost a little less water just before ovulation than just before a period.',

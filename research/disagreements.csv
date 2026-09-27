@@ -1,0 +1,15 @@
+id,A_decision,A_reason,A_notes,B_decision,B_reason,B_notes
+PMID:40721762,EXCLUDE,OFF_TOPIC,"PMS risk factors, no skin outcome",INCLUDE,,Student PMS survey; premenstrual acne flare-ups in 40%; borderline
+PMID:40620141,EXCLUDE,OFF_TOPIC,"PMDD prevalence, no skin outcome by phase",INCLUDE,,PMDD survey; premenstrual acne among somatic symptoms analysed; borderline
+PMID:39319606,EXCLUDE,OFF_TOPIC,"PMS prevalence by age, no skin outcome",INCLUDE,,Premenstrual disorder survey; acne/oily skin most prevalent premenstrual physical symptom; borderline
+PMID:33209157,EXCLUDE,OFF_TOPIC,"OC use and PMS, no skin outcome",INCLUDE,,Student survey; acne/pimples reported as premenstrual symptom by 39%; borderline
+PMID:28950854,EXCLUDE,NO_PHASE_COMPARISON,Hormonal contraception and premenstrual symptoms; no skin-by-phase,INCLUDE,,Premenstrual symptom survey; premenstrual acne in 62%; borderline
+PMID:20874438,EXCLUDE,OFF_TOPIC,"Premenstrual asthma, no skin outcome",INCLUDE,,Asthmatic women; premenstrual vs preovulatory symptoms including acne; borderline
+PMID:9300120,EXCLUDE,OFF_TOPIC,Age at menarche Thai girls,UNSURE,,Menarche survey lists acne among menstrual-period complaints; unclear if phase-specific data
+PMID:9076430,UNSURE,,Cyclic premenstrual dermatoses with estrogen sensitivity; phase data unclear from abstract,EXCLUDE,NO_PHASE_COMPARISON,"Cyclic dermatoses selected by premenstrual flare; estrogen sensitivity, no phase comparison"
+PMID:8042462,UNSURE,,Vulvar TEWL/irritation with pads vs non-pad period; unclear if menstrual vs non-menstrual compared,EXCLUDE,NO_PHASE_COMPARISON,Sanitary pad vs no-pad genital skin; not phase comparison
+PMID:1636360,INCLUDE,,Thesis summary: SLS irritant reactivity day 1 vs days 9-11; may overlap Agner 1991,EXCLUDE,NOT_PRIMARY,Thesis review summarising Agner cycle SLS data (see PMID 2033132)
+PMID:1831118,UNSURE,,Descriptive clinical report on adult acne; premenstrual flares noted; unclear if data,EXCLUDE,NO_PHASE_COMPARISON,Narrative description; premenstrual flares mentioned without data
+PMID:4257912,UNSURE,,No abstract; controlled trial of diuretic for premenstrual acne; phase data unclear,EXCLUDE,NO_PHASE_COMPARISON,"No abstract; diuretic trial for premenstrual acne, not skincare timing"
+PMID:13725673,UNSURE,,"No abstract; premenstrual acne therapy, possibly phase-timed",EXCLUDE,NO_PHASE_COMPARISON,No abstract; treatment approach for premenstrual acne
+PMID:13582195,UNSURE,,"No abstract; chlorothiazide in acne, likely premenstrual acne, phase data unclear",EXCLUDE,NO_PHASE_COMPARISON,No abstract; drug treatment report for acne

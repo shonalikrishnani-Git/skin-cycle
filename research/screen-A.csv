@@ -1,0 +1,485 @@
+id,decision,reason,notes
+PMID:42356139,EXCLUDE,OFF_TOPIC,JAK inhibitors in atopic dermatitis
+PMID:42312792,EXCLUDE,NOT_PRIMARY,Review of hormonal acne therapies
+PMID:42192555,INCLUDE,,"Facial skin microbiota, menstrual vs intermenstrual period; microbiome outcome"
+PMID:42057055,EXCLUDE,NO_PHASE_COMPARISON,"PCOS/POF characterisation, no phase comparison"
+PMID:41723577,EXCLUDE,NOT_PRIMARY,Review of COC substances
+PMID:41447583,EXCLUDE,OFF_TOPIC,Isotretinoin reproductive adverse events
+PMID:41349421,EXCLUDE,OFF_TOPIC,Vagus nerve stimulation epilepsy
+PMID:41051345,EXCLUDE,NOT_PRIMARY,"Review, PCOS and estroprogestins"
+PMID:41024536,EXCLUDE,NO_PHASE_COMPARISON,"PCOS phenotypes, no phase comparison"
+PMID:40990961,EXCLUDE,NOT_PRIMARY,Narrative review of catamenial dermatology; useful to mine for references
+PMID:40878147,INCLUDE,,"Facial sebum composition across ovulation, luteal, follicular phases"
+PMID:40825691,EXCLUDE,NOT_ENGLISH,Not in English (Chinese)
+PMID:40721762,EXCLUDE,OFF_TOPIC,"PMS risk factors, no skin outcome"
+PMID:40660246,EXCLUDE,NO_PHASE_COMPARISON,PCOS phenotype IPD study
+PMID:40620141,EXCLUDE,OFF_TOPIC,"PMDD prevalence, no skin outcome by phase"
+PMID:40583043,INCLUDE,,"TEWL and hydration, ovulatory vs mid-luteal phase"
+PMID:40305797,EXCLUDE,NO_PHASE_COMPARISON,PCOS biochemical profile
+PMID:40164172,EXCLUDE,OFF_TOPIC,"COC bleeding trial protocol, no skin outcome"
+PMID:39895044,EXCLUDE,NO_PHASE_COMPARISON,PCOS case report
+PMID:39798662,EXCLUDE,NO_PHASE_COMPARISON,Prenatal PFAS and offspring PCOS/acne
+PMID:41768199,EXCLUDE,NO_PHASE_COMPARISON,PCOS clinical characteristics
+PMID:39633341,EXCLUDE,NO_PHASE_COMPARISON,PCOS lifestyle RCT
+PMID:39331347,EXCLUDE,NOT_PRIMARY,Meta-analysis metformin/inositol PCOS
+PMID:39319606,EXCLUDE,OFF_TOPIC,"PMS prevalence by age, no skin outcome"
+PMID:39254585,EXCLUDE,NO_PHASE_COMPARISON,PCOS clinical patterns
+PMID:39177615,EXCLUDE,OFF_TOPIC,CNN classification of PCOS ultrasound
+PMID:39051650,EXCLUDE,OFF_TOPIC,Danazol menstrual suppression in transgender patients
+PMID:38793015,EXCLUDE,OFF_TOPIC,Isotretinoin effect on menstrual regularity
+PMID:38702411,EXCLUDE,NO_PHASE_COMPARISON,"Cycle app data by age, not skin by phase"
+PMID:38679788,EXCLUDE,NOT_PRIMARY,"Review, autophagy genes PCOS"
+PMID:38450050,EXCLUDE,OFF_TOPIC,Ovarian cyst trial protocol
+PMID:38360611,EXCLUDE,NOT_PRIMARY,Systematic review evening primrose oil
+PMID:38315812,EXCLUDE,OFF_TOPIC,PMDD suicide risk
+PMID:38245761,EXCLUDE,NO_PHASE_COMPARISON,Isotretinoin ovarian function in PCOS acne
+PMID:38229476,EXCLUDE,NOT_PRIMARY,Review polyphenols PCOS
+PMID:41577468,EXCLUDE,NO_PHASE_COMPARISON,PCOS pharmacotherapy
+PMID:37669004,EXCLUDE,NO_PHASE_COMPARISON,PCOS aesthetic care survey
+PMID:37584928,EXCLUDE,NO_PHASE_COMPARISON,Ovarian imaging in acne/alopecia
+PMID:37568063,EXCLUDE,NOT_PRIMARY,Meta-analysis resveratrol PCOS
+PMID:37462232,EXCLUDE,NOT_PRIMARY,Cochrane review statins PCOS
+PMID:37405691,EXCLUDE,NO_PHASE_COMPARISON,"PCOS in military, qualitative"
+PMID:37333786,EXCLUDE,NOT_PRIMARY,Meta-analysis resveratrol PCOS
+PMID:37265016,EXCLUDE,NO_PHASE_COMPARISON,PCOS myoinositol RCT
+PMID:37259058,EXCLUDE,NO_PHASE_COMPARISON,"Compares cycle regularity groups, not cycle phases"
+PMID:37217826,EXCLUDE,NO_PHASE_COMPARISON,PCOS phenotypes
+PMID:36907946,EXCLUDE,NO_PHASE_COMPARISON,PCOS quality-of-life questionnaire
+PMID:36695232,EXCLUDE,NO_PHASE_COMPARISON,PCOS hormonal parameters
+PMID:36606389,INCLUDE,,Adult female acne; reports proportion with premenstrual flare
+PMID:36537685,EXCLUDE,OFF_TOPIC,Case report aseptic pustulosis
+PMID:36099165,EXCLUDE,OFF_TOPIC,Maternal PCOS and offspring puberty
+PMID:35810346,INCLUDE,,Acne-prone facial skin parameters and microbiome across cycle phases
+PMID:35534402,EXCLUDE,NOT_PRIMARY,Review of PMS/PMDD in adolescents
+PMID:35081394,EXCLUDE,NOT_HUMAN,In-vitro epidermis model with phase hormone ratios
+PMID:34962522,EXCLUDE,NOT_PRIMARY,Review of contraception
+PMID:34929904,EXCLUDE,OFF_TOPIC,"Estrogen and PMS occurrence, no skin outcome by phase"
+PMID:34919250,EXCLUDE,NO_PHASE_COMPARISON,PCOS myo-inositol vs OC; retracted
+PMID:34715118,EXCLUDE,NOT_PRIMARY,Review OC and energy balance
+PMID:34559839,EXCLUDE,NOT_PRIMARY,Meta-analysis reusable menstrual pads
+PMID:34520248,EXCLUDE,NO_PHASE_COMPARISON,Hirsutism prevalence
+PMID:34505184,INCLUDE,,Adult female acne profile; documents premenstrual flare
+PMID:34423850,INCLUDE,,Adult female acne; premenstrual aggravation reported in 72.6%
+PMID:34292855,EXCLUDE,NO_PHASE_COMPARISON,"PCOS, BMI and acne"
+PMID:34105603,EXCLUDE,OFF_TOPIC,Voice kymography in PCOS
+PMID:33655630,INCLUDE,,Adult acne survey; premenstrual flare in 61.9% of women
+PMID:33638033,EXCLUDE,NOT_PRIMARY,Review of TEWL variability; mine for menstrual-cycle TEWL studies
+PMID:33610422,EXCLUDE,NO_PHASE_COMPARISON,Resveratrol RCT in PCOS
+PMID:33471379,EXCLUDE,NO_PHASE_COMPARISON,Acne comorbidities incl PMS; no acne-by-phase comparison
+PMID:33209157,EXCLUDE,OFF_TOPIC,"OC use and PMS, no skin outcome"
+PMID:33042936,EXCLUDE,NOT_PRIMARY,Review of acne influencing factors
+PMID:32857168,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:32803767,INCLUDE,,Vulval acne case series; premenstrual exacerbation reported; non-facial site
+PMID:32661954,EXCLUDE,NO_PHASE_COMPARISON,Bariatric surgery and menstrual abnormalities
+PMID:32418411,EXCLUDE,NOT_PRIMARY,Review PCOS treatment
+PMID:32204714,EXCLUDE,NOT_PRIMARY,PCOS guideline
+PMID:32174224,EXCLUDE,NO_PHASE_COMPARISON,Case report ovarian thecoma
+PMID:31950432,EXCLUDE,HORMONAL_ONLY,"COC (YAZ) users only, acne efficacy"
+PMID:31917455,EXCLUDE,NO_PHASE_COMPARISON,PCOS signs and metabolic syndrome
+PMID:31353538,EXCLUDE,NOT_HUMAN,Mouse lung study
+PMID:31339394,EXCLUDE,NO_PHASE_COMPARISON,PCOS supplement study
+PMID:31165465,EXCLUDE,NO_PHASE_COMPARISON,PCOS and juvenile bleeding
+PMID:31080813,EXCLUDE,NO_PHASE_COMPARISON,Isotretinoin in PCOS acne
+PMID:31073704,EXCLUDE,NOT_PRIMARY,Systematic review antiandrogens in HS; mentions premenstrual HS flares
+PMID:31005950,EXCLUDE,NO_PHASE_COMPARISON,Metformin hyperandrogenism in T1D
+PMID:30904911,INCLUDE,,"Facial moisture, pores, discoloration on cycle days 5 vs 25"
+PMID:30690191,EXCLUDE,NO_PHASE_COMPARISON,Exercise/metformin RCT PCOS
+PMID:30187872,EXCLUDE,NOT_ENGLISH,Not in English (Chinese)
+PMID:30177298,EXCLUDE,NO_PHASE_COMPARISON,Vitamin D vs premenstrual symptoms incl acne; exposure not phase
+PMID:30129786,EXCLUDE,OFF_TOPIC,Case report adrenocortical disease
+PMID:30078462,EXCLUDE,OFF_TOPIC,Male acne vs partner's cycle; population ineligible
+PMID:29231341,EXCLUDE,NOT_ENGLISH,Not in English (Chinese)
+PMID:29172411,EXCLUDE,NOT_PRIMARY,Review oral contraception
+PMID:29148415,INCLUDE,,Survey: Behcet skin-mucosa (mostly acneiform) lesions exacerbated with menstruation
+PMID:28950854,EXCLUDE,NO_PHASE_COMPARISON,Hormonal contraception and premenstrual symptoms; no skin-by-phase
+PMID:28942695,EXCLUDE,OFF_TOPIC,Case report ovarian stimulation on isotretinoin
+PMID:28850273,EXCLUDE,NOT_PRIMARY,Review PCOS therapy
+PMID:28713996,EXCLUDE,OFF_TOPIC,Vaginal AQP2 and incontinence
+PMID:28623918,EXCLUDE,NO_DATA,"Trial protocol, herbal dysmenorrhea treatment on acne; no results"
+PMID:28569570,INCLUDE,,Glycolic peel timed to different cycle phases for acne
+PMID:28251894,INCLUDE,,Premenstrual vs other-phase acne lesions plus luteal dermocosmetic RCT
+PMID:28225954,EXCLUDE,NO_PHASE_COMPARISON,Androgenetic alopecia frequency
+PMID:28128074,EXCLUDE,NOT_PRIMARY,Systematic review hormones in HS; mine for menstrual HS studies
+PMID:27840992,EXCLUDE,NO_PHASE_COMPARISON,Endocrine disorders in refractory acne
+PMID:27829454,EXCLUDE,OFF_TOPIC,Risperidone prolactin symptoms
+PMID:27808588,EXCLUDE,NO_PHASE_COMPARISON,Metformin vs myo-inositol PCOS
+PMID:27435889,EXCLUDE,NO_PHASE_COMPARISON,Skin firmness vs dermal water; no cycle phase comparison in abstract
+PMID:27429113,EXCLUDE,NO_PHASE_COMPARISON,Vitamin D/metformin in PCOS
+PMID:27320497,EXCLUDE,NO_PHASE_COMPARISON,AMH in persistent acne
+PMID:27307386,EXCLUDE,NOT_PRIMARY,Review hormonal contraceptives
+PMID:27294593,EXCLUDE,NOT_PRIMARY,Review HS endocrine
+PMID:27244814,EXCLUDE,NOT_PRIMARY,Meta-analysis metformin vs OCP
+PMID:27173495,EXCLUDE,NO_PHASE_COMPARISON,AMH in daughters of PCOS women
+PMID:27141564,EXCLUDE,NOT_PRIMARY,Narrative review spironolactone
+PMID:26765270,EXCLUDE,NO_PHASE_COMPARISON,Case report lean PCOS
+PMID:26703220,EXCLUDE,NO_PHASE_COMPARISON,EE-CPA vs metformin PCOS
+PMID:26617357,EXCLUDE,NOT_PRIMARY,Review HS endocrinology
+PMID:26598450,EXCLUDE,NOT_PRIMARY,Review PCOS diagnosis adolescents
+PMID:26507097,EXCLUDE,NO_PHASE_COMPARISON,Diane-35 ± metformin PCOS
+PMID:26491824,EXCLUDE,NO_PHASE_COMPARISON,PCOS natural supplement
+PMID:26248242,EXCLUDE,NO_PHASE_COMPARISON,COC vs metformin PCOS
+PMID:26134671,INCLUDE,,Facial skin colour/redness photographed daily across cycle
+PMID:26032952,EXCLUDE,OFF_TOPIC,Contraceptive gel ovulation suppression
+PMID:25814168,EXCLUDE,NOT_PRIMARY,Systematic review metformin PCOS
+PMID:25725683,EXCLUDE,OFF_TOPIC,Obesity and menstrual irregularity
+PMID:25683236,EXCLUDE,NOT_PRIMARY,"Review, menstrual cycle and the skin; useful to mine for references"
+PMID:25670222,EXCLUDE,NO_PHASE_COMPARISON,Inositol RCT PCOS
+PMID:25629036,EXCLUDE,NO_PHASE_COMPARISON,PCOS urban/rural burden
+PMID:25496917,EXCLUDE,HORMONAL_ONLY,"COC plus DHEA; COC users only, no skin-by-phase"
+PMID:25296739,EXCLUDE,NO_PHASE_COMPARISON,Adult female acne distribution; no cycle-phase data in abstract
+PMID:25133506,EXCLUDE,NOT_PRIMARY,Systematic review nicotine patch
+PMID:25085801,EXCLUDE,NO_PHASE_COMPARISON,Adolescent menstrual irregularity and later PCOS
+PMID:25056245,EXCLUDE,NOT_PRIMARY,Review COC benefits
+PMID:25052966,EXCLUDE,NO_PHASE_COMPARISON,Gonadotropins in PCOS
+PMID:24952024,EXCLUDE,NOT_PRIMARY,Review adult female acne and modern life
+PMID:24926520,EXCLUDE,NOT_PRIMARY,Review leiomyoma bleeding
+PMID:24814528,EXCLUDE,NO_PHASE_COMPARISON,Pioglitazone in PCOS
+PMID:24606085,EXCLUDE,NO_PHASE_COMPARISON,Androgens and anovulation; no skin outcome by phase
+PMID:24520755,EXCLUDE,NO_PHASE_COMPARISON,Prediabetes in PCOS
+PMID:24447981,EXCLUDE,NO_PHASE_COMPARISON,PCOS prevalence adolescents
+PMID:24328568,EXCLUDE,NO_PHASE_COMPARISON,AMH and hyperandrogenism PCOS
+PMID:24222096,EXCLUDE,OFF_TOPIC,Case report CAH steatohepatitis
+PMID:24199187,EXCLUDE,NOT_PRIMARY,"Review, cyclic catamenial dermatoses; useful to mine for references"
+PMID:23991603,INCLUDE,,Acne perception survey; premenstrual period reported as aggravating factor
+PMID:23947827,EXCLUDE,NO_PHASE_COMPARISON,Psychological distress PCOS
+PMID:23697264,EXCLUDE,NO_PHASE_COMPARISON,Insulin gene polymorphisms PCOS
+PMID:23633314,EXCLUDE,NOT_PRIMARY,Cochrane review patch/ring vs COC
+PMID:23582301,EXCLUDE,NO_PHASE_COMPARISON,"Hairline, sebum, hydration; single timepoint, no phase comparison"
+PMID:23551372,EXCLUDE,NOT_PRIMARY,Review female pruritus; mentions cyclical skin changes
+PMID:23390843,EXCLUDE,NO_PHASE_COMPARISON,PCOS characteristics Croatia
+PMID:23108387,EXCLUDE,NO_PHASE_COMPARISON,PCOS phenotype China
+PMID:23066115,EXCLUDE,OFF_TOPIC,Gastric bypass and ovulation
+PMID:22950535,EXCLUDE,NOT_PRIMARY,Drug profile NOMAC/E2
+PMID:22744623,EXCLUDE,NO_PHASE_COMPARISON,Salivary androgens PCOS
+PMID:22648217,EXCLUDE,NOT_PRIMARY,Review post-adolescent acne
+PMID:22565434,INCLUDE,,Adult acne study; premenstrual flare in 11.7% of women
+PMID:22499220,EXCLUDE,NOT_PRIMARY,Review NCAH
+PMID:22386050,EXCLUDE,NO_PHASE_COMPARISON,"Menstrual history as acne risk factor, not phase comparison"
+PMID:22314456,EXCLUDE,NO_PHASE_COMPARISON,Metformin PCOS
+PMID:22173824,EXCLUDE,NO_PHASE_COMPARISON,Birthweight and acne/menstrual disorders
+PMID:22171769,EXCLUDE,NOT_PRIMARY,Drug review Beyaz
+PMID:22153789,EXCLUDE,NOT_PRIMARY,PCOS consensus statement
+PMID:22147920,EXCLUDE,NOT_PRIMARY,PCOS consensus statement
+PMID:22060223,EXCLUDE,NOT_PRIMARY,Review noncontraceptive uses of HC
+PMID:21995590,EXCLUDE,HORMONAL_ONLY,"COC RCT, acne secondary outcome"
+PMID:21961824,EXCLUDE,NOT_PRIMARY,Review hormonal contraception benefits
+PMID:21920195,EXCLUDE,HORMONAL_ONLY,"COC pooled analysis, skin complaints on pill"
+PMID:21877996,EXCLUDE,NOT_PRIMARY,Drug review DRSP/EE/levomefolate
+PMID:21722894,EXCLUDE,NO_PHASE_COMPARISON,Rosiglitazone PCOS RCT
+PMID:21454179,EXCLUDE,NOT_ENGLISH,Not in English (Hungarian)
+PMID:21308158,EXCLUDE,OFF_TOPIC,Vaginal flora by skin colour (ethnicity)
+PMID:21155614,EXCLUDE,HORMONAL_ONLY,"COC observational study, acne on pill"
+PMID:21115506,EXCLUDE,NO_PHASE_COMPARISON,Anovulation and lipids; acne not compared by phase
+PMID:20946686,EXCLUDE,NO_PHASE_COMPARISON,Antibiotic self-medication for menstrual symptoms
+PMID:20943753,EXCLUDE,NO_PHASE_COMPARISON,Electro-acupuncture PCOS
+PMID:20880492,EXCLUDE,NO_PHASE_COMPARISON,Acne lipids/hormones measured in luteal phase only
+PMID:20874438,EXCLUDE,OFF_TOPIC,"Premenstrual asthma, no skin outcome"
+PMID:20807258,EXCLUDE,NOT_PRIMARY,Expert opinion on phase-timed comedone extraction; mine for references
+PMID:20629827,INCLUDE,,Adolescent acne survey; 39.1% of girls report flares near menstruation
+PMID:20595950,EXCLUDE,NOT_ENGLISH,Not in English (Italian)
+PMID:20472117,EXCLUDE,HORMONAL_ONLY,"COC trial, acne secondary outcome"
+PMID:20394455,EXCLUDE,NOT_PRIMARY,Drug review EE/dienogest
+PMID:20384388,EXCLUDE,HORMONAL_ONLY,COC users only; well-being by cycle phase
+PMID:21702291,EXCLUDE,OFF_TOPIC,Pre-exam stress in students
+PMID:19922634,EXCLUDE,HORMONAL_ONLY,OC surveillance study design
+PMID:19903032,EXCLUDE,NO_PHASE_COMPARISON,NCAH corticoid vs COC
+PMID:19757697,INCLUDE,,Acne clinical study; premenstrual flare in 70% of women
+PMID:19610519,EXCLUDE,OFF_TOPIC,"Gonadotropins in oligo/amenorrhoea, no skin outcome"
+PMID:19513939,EXCLUDE,HORMONAL_ONLY,Physician survey on OC prescribing
+PMID:19439880,INCLUDE,,Acne profile study; premenstrual flare in 57.7% of women
+PMID:19352226,UNSURE,,Menstrual distress survey lists acne as top symptom; unclear if phase contrast reported
+PMID:19340667,EXCLUDE,NO_PHASE_COMPARISON,Case report APD in hysterectomised woman; no natural cycle
+PMID:19282841,INCLUDE,,Adolescent acne survey; premenstrual phase identified as severity risk factor
+PMID:19147411,EXCLUDE,NOT_PRIMARY,Overview contraception and gynaecological care
+PMID:19099613,EXCLUDE,NOT_PRIMARY,"Review, physiological changes across menstrual cycle incl skin; mine for references"
+PMID:19004402,EXCLUDE,NO_PHASE_COMPARISON,Vulvar wet-wipe trial; no cycle phase comparison
+PMID:18980763,EXCLUDE,NO_PHASE_COMPARISON,Obese vs nonobese PCOS
+PMID:18980044,EXCLUDE,NOT_PRIMARY,Drug review YAZ
+PMID:18710356,EXCLUDE,NOT_PRIMARY,Review OC benefits
+PMID:18657769,EXCLUDE,OFF_TOPIC,Homeopathy outcome audit
+PMID:18639784,EXCLUDE,NO_PHASE_COMPARISON,Hyperandrogenic anovulation predictors
+PMID:18635183,EXCLUDE,NO_PHASE_COMPARISON,MPA vs COC in PCOS
+PMID:18389090,EXCLUDE,NOT_PRIMARY,Drug review DRSP/EE
+PMID:18342858,EXCLUDE,NO_PHASE_COMPARISON,Ovarian drilling PCOS; retracted
+PMID:18329241,EXCLUDE,NOT_ENGLISH,Not in English (French); title relevant: adult female acne; may report premenstrual flare; flag for translation
+PMID:17982334,EXCLUDE,NOT_PRIMARY,Review contraceptive patch
+PMID:17963857,EXCLUDE,HORMONAL_ONLY,"COC users only, acne benefit"
+PMID:17931445,INCLUDE,,"Cerumen lipids compared across 3 cycle stages; borderline skin outcome, indirect"
+PMID:17923832,EXCLUDE,NOT_ENGLISH,Not in English (Italian)
+PMID:17763263,EXCLUDE,HORMONAL_ONLY,Implanon users only
+PMID:17688623,EXCLUDE,HORMONAL_ONLY,OC users quality of life
+PMID:17683173,EXCLUDE,NOT_PRIMARY,Drug review YAZ
+PMID:17656175,EXCLUDE,HORMONAL_ONLY,OC switch study
+PMID:17592439,EXCLUDE,NOT_PRIMARY,Review PCOS management
+PMID:17472544,EXCLUDE,NOT_PRIMARY,Review drospirenone
+PMID:17462645,EXCLUDE,NO_PHASE_COMPARISON,Testosterone-related disorders in autism
+PMID:17454455,EXCLUDE,NOT_PRIMARY,Review PCOS therapy
+PMID:17333831,INCLUDE,,Acne patient survey; premenstrual factors reported as aggravating by women
+PMID:17062047,EXCLUDE,NO_PHASE_COMPARISON,Acne prevalence in schoolchildren
+PMID:17034515,INCLUDE,,Facial pore size and sebum; pore size larger in ovulation phase
+PMID:17033192,UNSURE,,"No abstract; acne comedone psoriasin, indexed to menstrual cycle; full text needed"
+PMID:16850674,EXCLUDE,HORMONAL_ONLY,Jadelle implant users only
+PMID:16850673,EXCLUDE,HORMONAL_ONLY,"Biphasic OC users only, acne/seborrhea"
+PMID:16831357,EXCLUDE,NOT_ENGLISH,Not in English (Chinese)
+PMID:16785260,EXCLUDE,NO_PHASE_COMPARISON,Metformin in PCOS teenagers
+PMID:16643133,INCLUDE,,Survey of sensitive skin; 49% report cycle-related breakouts
+PMID:16633984,EXCLUDE,NOT_PRIMARY,Review testosterone therapy
+PMID:16600228,EXCLUDE,OFF_TOPIC,Ovaries in cystic fibrosis
+PMID:16448626,EXCLUDE,NO_PHASE_COMPARISON,Valproate and PCOS features
+PMID:16410982,EXCLUDE,NOT_ENGLISH,Not in English (Portuguese); title relevant: PMS population study; flag for translation
+PMID:16322391,EXCLUDE,NO_PHASE_COMPARISON,PCOS quality of life
+PMID:16310054,EXCLUDE,OFF_TOPIC,17-OHP in male acne
+PMID:16258697,INCLUDE,,"Barrier, dryness, sebum, microbes, UV-B response by cycle day"
+PMID:16208476,EXCLUDE,NOT_PRIMARY,Review vulva/vagina lifetime changes
+PMID:16136889,EXCLUDE,NOT_ENGLISH,Not in English (Chinese)
+PMID:15897103,EXCLUDE,HORMONAL_ONLY,Contraceptive patch users
+PMID:15871554,EXCLUDE,NOT_PRIMARY,Drug review EE/DRSP
+PMID:15854630,EXCLUDE,HORMONAL_ONLY,Implanon trial
+PMID:15838095,EXCLUDE,NOT_PRIMARY,Review CAH
+PMID:15783241,EXCLUDE,NOT_PRIMARY,Systematic review Vitex adverse events
+PMID:15548396,EXCLUDE,NO_PHASE_COMPARISON,Metformin PCOS
+PMID:15523185,EXCLUDE,NO_PHASE_COMPARISON,PCOS prevalence Iran
+PMID:15518435,EXCLUDE,NOT_ENGLISH,Not in English (Polish)
+PMID:15451331,EXCLUDE,HORMONAL_ONLY,Extended OC regimens; OC users only
+PMID:15222920,EXCLUDE,NO_PHASE_COMPARISON,Yasmin in PCOS
+PMID:15202836,EXCLUDE,NO_PHASE_COMPARISON,Endocrine parameters and acne severity
+PMID:15157791,EXCLUDE,HORMONAL_ONLY,"Two COCs, acne outcome"
+PMID:15134826,EXCLUDE,NOT_PRIMARY,Review drospirenone
+PMID:15098889,EXCLUDE,NO_PHASE_COMPARISON,"Sex-hormone intradermal tests by group (PMS vs healthy), not by phase"
+PMID:15096370,INCLUDE,,Acne lesion counts follicular vs luteal phases over 2 cycles
+PMID:14746946,EXCLUDE,NOT_PRIMARY,Review antiandrogenic progestins
+PMID:14680788,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:14593553,EXCLUDE,NOT_PRIMARY,Review PCOS adolescence
+PMID:14570747,EXCLUDE,NOT_PRIMARY,Review insulin-lowering agents PCOS
+PMID:12861090,EXCLUDE,NOT_PRIMARY,Review PCOS
+PMID:12843184,EXCLUDE,NO_PHASE_COMPARISON,AR CAG repeat and hyperandrogenism
+PMID:12786872,INCLUDE,,Nickel patch test reactivity days 7-10 vs 20-24
+PMID:12724019,EXCLUDE,NO_PHASE_COMPARISON,Metformin PCOS
+PMID:12659405,EXCLUDE,NOT_PRIMARY,Review Yasmin
+PMID:12659404,EXCLUDE,HORMONAL_ONLY,OC for PMDD; no skin outcome by phase
+PMID:12497673,EXCLUDE,NOT_PRIMARY,Review EE/DRSP quality of life
+PMID:12408423,EXCLUDE,NOT_PRIMARY,Overview epilepsy in women
+PMID:12374586,EXCLUDE,NO_PHASE_COMPARISON,Hyperandrogenism in JNCL girls
+PMID:12151433,EXCLUDE,NO_PHASE_COMPARISON,Ovarian drilling follow-up PCOS
+PMID:12112958,EXCLUDE,NOT_PRIMARY,Review adolescent contraception
+PMID:12072067,EXCLUDE,NO_PHASE_COMPARISON,Alopecia trial minoxidil vs CPA
+PMID:12066088,EXCLUDE,HORMONAL_ONLY,Extended OC regimen; OC users only
+PMID:11937954,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:11875860,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:11843213,INCLUDE,,French adult female acne survey; premenstrual flare reported by 78%
+PMID:11720881,EXCLUDE,OFF_TOPIC,Hormone profiles for PCOS diagnosis
+PMID:11712049,INCLUDE,,"Survey: acne worse before, during or after period (n=400)"
+PMID:11705091,EXCLUDE,NOT_PRIMARY,Review estrogen and skin
+PMID:11686547,EXCLUDE,NOT_PRIMARY,Review skin disorders and thyroid
+PMID:11559453,EXCLUDE,HORMONAL_ONLY,OC for PMDD; no skin outcome
+PMID:11524631,EXCLUDE,NO_PHASE_COMPARISON,Hyperandrogenism signs in multiple sclerosis
+PMID:11518448,EXCLUDE,HORMONAL_ONLY,OC switch observational study
+PMID:11437938,EXCLUDE,NOT_PRIMARY,Review scarring alopecia pathology
+PMID:11319503,EXCLUDE,NOT_ENGLISH,Not in English (Italian)
+PMID:11296811,EXCLUDE,NO_PHASE_COMPARISON,Thyroid/cortisol in NC-CAH
+PMID:11214820,EXCLUDE,NO_PHASE_COMPARISON,Androgens in female androgenetic alopecia
+PMID:11157995,EXCLUDE,NO_PHASE_COMPARISON,Case report adrenalectomy in CAH
+PMID:11012575,EXCLUDE,NO_PHASE_COMPARISON,PCO in Cushing's syndrome
+PMID:10953475,EXCLUDE,NOT_ENGLISH,Not in English (Czech)
+PMID:10951152,EXCLUDE,NO_PHASE_COMPARISON,Androgens and acne severity
+PMID:10856473,EXCLUDE,NO_PHASE_COMPARISON,Metformin PCOS
+PMID:10849121,EXCLUDE,NOT_PRIMARY,"Review on premenstrual acne flare, no abstract; mine for references"
+PMID:10836660,EXCLUDE,HORMONAL_ONLY,"COC RCT, skin condition on pill"
+PMID:10568063,EXCLUDE,NOT_ENGLISH,Not in English (Czech)
+PMID:10389477,EXCLUDE,NOT_ENGLISH,Not in English (French); title relevant: perimenstrual dermatoses; flag for translation
+PMID:10342094,EXCLUDE,NOT_PRIMARY,Review OC benefits
+PMID:9859526,EXCLUDE,NOT_ENGLISH,Not in English (Bulgarian)
+PMID:9853201,EXCLUDE,HORMONAL_ONLY,"COC RCT, acne on pill"
+PMID:9828903,EXCLUDE,OFF_TOPIC,Testosterone implants in PMS; lipids/ovaries
+PMID:9808377,EXCLUDE,NO_PHASE_COMPARISON,Reasons for adolescent OC use
+PMID:9770851,EXCLUDE,NOT_ENGLISH,Not in English (Polish)
+PMID:9757871,EXCLUDE,OFF_TOPIC,Leiomyoma risk cohort
+PMID:9756306,EXCLUDE,NO_PHASE_COMPARISON,Adolescent menstrual pattern correlates
+PMID:9700865,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:9678075,EXCLUDE,NOT_PRIMARY,Review hormonal contraception ovarian pathology
+PMID:9427077,EXCLUDE,NO_PHASE_COMPARISON,Testosterone and oligomenorrhea in acne
+PMID:9300120,EXCLUDE,OFF_TOPIC,Age at menarche Thai girls
+PMID:9293656,EXCLUDE,NOT_PRIMARY,Review acne epidemiology; notes premenstrual increase; mine for references
+PMID:9179451,EXCLUDE,HORMONAL_ONLY,Norplant in HIV-infected women
+PMID:9076430,UNSURE,,Cyclic premenstrual dermatoses with estrogen sensitivity; phase data unclear from abstract
+PMID:9174754,EXCLUDE,HORMONAL_ONLY,No abstract; title about combined oral contraceptives
+PMID:8972251,EXCLUDE,OFF_TOPIC,Breast cancer case-control
+PMID:9678128,EXCLUDE,HORMONAL_ONLY,Triphasic OC trial
+PMID:9045216,EXCLUDE,NOT_ENGLISH,Not in English (Italian)
+PMID:8920351,EXCLUDE,NOT_PRIMARY,Review Depo-Provera
+PMID:8896947,EXCLUDE,NOT_PRIMARY,Guideline skin colour measurement; lists menstrual cycle as variable; mine for references
+PMID:8884544,EXCLUDE,OFF_TOPIC,Case report arrhenoblastoma
+PMID:8763424,INCLUDE,,Hidradenitis suppurativa; premenstrual flare reported by 32 women; indirect condition/site
+PMID:8689882,EXCLUDE,HORMONAL_ONLY,Androgens on four OCs
+PMID:8674802,INCLUDE,,Skin surface lipids premenstrual vs menstrual phase in acne
+PMID:8631187,EXCLUDE,HORMONAL_ONLY,Norplant effectiveness
+PMID:8715078,EXCLUDE,NOT_ENGLISH,Not in English (Spanish)
+PMID:7593420,EXCLUDE,OFF_TOPIC,5-alpha-reductase deficiency case series
+PMID:8682343,EXCLUDE,NOT_ENGLISH,Not in English (Polish)
+PMID:7581961,EXCLUDE,OFF_TOPIC,Precocious puberty adrenal response
+PMID:7577850,EXCLUDE,OFF_TOPIC,Endometriosis danazol vs gestrinone
+PMID:8521763,EXCLUDE,NOT_PRIMARY,Drug review gestodene
+PMID:8520092,EXCLUDE,NOT_PRIMARY,Review newer progestins
+PMID:7662688,EXCLUDE,HORMONAL_ONLY,Depo-Provera adolescents
+PMID:7662687,EXCLUDE,HORMONAL_ONLY,Norplant adolescents
+PMID:7796588,EXCLUDE,HORMONAL_ONLY,LNG-IUD for menorrhagia
+PMID:7845497,EXCLUDE,NOT_ENGLISH,Not in English (Dutch)
+PMID:8574256,EXCLUDE,HORMONAL_ONLY,Androgenicity of four OCs
+PMID:7988017,EXCLUDE,NO_PHASE_COMPARISON,Steroid assay development
+PMID:8719015,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:7708536,EXCLUDE,NOT_ENGLISH,Not in English (Italian)
+PMID:7844209,EXCLUDE,NOT_PRIMARY,Review Norplant
+PMID:7483621,EXCLUDE,NOT_ENGLISH,Not in English (Polish)
+PMID:7811185,EXCLUDE,NOT_PRIMARY,Review OC for adolescent hyperandrogenemia
+PMID:7927560,EXCLUDE,NO_PHASE_COMPARISON,Hormone profile in acne
+PMID:7808889,EXCLUDE,OFF_TOPIC,"Preference for darker faces by phase; outcome is perception, not own skin"
+PMID:8042462,UNSURE,,Vulvar TEWL/irritation with pads vs non-pad period; unclear if menstrual vs non-menstrual compared
+PMID:8178905,EXCLUDE,NOT_PRIMARY,Review desogestrel
+PMID:8005508,EXCLUDE,NOT_ENGLISH,Not in English (Spanish); title relevant: symptoms by menstrual cycle; flag for translation
+PMID:8144280,EXCLUDE,OFF_TOPIC,Breast cancer case-control
+PMID:8222658,EXCLUDE,HORMONAL_ONLY,Triphasic OC RCT
+PMID:8370128,EXCLUDE,NO_PHASE_COMPARISON,Flutamide in hirsutism
+PMID:8506067,EXCLUDE,NOT_ENGLISH,Not in English (Italian)
+PMID:8483013,EXCLUDE,NOT_PRIMARY,Review contraceptive implants
+PMID:8447356,EXCLUDE,NOT_PRIMARY,Review desogestrel tolerability
+PMID:8449019,EXCLUDE,HORMONAL_ONLY,Norplant users
+PMID:8260969,EXCLUDE,NOT_PRIMARY,"Review desogestrel OC, no abstract"
+PMID:1437913,EXCLUDE,NOT_PRIMARY,Review OC benefits and risks
+PMID:1493683,INCLUDE,,TEWL and irritant/vascular reactivity at three cycle timepoints; back and forearm
+PMID:1564678,EXCLUDE,HORMONAL_ONLY,OC for premenstrual symptoms; no skin outcome
+PMID:1636360,INCLUDE,,Thesis summary: SLS irritant reactivity day 1 vs days 9-11; may overlap Agner 1991
+PMID:1438600,EXCLUDE,NOT_ENGLISH,Not in English (Japanese)
+PMID:1834727,EXCLUDE,OFF_TOPIC,Postmenopausal transdermal HRT
+PMID:1658321,EXCLUDE,NO_PHASE_COMPARISON,Vulvar irritancy of menstrual pad; no phase comparison
+PMID:1904568,EXCLUDE,OFF_TOPIC,Transdermal estradiol after oophorectomy
+PMID:1831118,UNSURE,,Descriptive clinical report on adult acne; premenstrual flares noted; unclear if data
+PMID:1679000,INCLUDE,,Acne with dermographism case series; premenstrual flares recorded in most women
+PMID:2033132,INCLUDE,,"SLS irritant reactivity day 1 vs days 9-11 (TEWL, oedema)"
+PMID:1826278,EXCLUDE,NO_PHASE_COMPARISON,CPA plus transdermal estradiol for hirsutism
+PMID:1863941,EXCLUDE,HORMONAL_ONLY,Triphasic OC postmarketing study
+PMID:1916521,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:1884855,INCLUDE,,Sebum excretion (Sebutape) across 3 consecutive cycles
+PMID:1837655,EXCLUDE,HORMONAL_ONLY,CPA/EE for premenstrual acne; no natural-cycle comparison
+PMID:1746207,UNSURE,,No abstract; title suggests sebum fatty acids compared across cycle
+PMID:2151406,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:2151388,EXCLUDE,NO_PHASE_COMPARISON,Acne hormones sampled in luteal phase only
+PMID:2150581,EXCLUDE,HORMONAL_ONLY,Low-dose OC long-term study
+PMID:2096480,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:2289388,EXCLUDE,HORMONAL_ONLY,OC cycle control RCT
+PMID:2150795,EXCLUDE,HORMONAL_ONLY,CPA/EE dose study in acne
+PMID:2142494,EXCLUDE,HORMONAL_ONLY,Triphasic OC in postpubertal acne
+PMID:2147009,EXCLUDE,NO_PHASE_COMPARISON,Polycystic ovaries in late-onset acne
+PMID:2139596,EXCLUDE,NO_PHASE_COMPARISON,Late-onset CAH in hyperandrogenic women
+PMID:2516704,EXCLUDE,NO_PHASE_COMPARISON,Diane-35 in PCOS
+PMID:2660092,EXCLUDE,NOT_PRIMARY,Review hormonal contraception
+PMID:2531968,EXCLUDE,HORMONAL_ONLY,Desogestrel OC evaluation
+PMID:2523321,EXCLUDE,OFF_TOPIC,Endometriosis gestrinone vs danazol
+PMID:2527144,EXCLUDE,NO_PHASE_COMPARISON,Testosterone/estradiol in acne
+PMID:3219545,INCLUDE,,Hidradenitis suppurativa; premenstrual flare in 57% of women; indirect condition/site
+PMID:3075505,EXCLUDE,HORMONAL_ONLY,No abstract; OC clinical experience
+PMID:2976224,EXCLUDE,HORMONAL_ONLY,Desogestrel OC in adolescents
+PMID:2976617,EXCLUDE,NO_PHASE_COMPARISON,Hormones across cycle in acne; no skin outcome by phase
+PMID:3657814,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:3656299,EXCLUDE,HORMONAL_ONLY,Triphasil clinic study
+PMID:2959494,EXCLUDE,NO_PHASE_COMPARISON,"Skin androgen receptors, day 21 only"
+PMID:2956138,EXCLUDE,HORMONAL_ONLY,Desogestrel OC in adolescents
+PMID:3594595,EXCLUDE,NOT_ENGLISH,Not in English (Czech)
+PMID:3822267,EXCLUDE,NOT_PRIMARY,Review triphasic OCs
+PMID:2960493,EXCLUDE,HORMONAL_ONLY,Triphasic OC open study
+PMID:2959330,EXCLUDE,NOT_ENGLISH,Not in English (French); title relevant: sebum in follicular phase; flag for translation
+PMID:3096784,EXCLUDE,NO_PHASE_COMPARISON,Hormones in oligomenorrheic girls
+PMID:2948866,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:3093307,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:3007557,EXCLUDE,NO_PHASE_COMPARISON,Adrenal ACTH response in acne/hirsutism
+PMID:2942800,EXCLUDE,NOT_ENGLISH,Not in English (Italian); title relevant: androgens by cycle stage in acne; flag for translation
+PMID:2941191,EXCLUDE,NOT_PRIMARY,"Review CPA, no abstract"
+PMID:2936421,INCLUDE,,Hidradenitis suppurativa; premenstrual exacerbation in 22 of 36 women; indirect
+PMID:2941960,EXCLUDE,NO_PHASE_COMPARISON,EE/CPA in PCOS
+PMID:2941932,EXCLUDE,NOT_ENGLISH,Not in English (Russian); title relevant: skin reactivity to sex hormones in acne; flag for translation
+PMID:3853920,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:2931274,EXCLUDE,NO_PHASE_COMPARISON,"Skin steroid receptors in hirsutism, single phase"
+PMID:4044506,EXCLUDE,OFF_TOPIC,No abstract; epilepsy treatment
+PMID:3855123,EXCLUDE,HORMONAL_ONLY,No abstract; oral contraceptives
+PMID:3157562,INCLUDE,,Female acne androgens; ~71% report premenstrual/menstrual exacerbation
+PMID:3156458,EXCLUDE,NOT_ENGLISH,Not in English (Russian)
+PMID:2939676,EXCLUDE,NO_PHASE_COMPARISON,Acne treatment study; premenstrual exacerbation only mentioned
+PMID:6570117,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:6237195,EXCLUDE,NOT_PRIMARY,Overview low-dose OC noncontraceptive uses
+PMID:6236316,EXCLUDE,NOT_ENGLISH,Not in English (Japanese); title relevant: cycle and hormones in acne; flag for translation
+PMID:6350956,EXCLUDE,OFF_TOPIC,Danazol/GnRH-a hormones in endometriosis
+PMID:6227148,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: estriol ointment for premenstrual acne; flag for translation
+PMID:6350580,EXCLUDE,OFF_TOPIC,Prostaglandin inhibitors for PMS
+PMID:6223780,EXCLUDE,NOT_ENGLISH,Not in English (Italian); title relevant: acne associated with menstrual cycle; flag for translation
+PMID:6349925,EXCLUDE,HORMONAL_ONLY,Triphasic vs monophasic OC
+PMID:6403705,EXCLUDE,HORMONAL_ONLY,Low-dose OC study
+PMID:6140231,EXCLUDE,NOT_PRIMARY,Review triphasic concept
+PMID:6809420,EXCLUDE,HORMONAL_ONLY,LNG-IUD RCT
+PMID:6451638,EXCLUDE,NO_PHASE_COMPARISON,Ovarian function and testosterone in acne
+PMID:6249834,EXCLUDE,OFF_TOPIC,Case series 11-beta-hydroxylase defect
+PMID:6448429,EXCLUDE,OFF_TOPIC,Naproxen for dysmenorrhea
+PMID:6299908,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:7001504,EXCLUDE,NOT_PRIMARY,Review clinical uses of estrogens
+PMID:527342,EXCLUDE,HORMONAL_ONLY,Progestin vaginal ring
+PMID:503375,EXCLUDE,HORMONAL_ONLY,No abstract; OC side effects
+PMID:160860,EXCLUDE,HORMONAL_ONLY,OC side-effect probabilities
+PMID:488426,EXCLUDE,NO_PHASE_COMPARISON,Testosterone vs cycle-phase length; acne not compared by phase
+PMID:385243,EXCLUDE,HORMONAL_ONLY,Levonorgestrel implants
+PMID:395521,EXCLUDE,OFF_TOPIC,Danazol for benign breast disease
+PMID:720065,EXCLUDE,HORMONAL_ONLY,Contraceptive vaginal rings
+PMID:148876,EXCLUDE,HORMONAL_ONLY,CPA/EE therapy for androgenic symptoms
+PMID:839194,EXCLUDE,HORMONAL_ONLY,No abstract; oral contraception
+PMID:966242,EXCLUDE,HORMONAL_ONLY,No abstract; OC users' sexual drive
+PMID:1100993,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:126335,EXCLUDE,HORMONAL_ONLY,No abstract; CPA treatment of acne/hirsutism
+PMID:1149175,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:124763,UNSURE,,"No abstract; acne influencing factors survey, may include menstruation"
+PMID:125605,EXCLUDE,NO_PHASE_COMPARISON,Beta-MSH and sebum excretion in acne
+PMID:4278647,EXCLUDE,NOT_PRIMARY,"Letter, no abstract; pyridoxine for premenstrual acne flare"
+PMID:4277158,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:4274137,EXCLUDE,OFF_TOPIC,No abstract; serum progesterone assay
+PMID:4274248,EXCLUDE,HORMONAL_ONLY,"No abstract; premature ovarian failure on MPA, no natural cycle"
+PMID:4208342,EXCLUDE,HORMONAL_ONLY,No abstract; OC comparison
+PMID:4361984,EXCLUDE,NOT_PRIMARY,"Review sebum measurement, no abstract; mine for references"
+PMID:4274918,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:4127313,UNSURE,,"No abstract; title suggests mechanism study of premenstrual acne, may have phase data"
+PMID:4268726,EXCLUDE,NOT_ENGLISH,Not in English (Czech)
+PMID:4695502,EXCLUDE,HORMONAL_ONLY,No abstract; progestin regimen
+PMID:4120962,UNSURE,,No abstract; title suggests sebum excretion by cycle phase
+PMID:5077864,UNSURE,,"No abstract; skin lipids/sebum by age and sex, indexed to menstrual cycle"
+PMID:4263090,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:4260588,EXCLUDE,NO_PHASE_COMPARISON,No abstract; general-practice acne treatment
+PMID:4257912,UNSURE,,No abstract; controlled trial of diuretic for premenstrual acne; phase data unclear
+PMID:4254837,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: sebum test during the cycle; flag for translation
+PMID:5122021,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:4255649,EXCLUDE,NO_PHASE_COMPARISON,No abstract; PCOS treatment comparison
+PMID:4251532,EXCLUDE,NOT_ENGLISH,Not in English (German)
+PMID:4269416,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:4185512,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: premenstrual acne; flag for translation
+PMID:5746250,EXCLUDE,NOT_ENGLISH,Not in English (French)
+PMID:4224294,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: premenstrual acne; flag for translation
+PMID:4228422,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: intramenstrual improvement of acne; flag for translation
+PMID:4223498,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: acne across menstrual cycle; flag for translation
+PMID:4220521,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: premenstrual acne therapy; flag for translation
+PMID:14257990,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: seborrhea and corpus luteum hormone; flag for translation
+PMID:14286079,UNSURE,,"No abstract; adult female acne, may report premenstrual flare"
+PMID:14317718,UNSURE,,No abstract; title suggests sebum excretion by cycle phase
+PMID:14167339,EXCLUDE,HORMONAL_ONLY,No abstract; norethindrone/mestranol therapy
+PMID:14158432,EXCLUDE,NOT_ENGLISH,Not in English (Swedish)
+PMID:14184309,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: preovulatory/premenstrual acne; flag for translation
+PMID:14108372,EXCLUDE,NOT_ENGLISH,Not in English (German); title relevant: premenstrual acne case; flag for translation
+PMID:14082371,EXCLUDE,NOT_ENGLISH,Not in English (Polish); title relevant: sebum secretion across cycle; flag for translation
+PMID:14155878,EXCLUDE,NOT_ENGLISH,Not in English (Spanish)
+PMID:13725673,UNSURE,,"No abstract; premenstrual acne therapy, possibly phase-timed"
+PMID:13582195,UNSURE,,"No abstract; chlorothiazide in acne, likely premenstrual acne, phase data unclear"
+PMID:13137606,UNSURE,,"No abstract; adult premenstrual acne, may describe phase pattern"
+NCT03122457,EXCLUDE,NO_PHASE_COMPARISON,"Daily gel for perimenstrual acne; not phase-timed, no phase comparison"
+NCT06018168,EXCLUDE,NO_PHASE_COMPARISON,Skincare routine plus/minus supplement; not phase-timed
+PMID:39776723,EXCLUDE,NOT_PRIMARY,Scoping review of skin changes across cycle; mine for references
+PMID:39931829,EXCLUDE,NO_PHASE_COMPARISON,"Regular vs irregular cycles, not phases; abstract is Consensus summary"
+PMID:32549185,INCLUDE,,"Survey: perimenstrual acne flare timing before, during, after menses"
+PMID:2572112,INCLUDE,,Forearm skin extensibility day 10 vs day 25
+PMID:24301233,INCLUDE,,Laser-induced pigmentation at four cycle days (n=7); labelled editorial but has data
+PMID:26273846,UNSURE,,No abstract; title suggests breast skin elasticity by cycle phase
+PMID:17204039,INCLUDE,,"Forearm tissue water plus blood flow at cycle days 4, 12, 22; not thermo-only"
+PMID:25161758,INCLUDE,,Survey of perimenstrual acne flare timing in adult women
+DOI:10.4274/turkderm.galenos.2020.35683,UNSURE,,"No abstract; title suggests hydration, sebum, pH by cycle phase"

@@ -1,3 +1,7 @@
 node_modules
 dist
 .DS_Store
+
+# Rapid review scratch folders: downloaded full texts (copyrighted) and working files
+research/.work-*/
+research/records.jsonl

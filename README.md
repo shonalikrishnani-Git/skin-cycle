@@ -6,7 +6,7 @@ checked against 67 sources.
 **[Live site](https://shonalikrishnani-git.github.io/skin-cycle/)** ·
 **[Demo](https://shonalikrishnani-git.github.io/skin-cycle/app/?tour)** ·
 **[Case study](https://shonalikrishnani-git.github.io/skin-cycle/about.html)** ·
-**[Evidence review](https://shonalikrishnani-git.github.io/skin-cycle/research.html)** (AI-assisted)
+**[Rapid review](https://shonalikrishnani-git.github.io/skin-cycle/research.html)** (AI-assisted, 47 studies)
 
 A portfolio project by **Sonali Krishnani** (M.Sc. Microbiology, Biology teacher), built with
 **Claude Code**, an AI coding assistant.
@@ -69,7 +69,8 @@ src/lib/        skin.ts (the guidance and sources) · cycle.ts (phase maths) · 
                 storage.ts (localStorage, validated on load) · brand.ts (the app name)
 src/components/ Onboarding · Settings · RoutineEditor · Tour (the demo) · SkinToday · CheckIn · Guide
                 Sources · Calendar · Pattern · CycleCard
-site/           the one-page landing (index.html, landing.css, landing.js) and case study
+site/           the one-page landing (index.html, landing.css, landing.js), case study and rapid review
+research/       the AI-assisted rapid review: protocol, search log, screening and extraction data, GRADE summary
 tests/          cycle, content, and routine/storage tests
 ```
 
