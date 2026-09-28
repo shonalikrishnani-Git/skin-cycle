@@ -5,7 +5,7 @@
   "creators": [
     { "name": "Krishnani, Sonali" }
   ],
-  "license": "cc-by-4.0",
+  "license": "MIT",
   "keywords": ["menstrual cycle", "skin", "acne", "rapid review", "GRADE", "evidence synthesis", "AI-assisted research", "skincare", "React", "TypeScript"],
   "related_identifiers": [
     { "identifier": "https://shonalikrishnani-git.github.io/skin-cycle/research.html", "relation": "isDocumentedBy", "resource_type": "publication-other" }
