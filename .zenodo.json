@@ -1,0 +1,15 @@
+{
+  "title": "Skin Cycle: a skincare diary app and an AI-assisted rapid review of skin across the menstrual cycle",
+  "upload_type": "software",
+  "description": "<p>Skin Cycle is a portfolio project by Sonali Krishnani: a private skin diary with skincare tips for each phase of the menstrual cycle, checked against 67 sources, and an AI-assisted rapid review of the evidence behind it.</p><p><strong>Rapid review.</strong> Questions: does facial skin differ between menstrual cycle phases, and has cycle-timed skincare been tested against a steady routine? 484 records screened (PubMed, ClinicalTrials.gov, Consensus, medRxiv, citation chasing); 47 studies included; GRADE certainty per outcome. Only self-reported premenstrual acne flares reach low certainty; oil, hydration, barrier, sensitivity, colour and skin-bacteria findings are very low certainty. No study or registered trial has compared cycle-timed skincare with a steady routine. Protocol, search log, and every screening and extraction decision are in the <code>research/</code> folder.</p><p><strong>AI-assistance statement.</strong> Directed by Sonali Krishnani (M.Sc. Microbiology), who asked for the review, set the evidence rules and decided how the findings changed the app. The protocol was drafted, and searching, two independent screening passes, adjudication, two independent extraction passes, reconciliation and the GRADE draft were carried out, by separate AI agents (Anthropic's Claude via Claude Code). No human screened or extracted studies. Not a preregistration, not peer-reviewed, not medical advice.</p><p>Live app: https://shonalikrishnani-git.github.io/skin-cycle/ · Review: https://shonalikrishnani-git.github.io/skin-cycle/research.html</p>",
+  "creators": [
+    { "name": "Krishnani, Sonali" }
+  ],
+  "license": "cc-by-4.0",
+  "keywords": ["menstrual cycle", "skin", "acne", "rapid review", "GRADE", "evidence synthesis", "AI-assisted research", "skincare", "React", "TypeScript"],
+  "related_identifiers": [
+    { "identifier": "https://shonalikrishnani-git.github.io/skin-cycle/research.html", "relation": "isDocumentedBy", "resource_type": "publication-other" }
+  ],
+  "language": "eng",
+  "notes": "AI-assisted. Screening, extraction and certainty ratings were done by AI agents; see the AI-assistance statement."
+}
