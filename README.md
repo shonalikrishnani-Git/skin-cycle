@@ -8,6 +8,8 @@ checked against 67 sources.
 **[Case study](https://shonalikrishnani-git.github.io/skin-cycle/about.html)** ·
 **[Rapid review](https://shonalikrishnani-git.github.io/skin-cycle/research.html)** (AI-assisted, 47 studies)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23024631.svg)](https://doi.org/10.5281/zenodo.23024631)
+
 A portfolio project by **Sonali Krishnani** (M.Sc. Microbiology, Biology teacher), built with
 **Claude Code**, an AI coding assistant.
 
@@ -87,3 +89,7 @@ passes WCAG AA · animations switch off with reduced motion · `npm test` and `n
 - General skincare information, not medical advice or contraception.
 - Phases are estimates from the dates you log.
 - One browser on one device; clearing site data erases the diary.
+
+## Cite
+
+Krishnani, S. (2026). *Skin Cycle: a skincare diary app and an AI-assisted rapid review of skin across the menstrual cycle* [Software]. Zenodo. https://doi.org/10.5281/zenodo.23024631
